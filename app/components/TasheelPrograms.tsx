@@ -13,6 +13,32 @@ import {
 // 1. استيراد الـ Context
 import { useLanguage } from "../context/LanguageContext";
 
+// تعريف أنواع البيانات لتجنب أخطاء TypeScript المستقبلية
+type SlideData = {
+  id: number;
+  imagePath: string;
+  icon: React.ReactNode;
+  subtitle: string;
+  title: string;
+  description: string;
+};
+
+type ContentData = {
+  header: {
+    titlePrefix: string;
+    titleHighlight: string;
+    description: string;
+  };
+  badges: {
+    active: string;
+  };
+  slides: SlideData[];
+};
+
+type ContentType = {
+  [key: string]: ContentData;
+};
+
 export default function TasheelSlider3D() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -22,7 +48,7 @@ export default function TasheelSlider3D() {
   const isRTL = language === "AR";
 
   // 3. تعريف المحتوى والبيانات (Data & Content)
-  const content = {
+  const content: ContentType = {
     AR: {
       header: {
         titlePrefix: "اكتشف عالم",
@@ -105,7 +131,8 @@ export default function TasheelSlider3D() {
     },
   };
 
-  const t = content[language] || content.AR;
+  // استخدام as keyof typeof content لضمان أن اللغة مفتاح صحيح
+  const t = content[language as keyof typeof content] || content.AR;
   const currentSlidesData = t.slides;
 
   // --- Logic for Slider ---
@@ -127,7 +154,10 @@ export default function TasheelSlider3D() {
     setTimeout(() => setIsAnimating(false), 500);
   }, [isAnimating, currentSlidesData.length]);
 
-  const goToSlide = (index) => {
+  // ============================================================
+  // التصحيح هنا: إضافة (index: number) بدلاً من (index) فقط
+  // ============================================================
+  const goToSlide = (index: number) => {
     if (isAnimating || index === currentIndex) return;
     setIsAnimating(true);
     setCurrentIndex(index);

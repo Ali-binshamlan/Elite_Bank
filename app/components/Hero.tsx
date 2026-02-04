@@ -4,15 +4,31 @@ import { useLanguage } from "../context/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, ArrowUpRight } from "lucide-react";
 
+// 1. تعريف شكل بيانات البطاقة
+type CardData = {
+  id: number;
+  img: string;
+  titleAr: string;
+  titleEn: string;
+  categoryAr: string;
+  categoryEn: string;
+};
+
+// 2. تعريف شكل الشريحة (Slide)
+type SlideData = {
+  originalIndex: number;
+  data: CardData;
+  position: number;
+};
+
 export default function Hero() {
   const { language, dir } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(2);
 
   // =========================================================
-  // بيانات البطاقات (5 أنواع مختلفة)
-  // يمكنك تعديل العناوين والصور من هنا
+  // بيانات البطاقات (تم تحديد النوع هنا لتجنب الأخطاء)
   // =========================================================
-  const cards = [
+  const cards: CardData[] = [
     {
       id: 1,
       img: "images/Hero_1.png",
@@ -64,12 +80,14 @@ export default function Hero() {
   };
 
   const getVisibleSlides = () => {
-    const visibleSlides = [];
+    // 3. تحديد نوع المصفوفة هنا هو الحل الأساسي للمشكلة
+    const visibleSlides: SlideData[] = [];
+
     for (let i = -2; i <= 2; i++) {
       let index = (currentIndex + i + cards.length) % cards.length;
       visibleSlides.push({
         originalIndex: index,
-        data: cards[index], // نمرر بيانات البطاقة كاملة هنا
+        data: cards[index],
         position: i,
       });
     }
@@ -79,7 +97,7 @@ export default function Hero() {
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, [currentIndex]); // تم إضافة currentIndex لضمان تزامن الـ interval
 
   return (
     <section
