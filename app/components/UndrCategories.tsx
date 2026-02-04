@@ -1,0 +1,352 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { Layers, Code, TrendingUp } from "lucide-react";
+// 1. استيراد Context
+import { useLanguage } from "../context/LanguageContext";
+
+export default function UndrCategories({ autoPlayInterval = 6000 }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+
+  // 2. إعداد اللغة
+  const { language } = useLanguage();
+  const isRTL = language === "AR";
+
+  // 3. تعريف المحتوى (قاموس الترجمة)
+  const content = {
+    AR: {
+      sectionTitle: "خدماتنا الحصرية",
+      mainTitle: {
+        part1: "نبتكر حلولاً",
+        part2: "تسبق توقعاتك", // الجزء الملون
+      },
+      imageLabel: "نظرة عامة",
+      items: [
+        {
+          id: 1,
+          imageName: "Strategy",
+          imagePath: "/images/Image_1.png",
+          title: "التخطيط الاستراتيجي",
+          description:
+            "رؤية ثاقبة للمستقبل نضعها بين يديك، نعتمد على تحليل البيانات الدقيق لبناء خطط عمل تضمن النمو المستدام.",
+          icon: <Layers size={24} />,
+        },
+        {
+          id: 2,
+          imageName: "Development",
+          imagePath: "/images/Image_2.png",
+          title: "التطوير والابتكار",
+          description:
+            "نحول الأفكار المعقدة إلى واقع رقمي ملموس باستخدام أحدث التقنيات البرمجية التي تضمن الكفاءة والأمان.",
+          icon: <Code size={24} />,
+        },
+        {
+          id: 3,
+          imageName: "Growth",
+          imagePath: "/images/Image_3.jpeg",
+          title: "حلول النمو المتسارع",
+          description:
+            "استراتيجيات تسويقية وتقنية مصممة خصيصاً لمضاعفة العائد على الاستثمار وتوسيع قاعدة عملائك.",
+          icon: <TrendingUp size={24} />,
+        },
+      ],
+    },
+    EN: {
+      sectionTitle: "Exclusive Services",
+      mainTitle: {
+        part1: "Innovating Solutions",
+        part2: "Beyond Expectations",
+      },
+      imageLabel: "Overview",
+      items: [
+        {
+          id: 1,
+          imageName: "Strategy",
+          imagePath: "/images/Image_1.png",
+          title: "Strategic Planning",
+          description:
+            "Insightful future vision placed in your hands, relying on precise data analysis to build action plans ensuring sustainable growth.",
+          icon: <Layers size={24} />,
+        },
+        {
+          id: 2,
+          imageName: "Development",
+          imagePath: "/images/Image_2.png",
+          title: "Development & Innovation",
+          description:
+            "Transforming complex ideas into tangible digital reality using the latest software technologies ensuring efficiency and security.",
+          icon: <Code size={24} />,
+        },
+        {
+          id: 3,
+          imageName: "Growth",
+          imagePath: "/images/Image_3.jpeg",
+          title: "Accelerated Growth",
+          description:
+            "Marketing and technical strategies designed specifically to maximize ROI and expand your customer base.",
+          icon: <TrendingUp size={24} />,
+        },
+      ],
+    },
+  };
+
+  const t = content[language] || content.AR;
+  const items = t.items;
+
+  // التعامل مع التغيير التلقائي
+  useEffect(() => {
+    const intervalTime = 50;
+    const step = 100 / (autoPlayInterval / intervalTime);
+
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          setActiveIndex((current) => (current + 1) % items.length);
+          return 0;
+        }
+        return prev + step;
+      });
+    }, intervalTime);
+
+    return () => clearInterval(timer);
+  }, [items.length, autoPlayInterval, activeIndex]);
+
+  const handleItemClick = (index) => {
+    setActiveIndex(index);
+    setProgress(0);
+  };
+
+  const brandColor = "#002147";
+
+  return (
+    <section
+      className="relative w-full min-h-[650px] lg:h-[750px] bg-slate-50 overflow-hidden"
+      dir={isRTL ? "rtl" : "ltr"}
+    >
+      {/* ========================================= */}
+      {/* خلفية SVG: خطوط مائلة وتقسيم هندسي */}
+      {/* ========================================= */}
+      <div
+        className={`absolute inset-0 pointer-events-none z-0 ${!isRTL ? "scale-x-[-1]" : ""}`}
+      >
+        <svg
+          className="absolute w-full h-full text-[#002147]"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          {/* خط عريض يقسم الخلفية */}
+          <path
+            d="M30 0 L15 100 L40 100 L55 0 Z"
+            fill="currentColor"
+            fillOpacity="0.03"
+          />
+
+          {/* خطوط رفيعة موازية للزينة */}
+          <line
+            x1="58"
+            y1="0"
+            x2="43"
+            y2="100"
+            stroke="currentColor"
+            strokeWidth="0.2"
+            strokeOpacity="0.1"
+          />
+          <line
+            x1="62"
+            y1="0"
+            x2="47"
+            y2="100"
+            stroke="currentColor"
+            strokeWidth="0.1"
+            strokeOpacity="0.1"
+          />
+
+          {/* شكل هندسي في الزاوية */}
+          <path d="M0 0 L20 0 L0 20 Z" fill="currentColor" fillOpacity="0.05" />
+        </svg>
+
+        {/* شبكة نقاط */}
+        <div
+          className="absolute bottom-0 right-0 w-64 h-64 opacity-10"
+          style={{
+            backgroundImage: `radial-gradient(${brandColor} 1px, transparent 1px)`,
+            backgroundSize: "20px 20px",
+          }}
+        />
+      </div>
+
+      <div className="flex flex-col lg:flex-row h-full relative z-10">
+        {/* ========================================= */}
+        {/* الجانب: القائمة والمحتوى */}
+        {/* ========================================= */}
+        <div className="w-full lg:w-[45%] p-8 lg:p-16 flex flex-col justify-center">
+          <div className="flex items-center gap-3 mb-10">
+            <span className="w-10 h-1 bg-[#002147] rounded-full"></span>
+            <span className="text-[#002147] font-bold tracking-wider text-sm uppercase">
+              {t.sectionTitle}
+            </span>
+          </div>
+
+          <h2 className="text-4xl lg:text-5xl font-black text-[#002147] mb-12 leading-tight">
+            {t.mainTitle.part1} <br />
+            <span className="relative inline-block">
+              <span
+                className={`relative z-10 text-transparent bg-clip-text bg-gradient-to-${isRTL ? "l" : "r"} from-[#002147] to-blue-600`}
+              >
+                {t.mainTitle.part2}
+              </span>
+              {/* زخرفة تحت النص */}
+              <svg
+                className="absolute -bottom-2 w-full h-3 text-blue-200 -z-0"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 10 100 5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  fill="none"
+                />
+              </svg>
+            </span>
+          </h2>
+
+          <div className="space-y-5">
+            {items.map((item, index) => {
+              const isActive = activeIndex === index;
+
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => handleItemClick(index)}
+                  className={`
+                      group cursor-pointer rounded-xl p-5 transition-all duration-500 border
+                      ${
+                        isActive
+                          ? `bg-white border-blue-100 shadow-xl shadow-blue-900/5 ${isRTL ? "translate-x-2" : "-translate-x-2"}`
+                          : "bg-white/40 border-transparent hover:bg-white hover:border-gray-100 hover:shadow-md"
+                      }
+                   `}
+                >
+                  <div className="flex items-start gap-5">
+                    {/* الأيقونة */}
+                    <div
+                      className={`
+                        flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-500
+                        ${
+                          isActive
+                            ? "bg-[#002147] text-white rotate-3"
+                            : "bg-white border border-gray-200 text-gray-400 group-hover:border-[#002147]/20 group-hover:text-[#002147]"
+                        }
+                      `}
+                    >
+                      {item.icon}
+                    </div>
+
+                    <div className="flex-1 pt-1">
+                      <div className="flex justify-between items-center">
+                        <h3
+                          className={`text-lg font-bold transition-colors ${isActive ? "text-[#002147]" : "text-gray-600"}`}
+                        >
+                          {item.title}
+                        </h3>
+                      </div>
+
+                      {/* الوصف القابل للتمدد */}
+                      <div
+                        className={`
+                           grid transition-all duration-500 ease-in-out
+                           ${isActive ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0 mt-0"}
+                        `}
+                      >
+                        <div className="overflow-hidden">
+                          {/* تعديل اتجاه الحدود والهوامش */}
+                          <p
+                            className={`text-gray-500 text-sm leading-relaxed border-[#002147]/10 ${isRTL ? "border-r-2 pr-4" : "border-l-2 pl-4"}`}
+                          >
+                            {item.description}
+                          </p>
+
+                          {/* شريط التقدم */}
+                          <div className="mt-4 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full bg-gradient-to-${isRTL ? "r" : "l"} from-[#002147] to-blue-600`}
+                              style={{
+                                width: `${progress}%`,
+                                transition: "width 100ms linear",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ========================================= */}
+        {/* الجانب: عرض الصور */}
+        {/* ========================================= */}
+        <div className="w-full lg:w-[55%] relative h-[400px] lg:h-auto overflow-hidden">
+          {/* قص الصورة بشكل مائل - ديناميكي حسب اللغة */}
+          <div
+            className={`absolute inset-0 overflow-hidden shadow-2xl bg-white z-20 h-full
+            ${
+              isRTL
+                ? "lg:ml-8 lg:rounded-tr-[4rem] lg:rounded-bl-[4rem]"
+                : "lg:mr-8 lg:rounded-tl-[4rem] lg:rounded-br-[4rem]"
+            }`}
+          >
+            {items.map((item, index) => {
+              const isActive = activeIndex === index;
+              return (
+                <div
+                  key={item.id}
+                  className={`
+                         absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out
+                         ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-105"}
+                       `}
+                >
+                  <Image
+                    src={item.imagePath}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                    priority={index === 0}
+                  />
+
+                  <div className="absolute inset-0 bg-[#002147]/20 mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#002147] via-transparent to-transparent opacity-90" />
+
+                  {/* المحتوى العائم فوق الصورة */}
+                  <div
+                    className={`
+                           absolute bottom-0 w-full p-10 transform transition-all duration-700 ${isRTL ? "left-0" : "right-0"}
+                           ${isActive ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}
+                       `}
+                    dir={isRTL ? "rtl" : "ltr"}
+                  >
+                    <div className="flex items-center gap-4 text-white mb-2">
+                      <span className="w-12 h-[1px] bg-white/50"></span>
+                      <span className="text-xs font-bold uppercase tracking-widest text-blue-300">
+                        {t.imageLabel}
+                      </span>
+                    </div>
+                    <p className="text-xl font-medium text-white/90 max-w-lg leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
