@@ -6,7 +6,44 @@ import { Layers, Code, TrendingUp } from "lucide-react";
 // 1. استيراد Context
 import { useLanguage } from "../context/LanguageContext";
 
-export default function UndrCategories({ autoPlayInterval = 6000 }) {
+// =========================================================
+// 1. تعريف الأنواع (Interfaces)
+// =========================================================
+
+// تعريف شكل العنصر الواحد (الخدمة)
+type ServiceItem = {
+  id: number;
+  imageName: string;
+  imagePath: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode; // لأن الأيقونة هنا هي عنصر JSX
+};
+
+// تعريف محتوى القسم لكل لغة
+type SectionContent = {
+  sectionTitle: string;
+  mainTitle: {
+    part1: string;
+    part2: string;
+  };
+  imageLabel: string;
+  items: ServiceItem[];
+};
+
+// تعريف القاموس الكامل (عربي وإنجليزي)
+type ContentDictionary = {
+  [key: string]: SectionContent;
+};
+
+// تعريف props المكون
+type UndrCategoriesProps = {
+  autoPlayInterval?: number;
+};
+
+export default function UndrCategories({
+  autoPlayInterval = 6000,
+}: UndrCategoriesProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -14,8 +51,8 @@ export default function UndrCategories({ autoPlayInterval = 6000 }) {
   const { language } = useLanguage();
   const isRTL = language === "AR";
 
-  // 3. تعريف المحتوى (قاموس الترجمة)
-  const content = {
+  // 3. تعريف المحتوى (قاموس الترجمة) مع تطبيق النوع
+  const content: ContentDictionary = {
     AR: {
       sectionTitle: "خدماتنا الحصرية",
       mainTitle: {
@@ -113,7 +150,7 @@ export default function UndrCategories({ autoPlayInterval = 6000 }) {
     return () => clearInterval(timer);
   }, [items.length, autoPlayInterval, activeIndex]);
 
-  const handleItemClick = (index) => {
+  const handleItemClick = (index: number) => {
     setActiveIndex(index);
     setProgress(0);
   };
@@ -228,7 +265,7 @@ export default function UndrCategories({ autoPlayInterval = 6000 }) {
                           ? `bg-white border-blue-100 shadow-xl shadow-blue-900/5 ${isRTL ? "translate-x-2" : "-translate-x-2"}`
                           : "bg-white/40 border-transparent hover:bg-white hover:border-gray-100 hover:shadow-md"
                       }
-                   `}
+                    `}
                 >
                   <div className="flex items-start gap-5">
                     {/* الأيقونة */}
@@ -257,8 +294,8 @@ export default function UndrCategories({ autoPlayInterval = 6000 }) {
                       {/* الوصف القابل للتمدد */}
                       <div
                         className={`
-                           grid transition-all duration-500 ease-in-out
-                           ${isActive ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0 mt-0"}
+                            grid transition-all duration-500 ease-in-out
+                            ${isActive ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0 mt-0"}
                         `}
                       >
                         <div className="overflow-hidden">
@@ -308,9 +345,9 @@ export default function UndrCategories({ autoPlayInterval = 6000 }) {
                 <div
                   key={item.id}
                   className={`
-                         absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out
-                         ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-105"}
-                       `}
+                          absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out
+                          ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-105"}
+                        `}
                 >
                   <Image
                     src={item.imagePath}
@@ -328,7 +365,7 @@ export default function UndrCategories({ autoPlayInterval = 6000 }) {
                     className={`
                            absolute bottom-0 w-full p-10 transform transition-all duration-700 ${isRTL ? "left-0" : "right-0"}
                            ${isActive ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}
-                       `}
+                        `}
                     dir={isRTL ? "rtl" : "ltr"}
                   >
                     <div className="flex items-center gap-4 text-white mb-2">
