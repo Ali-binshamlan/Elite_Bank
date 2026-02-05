@@ -497,7 +497,9 @@ export default function Hero() {
         {/* ========================================= */}
         {/* أزرار التحكم */}
         {/* ========================================= */}
-        <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-4 md:gap-6 mt-4 md:mt-8 relative z-20">
+        {/* قمت بتغيير mt-4 إلى mt-10 (للجوال) و mt-16 (للشاشات الكبيرة) */}
+        <div className="flex items-center justify-center gap-6 mt-10 relative z-20">
+          {/* زر السابق: مخفي في الجوال */}
           <button
             onClick={prevSlide}
             className="hidden md:flex w-14 h-14 rounded-full bg-white border border-slate-200 text-[#002147] items-center justify-center hover:bg-[#002147] hover:text-white transition-all hover:scale-105 shadow-sm"
@@ -505,20 +507,22 @@ export default function Hero() {
             {dir === "rtl" ? <ChevronRight /> : <ChevronLeft />}
           </button>
 
+          {/* النقاط */}
           <div className="flex gap-2">
             {cards.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentIndex(i)}
-                className={`h-1.5 md:h-2 rounded-full transition-all duration-500 ${
+                className={`rounded-full transition-all duration-500 ${
                   currentIndex === i
-                    ? "w-8 md:w-10 bg-[#002147]"
-                    : "w-1.5 md:w-2 bg-slate-300"
+                    ? "w-8 h-2 md:w-10 md:h-2 bg-[#002147]" // النقطة النشطة
+                    : "w-2 h-2 md:w-2 md:h-2 bg-slate-300" // النقطة العادية
                 }`}
               />
             ))}
           </div>
 
+          {/* زر التالي: مخفي في الجوال */}
           <button
             onClick={nextSlide}
             className="hidden md:flex w-14 h-14 rounded-full bg-white border border-slate-200 text-[#002147] items-center justify-center hover:bg-[#002147] hover:text-white transition-all hover:scale-105 shadow-sm"
