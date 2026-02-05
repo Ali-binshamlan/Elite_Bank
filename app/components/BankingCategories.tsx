@@ -77,7 +77,7 @@ export default function BankingCategories() {
   ];
 
   // دالة التعامل مع التفاعل
-  const handleInteraction = (id: number, type: "hover" | "click") => {
+  const handleInteraction = (id: number, type: "hover" | "click" | "leave") => {
     if (isMobile) {
       if (type === "click") {
         setActiveId(activeId === id ? null : id); // تبديل (Toggle) في الجوال
