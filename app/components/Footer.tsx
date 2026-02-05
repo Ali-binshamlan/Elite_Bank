@@ -9,7 +9,7 @@ export default function Footer() {
   const { language, dir } = useLanguage();
   const currentYear = new Date().getFullYear();
 
-  // بيانات الفوتر
+  // بيانات الفوتر (كما هي دون تغيير)
   const footerData = {
     personal: {
       title: language === "AR" ? "الأفراد" : "Personal",
@@ -134,11 +134,10 @@ export default function Footer() {
 
       {/* ================= MAIN CONTENT ================= */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 pt-20 pb-8 relative z-10">
-        {/* === TOP SECTION: LINKS === */}
-        {/* تم التعديل هنا: grid-cols-5 بدلاً من 4 ليسمح بوجود 5 أعمدة متجاورة */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-10 lg:gap-8 mb-16">
           {/* 1. Brand Section & Socials */}
-          <div className="flex flex-col gap-6 items-start">
+          {/* تم تعديل هذا القسم للتوسيط في الجوال (items-center, text-center) */}
+          <div className="col-span-2 md:col-span-1 flex flex-col gap-6 items-center md:items-start text-center md:text-start">
             <Link href="/" className="inline-block w-fit group">
               <div className="flex items-center gap-2">
                 <Image
@@ -157,7 +156,6 @@ export default function Footer() {
                 : "Your financial partner towards a prosperous future. Combining traditional expertise with cutting-edge technology."}
             </p>
 
-            {/* Social Buttons */}
             <div className="flex flex-col gap-2 mt-2" dir="ltr">
               <div className="flex flex-row gap-2">
                 {/* Instagram */}
@@ -216,8 +214,9 @@ export default function Footer() {
           </div>
 
           {/* 2. Personal */}
+          {/* تم إضافة justify-center للجوال في العنوان والروابط */}
           <div>
-            <h3 className="font-bold text-base mb-6 text-white flex items-center gap-2">
+            <h3 className="font-bold text-base mb-6 text-white flex items-center justify-center md:justify-start gap-2">
               <span className="w-6 h-0.5 bg-blue-500 rounded-full"></span>
               {footerData.personal.title}
             </h3>
@@ -226,7 +225,7 @@ export default function Footer() {
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center gap-2 group"
+                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center justify-center md:justify-start gap-2 group"
                   >
                     <span className="w-0 h-px bg-white group-hover:w-3 transition-all duration-300"></span>
                     {link.name}
@@ -238,7 +237,7 @@ export default function Footer() {
 
           {/* 3. Business */}
           <div>
-            <h3 className="font-bold text-base mb-6 text-white flex items-center gap-2">
+            <h3 className="font-bold text-base mb-6 text-white flex items-center justify-center md:justify-start gap-2">
               <span className="w-6 h-0.5 bg-blue-500 rounded-full"></span>
               {footerData.business.title}
             </h3>
@@ -247,7 +246,7 @@ export default function Footer() {
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center gap-2 group"
+                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center justify-center md:justify-start gap-2 group"
                   >
                     <span className="w-0 h-px bg-white group-hover:w-3 transition-all duration-300"></span>
                     {link.name}
@@ -257,9 +256,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* 4. Digital (تم فصلها لتصبح عمود مستقل) */}
+          {/* 4. Digital */}
           <div>
-            <h3 className="font-bold text-base mb-6 text-white flex items-center gap-2">
+            <h3 className="font-bold text-base mb-6 text-white flex items-center justify-center md:justify-start gap-2">
               <span className="w-6 h-0.5 bg-blue-500 rounded-full"></span>
               {footerData.digital.title}
             </h3>
@@ -268,7 +267,7 @@ export default function Footer() {
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center gap-2 group"
+                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center justify-center md:justify-start gap-2 group"
                   >
                     <span className="w-0 h-px bg-white group-hover:w-3 transition-all duration-300"></span>
                     {link.name}
@@ -278,9 +277,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* 5. About (تم فصلها لتصبح عمود مستقل) */}
+          {/* 5. About */}
           <div>
-            <h3 className="font-bold text-base mb-6 text-white flex items-center gap-2">
+            <h3 className="font-bold text-base mb-6 text-white flex items-center justify-center md:justify-start gap-2">
               <span className="w-6 h-0.5 bg-blue-500 rounded-full"></span>
               {footerData.about.title}
             </h3>
@@ -289,7 +288,7 @@ export default function Footer() {
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center gap-2 group"
+                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center justify-center md:justify-start gap-2 group"
                   >
                     <span className="w-0 h-px bg-white group-hover:w-3 transition-all duration-300"></span>
                     {link.name}
@@ -300,10 +299,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ================= 5. NEWSLETTER & CONTACT (BOTTOM FULL WIDTH) ================= */}
+        {/* ================= 5. NEWSLETTER & CONTACT ================= */}
         <div className="w-full mb-16">
           <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 shadow-2xl relative overflow-hidden group">
-            {/* Shine Effect */}
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
 
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
