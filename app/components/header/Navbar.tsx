@@ -292,7 +292,8 @@ export default function Navbar() {
               </div>
 
               {/* 3. الإجراءات (لغة + دخول) */}
-              <div className="flex items-center gap-3 md:gap-4">
+              <div className="flex items-center gap-2 md:gap-4">
+                {/* --- زر اللغة للكمبيوتر (مخفي في الجوال) --- */}
                 <button
                   onClick={toggleLanguage}
                   className="hidden lg:flex items-center gap-2 text-gray-600 font-bold hover:text-[#002147] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-50"
@@ -303,6 +304,7 @@ export default function Navbar() {
                   </span>
                 </button>
 
+                {/* --- زر تسجيل الدخول (مخفي في الجوال) --- */}
                 <button className="hidden lg:flex relative overflow-hidden bg-[#002147] text-white px-6 py-2.5 rounded-full font-bold items-center gap-2 shadow-lg shadow-[#002147]/20 hover:shadow-[#002147]/40 active:scale-95 transition-all group">
                   <div className="absolute inset-0 w-0 bg-white/10 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
                   <User size={18} className="relative z-10" />
@@ -315,6 +317,17 @@ export default function Navbar() {
                   </span>
                 </button>
 
+                {/* +++ جديد: زر اللغة للجوال (يظهر بجانب المينيو) +++ */}
+                <button
+                  onClick={toggleLanguage}
+                  className="lg:hidden flex items-center justify-center w-10 h-10 text-[#002147] hover:bg-gray-50 rounded-full transition-colors"
+                >
+                  <span className="font-bold text-xs">
+                    {language === "AR" ? "EN" : "عربي"}
+                  </span>
+                </button>
+
+                {/* --- زر القائمة للجوال --- */}
                 <button
                   className="lg:hidden p-2.5 text-[#002147] bg-gray-50 rounded-full hover:bg-gray-100 transition-colors"
                   onClick={() => setIsMobileMenuOpen(true)}

@@ -297,7 +297,7 @@ export default function UndrCategories({
             </span>
           </div>
 
-          <h2 className="text-3xl lg:text-5xl font-black text-[#002147] mb-8 lg:mb-12 leading-tight">
+          <h2 className="text-3xl lg:text-5xl  font-black text-[#002147] mb-8 lg:mb-12 leading-tight">
             {t.mainTitle.part1} <br />
             <span className="relative inline-block">
               <span

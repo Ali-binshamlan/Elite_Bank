@@ -69,7 +69,6 @@ export default function AppFeaturesSection() {
         <div className="absolute top-[10%] left-[50%] -translate-x-1/2 w-[300px] lg:w-[600px] h-[300px] lg:h-[600px] bg-blue-100/40 rounded-full blur-3xl opacity-50"></div>
         <div className="absolute bottom-[-10%] left-[50%] -translate-x-1/2 w-[350px] lg:w-[700px] h-[350px] lg:h-[700px] bg-[#002147]/5 rounded-full blur-3xl opacity-50"></div>
       </div>
-
       <div className="container mx-auto px-4 relative z-10 flex flex-col items-center">
         {/* ========================================= */}
         {/* 1. النصوص (Text Content) */}
@@ -170,11 +169,14 @@ export default function AppFeaturesSection() {
           </div>
 
           {/* --- البطاقات العائمة --- */}
-          {/* تم إخفاؤها في الجوال (hidden) وتظهر فقط في الشاشات الكبيرة (lg:block) */}
 
           {/* أ. بطاقة أهداف التوفير */}
           <div
-            className={`hidden lg:block absolute top-20 z-20 animate-float-slow ${isRTL ? "-right-32" : "-left-32"}`}
+            // التغييرات: scale-75 للجوال، وتعديل القيم المكانية (top/right) لتناسب الشاشات الصغيرة
+            className={`absolute z-20 animate-float-slow 
+            scale-75 lg:scale-100 origin-center transition-transform duration-500
+            top-4 lg:top-20 
+            ${isRTL ? "-right-20 lg:-right-32" : "-left-20 lg:-left-32"}`}
           >
             <div className="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 w-56">
               <div className="flex items-center gap-3 mb-3">
@@ -198,7 +200,11 @@ export default function AppFeaturesSection() {
 
           {/* ب. بطاقة سداد الفواتير */}
           <div
-            className={`hidden lg:block absolute bottom-32 z-20 animate-float-medium ${isRTL ? "-left-28" : "-right-28"}`}
+            // التغييرات: scale-75 وتغيير الموقع ليكون مناسباً للجوال
+            className={`absolute z-20 animate-float-medium 
+            scale-75 lg:scale-100 origin-center transition-transform duration-500
+            bottom-10 lg:bottom-32 
+            ${isRTL ? "-left-20 lg:-left-28" : "-right-20 lg:-right-28"}`}
           >
             <div className="bg-[#002147] text-white p-4 rounded-2xl shadow-xl border border-blue-800/50 w-52 relative overflow-hidden">
               <div className="flex justify-between items-start mb-4">
@@ -224,7 +230,11 @@ export default function AppFeaturesSection() {
 
           {/* ج. بطاقة الفيزا */}
           <div
-            className={`hidden lg:block absolute bottom-48 z-30 animate-float-fast ${isRTL ? "-right-24" : "-left-24"}`}
+            // التغييرات: scale-75 وتعديل الموقع ليظهر في المنتصف أو الجانب قليلاً
+            className={`absolute z-30 animate-float-fast 
+            scale-75 lg:scale-100 origin-center transition-transform duration-500
+            bottom-24 lg:bottom-48 
+            ${isRTL ? "-right-20 lg:-right-24" : "-left-20 lg:-left-24"}`}
           >
             <div className="bg-white/80 backdrop-blur-xl p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/60 w-52">
               <div className="flex items-center justify-between mb-4">
@@ -252,47 +262,50 @@ export default function AppFeaturesSection() {
             </div>
           </div>
         </div>
-      </div>
-
+      </div>{" "}
+      {/* إغلاق الحاوية الرئيسية للبطاقات */}
       <style jsx>{`
-        /* الرسوم المتحركة تعمل فقط في الشاشات الكبيرة */
-        @media (min-width: 1024px) {
-          @keyframes float-slow {
-            0%,
-            100% {
-              transform: translateY(0px);
-            }
-            50% {
-              transform: translateY(-15px);
-            }
+        /* قمت بإزالة @media query لكي تعمل الأنيميشن في الجوال أيضاً */
+
+        @keyframes float-slow {
+          0%,
+          100% {
+            transform: translateY(0px) scale(var(--tw-scale-x));
           }
-          @keyframes float-medium {
-            0%,
-            100% {
-              transform: translateY(0px);
-            }
-            50% {
-              transform: translateY(-10px);
-            }
+          50% {
+            transform: translateY(-15px) scale(var(--tw-scale-x));
           }
-          @keyframes float-fast {
-            0%,
-            100% {
-              transform: translateY(0px);
-            }
-            50% {
-              transform: translateY(-8px);
-            }
+        }
+        @keyframes float-medium {
+          0%,
+          100% {
+            transform: translateY(0px) scale(var(--tw-scale-x));
           }
-          .animate-float-slow {
-            animation: float-slow 6s ease-in-out infinite;
+          50% {
+            transform: translateY(-10px) scale(var(--tw-scale-x));
           }
-          .animate-float-medium {
-            animation: float-medium 5s ease-in-out infinite;
+        }
+        @keyframes float-fast {
+          0%,
+          100% {
+            transform: translateY(0px) scale(var(--tw-scale-x));
           }
-          .animate-float-fast {
-            animation: float-fast 4s ease-in-out infinite;
+          50% {
+            transform: translateY(-8px) scale(var(--tw-scale-x));
           }
+        }
+
+        /* ملاحظة: أضفت scale(var(--tw-scale-x)) داخل الكي فريم 
+             للحفاظ على التصغير (scale-75) أثناء الحركة */
+
+        .animate-float-slow {
+          animation: float-slow 6s ease-in-out infinite;
+        }
+        .animate-float-medium {
+          animation: float-medium 5s ease-in-out infinite;
+        }
+        .animate-float-fast {
+          animation: float-fast 4s ease-in-out infinite;
         }
       `}</style>
     </section>
