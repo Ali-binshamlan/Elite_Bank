@@ -1,21 +1,20 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { useLanguage } from "../context/LanguageContext";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { useTranslations, useLocale } from "next-intl"; // استيراد المكتبة
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { ChevronRight, ChevronLeft, ArrowUpRight } from "lucide-react";
 
-// 1. تعريف شكل بيانات البطاقة
+// تعريف شكل البيانات الجديد (مبسط)
 type CardData = {
   id: number;
+  key: string; // مفتاح للترجمة
   img: string;
-  titleAr: string;
-  titleEn: string;
-  categoryAr: string;
-  categoryEn: string;
+  title: string; // النص المترجم الجاهز
+  category: string; // النص المترجم الجاهز
 };
 
-// 2. تعريف شكل الشريحة (Slide)
+// تعريف شكل الشريحة
 type SlideData = {
   originalIndex: number;
   data: CardData;
@@ -23,13 +22,15 @@ type SlideData = {
 };
 
 export default function Hero() {
-  const { language, dir } = useLanguage();
+  // 1. تفعيل الترجمة
+  const t = useTranslations("Hero");
+  const locale = useLocale();
+  const dir = locale === "ar" ? "rtl" : "ltr";
+
   const [currentIndex, setCurrentIndex] = useState(2);
   const [isMobile, setIsMobile] = useState(false);
 
-  // =========================================================
   // التحقق من حجم الشاشة
-  // =========================================================
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -37,48 +38,48 @@ export default function Hero() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const cards: CardData[] = [
-    {
-      id: 1,
-      img: "images/Hero_1.png",
-      titleAr: "البطاقة اللانهائية",
-      titleEn: "Infinite Card",
-      categoryAr: "رفاهية بلا حدود",
-      categoryEn: "Limitless Luxury",
-    },
-    {
-      id: 2,
-      img: "images/Hero_2.png",
-      titleAr: "البطاقة البلاتينية",
-      titleEn: "Platinum Card",
-      categoryAr: "رفيق السفر",
-      categoryEn: "Travel Companion",
-    },
-    {
-      id: 3,
-      img: "images/Hero_3.png",
-      titleAr: "بطاقة النخبة",
-      titleEn: "Elite Card",
-      categoryAr: "تميز واستثناء",
-      categoryEn: "Pure Excellence",
-    },
-    {
-      id: 4,
-      img: "images/Hero_4.png",
-      titleAr: "البطاقة الذهبية",
-      titleEn: "Gold Card",
-      categoryAr: "مكافآت يومية",
-      categoryEn: "Daily Rewards",
-    },
-    {
-      id: 5,
-      img: "images/Hero_5.png",
-      titleAr: "بطاقة الأعمال",
-      titleEn: "Business Card",
-      categoryAr: "حلول الشركات",
-      categoryEn: "Corporate Solutions",
-    },
-  ];
+  // 2. بناء مصفوفة البطاقات باستخدام الترجمة
+  // نستخدم useMemo لضمان عدم إعادة البناء إلا عند تغيير اللغة
+  const cards: CardData[] = useMemo(
+    () => [
+      {
+        id: 1,
+        key: "infinite",
+        img: "/images/Hero_1.png", // تأكد من وجود / في بداية المسار
+        title: t("cards.infinite.title"),
+        category: t("cards.infinite.category"),
+      },
+      {
+        id: 2,
+        key: "platinum",
+        img: "/images/Hero_2.png",
+        title: t("cards.platinum.title"),
+        category: t("cards.platinum.category"),
+      },
+      {
+        id: 3,
+        key: "elite",
+        img: "/images/Hero_3.png",
+        title: t("cards.elite.title"),
+        category: t("cards.elite.category"),
+      },
+      {
+        id: 4,
+        key: "gold",
+        img: "/images/Hero_4.png",
+        title: t("cards.gold.title"),
+        category: t("cards.gold.category"),
+      },
+      {
+        id: 5,
+        key: "business",
+        img: "/images/Hero_5.png",
+        title: t("cards.business.title"),
+        category: t("cards.business.category"),
+      },
+    ],
+    [t],
+  ); // يعاد الحساب عند تغير دالة الترجمة
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % cards.length);
@@ -125,11 +126,8 @@ export default function Hero() {
       className="relative pt-24 pb-12 md:pt-32 md:pb-8 bg-[#fafbfd] overflow-hidden min-h-[85vh] flex flex-col justify-center"
       dir={dir}
     >
-      {/* ========================================= */}
-      {/* خلفية الصفحة العامة (SVG Elements Added Here) */}
-      {/* ========================================= */}
+      {/* الخلفية كما هي بدون تغيير */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* 1. Grid Pattern (موجود سابقاً - تم تحسينه) */}
         <div className="absolute w-full h-full opacity-[0.03]">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -150,8 +148,6 @@ export default function Hero() {
             <rect width="100%" height="100%" fill="url(#small-grid)" />
           </svg>
         </div>
-
-        {/* 2. Gradient Orbs (كرات لونية ناعمة متحركة) */}
         <motion.div
           animate={{ x: [0, 50, 0], y: [0, 30, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
@@ -162,8 +158,6 @@ export default function Hero() {
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           className="absolute top-[20%] -right-[10%] w-[400px] h-[400px] bg-indigo-200/20 rounded-full blur-[80px]"
         />
-
-        {/* 3. Abstract Wave Lines (خطوط متموجة أسفل الصفحة) */}
         <div className="absolute bottom-0 left-0 w-full h-[300px] opacity-10">
           <svg
             viewBox="0 0 1440 320"
@@ -177,8 +171,6 @@ export default function Hero() {
             ></path>
           </svg>
         </div>
-
-        {/* 4. Floating Geometric Shapes (أشكال هندسية عائمة) */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
@@ -205,8 +197,6 @@ export default function Hero() {
             />
           </svg>
         </motion.div>
-
-        {/* 5. Dotted Accent (نقاط زخرفية) */}
         <div className="absolute top-[40%] left-[5%] opacity-10">
           <svg width="80" height="80">
             <defs>
@@ -224,23 +214,17 @@ export default function Hero() {
             <rect width="80" height="80" fill="url(#dots)" />
           </svg>
         </div>
-
-        {/* Gradient Overlay for Mobile */}
         <div className="absolute top-0 w-full h-full md:h-64 bg-gradient-to-b from-white via-[#fafbfd]/80 to-transparent" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10 w-full">
-        {/* ========================================= */}
-        {/* منطقة العنوان */}
-        {/* ========================================= */}
+        {/* منطقة العنوان - استخدام الترجمة */}
         <div className="relative text-center mb-6 md:mb-8">
-          {/* الدائرة الدوارة الكبيرة (تم تحسينها) */}
           <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] pointer-events-none -z-10">
             <svg
               viewBox="0 0 600 600"
               className="w-full h-full animate-[spin_80s_linear_infinite]"
             >
-              {/* Outer Dashed Ring */}
               <circle
                 cx="300"
                 cy="300"
@@ -251,7 +235,6 @@ export default function Hero() {
                 strokeWidth="1"
                 strokeDasharray="20 20"
               />
-              {/* Middle Thin Ring */}
               <circle
                 cx="300"
                 cy="300"
@@ -261,7 +244,6 @@ export default function Hero() {
                 strokeOpacity="0.04"
                 strokeWidth="0.5"
               />
-              {/* Inner Accent Ring */}
               <circle
                 cx="300"
                 cy="300"
@@ -271,7 +253,6 @@ export default function Hero() {
                 strokeWidth="2"
                 strokeOpacity="0.1"
               />
-
               <defs>
                 <linearGradient
                   id="blueGradient"
@@ -288,10 +269,9 @@ export default function Hero() {
           </div>
 
           <h1 className="text-[#002147] text-4xl md:text-7xl lg:text-7xl font-black mb-4 md:mb-6 leading-[1.2] md:leading-[1.1] tracking-tight">
-            {language === "AR" ? "عالم من الخيارات" : "A World of Choices"}
+            {t("title")}
             <br />
             <span className="relative inline-block">
-              {/* Decorative Underline SVG */}
               <svg
                 className="hidden md:block absolute w-[110%] h-4 -bottom-2 -left-[5%] text-blue-500/20"
                 viewBox="0 0 200 9"
@@ -305,21 +285,17 @@ export default function Hero() {
                 />
               </svg>
               <span className="text-transparent bg-clip-text bg-gradient-to-br from-[#002147] to-[#2563eb]">
-                {language === "AR" ? "صممت خصيصاً لك" : "Tailored For You"}
+                {t("subtitle")}
               </span>
             </span>
           </h1>
 
           <p className="text-slate-500 text-base md:text-xl max-w-2xl mx-auto font-medium leading-relaxed px-2">
-            {language === "AR"
-              ? "اكتشف مجموعة بطاقاتنا المتنوعة التي تلبي كافة احتياجاتك اليومية والعملية."
-              : "Discover our diverse range of cards meeting all your daily and business needs."}
+            {t("description")}
           </p>
         </div>
 
-        {/* ========================================= */}
         {/* السلايدر */}
-        {/* ========================================= */}
         <div className="relative h-[420px] md:h-[550px] w-full flex items-center justify-center touch-pan-y">
           <div className="relative w-full max-w-6xl h-full flex items-center justify-center perspective-[1200px]">
             <AnimatePresence mode="popLayout">
@@ -368,23 +344,19 @@ export default function Hero() {
                       transformStyle: "preserve-3d",
                       visibility: isMobile && absPos > 1 ? "hidden" : "visible",
                     }}
-                    onClick={() => {
-                      setCurrentIndex(slide.originalIndex);
-                    }}
+                    onClick={() => setCurrentIndex(slide.originalIndex)}
                   >
                     <div
-                      className={`
-                        relative w-full h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden transition-all duration-300 group
+                      className={`relative w-full h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden transition-all duration-300 group
                         ${
                           isCenter
                             ? "shadow-[0_15px_40px_-10px_rgba(0,33,71,0.5)] md:shadow-[0_25px_60px_-15px_rgba(0,33,71,0.5)] ring-1 ring-white/20 border border-white/10"
                             : "brightness-[0.8] md:brightness-[0.7] grayscale-[0.2] shadow-xl"
-                        }
-                      `}
+                        }`}
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-[#d3daf8] via-[#304ba3] to-[#1e3a8a]" />
 
-                      {/* نقش SVG داخل البطاقة */}
+                      {/* محتوى البطاقة الداخلي */}
                       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
                         <svg
                           className="w-full h-full"
@@ -445,7 +417,7 @@ export default function Hero() {
 
                       <img
                         src={slide.data.img}
-                        alt={slide.data.titleEn}
+                        alt={slide.data.title}
                         className="relative z-10 w-full h-full object-cover mix-blend-hard-light opacity-90 md:hover:scale-105 transition-transform duration-700 pointer-events-none"
                         draggable={false}
                       />
@@ -458,9 +430,7 @@ export default function Hero() {
                               animate={{ opacity: 1, y: 0 }}
                               className="text-[10px] md:text-xs font-medium text-blue-200 uppercase tracking-widest mb-1 block"
                             >
-                              {language === "AR"
-                                ? slide.data.categoryAr
-                                : slide.data.categoryEn}
+                              {slide.data.category}
                             </motion.span>
 
                             <div className="flex justify-between items-center">
@@ -471,9 +441,7 @@ export default function Hero() {
                                 transition={{ delay: 0.1 }}
                                 className="text-xl md:text-2xl font-bold tracking-wide drop-shadow-md"
                               >
-                                {language === "AR"
-                                  ? slide.data.titleAr
-                                  : slide.data.titleEn}
+                                {slide.data.title}
                               </motion.h3>
 
                               <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-all cursor-pointer">
@@ -494,12 +462,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ========================================= */}
         {/* أزرار التحكم */}
-        {/* ========================================= */}
-        {/* قمت بتغيير mt-4 إلى mt-10 (للجوال) و mt-16 (للشاشات الكبيرة) */}
         <div className="flex items-center justify-center gap-6 mt-10 relative z-20">
-          {/* زر السابق: مخفي في الجوال */}
           <button
             onClick={prevSlide}
             className="hidden md:flex w-14 h-14 rounded-full bg-white border border-slate-200 text-[#002147] items-center justify-center hover:bg-[#002147] hover:text-white transition-all hover:scale-105 shadow-sm"
@@ -507,7 +471,6 @@ export default function Hero() {
             {dir === "rtl" ? <ChevronRight /> : <ChevronLeft />}
           </button>
 
-          {/* النقاط */}
           <div className="flex gap-2">
             {cards.map((_, i) => (
               <button
@@ -515,14 +478,13 @@ export default function Hero() {
                 onClick={() => setCurrentIndex(i)}
                 className={`rounded-full transition-all duration-500 ${
                   currentIndex === i
-                    ? "w-8 h-2 md:w-10 md:h-2 bg-[#002147]" // النقطة النشطة
-                    : "w-2 h-2 md:w-2 md:h-2 bg-slate-300" // النقطة العادية
+                    ? "w-8 h-2 md:w-10 md:h-2 bg-[#002147]"
+                    : "w-2 h-2 md:w-2 md:h-2 bg-slate-300"
                 }`}
               />
             ))}
           </div>
 
-          {/* زر التالي: مخفي في الجوال */}
           <button
             onClick={nextSlide}
             className="hidden md:flex w-14 h-14 rounded-full bg-white border border-slate-200 text-[#002147] items-center justify-center hover:bg-[#002147] hover:text-white transition-all hover:scale-105 shadow-sm"

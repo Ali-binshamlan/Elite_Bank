@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { useLanguage } from "../../context/LanguageContext";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -37,7 +37,13 @@ import {
 import TopBar from "./Topbar";
 
 export default function Navbar() {
-  const { language, toggleLanguage, dir } = useLanguage();
+  const t = useTranslations("Navbar");
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const dir = locale === "ar" ? "rtl" : "ltr";
+
   const [activeSegment, setActiveSegment] = useState("individuals");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -46,134 +52,166 @@ export default function Navbar() {
   );
   const [scrolled, setScrolled] = useState(false);
 
+  const toggleLanguage = () => {
+    const nextLocale = locale === "ar" ? "en" : "ar";
+    router.replace({ pathname }, { locale: nextLocale });
+  };
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // --- 1. تحديث البيانات: إضافة href للعناصر الرئيسية ---
   const menuData = [
     {
       id: "accounts",
-      name: language === "AR" ? "الحسابات" : "Accounts",
-      description:
-        language === "AR"
-          ? "حلول مصرفية تناسب نمط حياتك"
-          : "Banking solutions for your lifestyle",
+      name: t("menu.accounts.title"),
+      description: t("menu.accounts.desc"),
       icon: <Landmark size={22} />,
-      subItems:
-        language === "AR"
-          ? [
-              { name: "الحساب الجاري", icon: <Banknote size={20} /> },
-              { name: "حساب الادخار", icon: <PiggyBank size={20} /> },
-              {
-                name: "حساب النخبة الاستثماري",
-                icon: <TrendingUp size={20} />,
-              },
-              { name: "حسابات القصر", icon: <Baby size={20} /> },
-            ]
-          : [
-              { name: "Current Account", icon: <Banknote size={20} /> },
-              { name: "Savings Account", icon: <PiggyBank size={20} /> },
-              { name: "Elite Investment", icon: <TrendingUp size={20} /> },
-              { name: "Minors Accounts", icon: <Baby size={20} /> },
-            ],
+      href: "/Personal/Accounts", // <-- رابط الصفحة الرئيسية للحسابات
+      subItems: [
+        {
+          name: t("menu.accounts.items.current"),
+          icon: <Banknote size={20} />,
+          href: "/Personal/Accounts/Current",
+        },
+        {
+          name: t("menu.accounts.items.savings"),
+          icon: <PiggyBank size={20} />,
+          href: "/Personal/Accounts/Savings",
+        },
+        {
+          name: t("menu.accounts.items.elite"),
+          icon: <TrendingUp size={20} />,
+          href: "/Personal/Accounts/Elite",
+        },
+        {
+          name: t("menu.accounts.items.minors"),
+          icon: <Baby size={20} />,
+          href: "/Personal/Accounts/Minors",
+        },
+      ],
     },
     {
       id: "cards",
-      name: language === "AR" ? "البطاقات" : "Cards",
-      description:
-        language === "AR"
-          ? "انفق بذكاء وتمتع بمكافآت لا تنتهي"
-          : "Spend smartly with endless rewards",
+      name: t("menu.cards.title"),
+      description: t("menu.cards.desc"),
       icon: <CreditCard size={22} />,
-      subItems:
-        language === "AR"
-          ? [
-              { name: "بطاقات الائتمان", icon: <CreditCard size={20} /> },
-              { name: "بطاقات مدى", icon: <Smartphone size={20} /> },
-              { name: "البطاقات المسبقة الدفع", icon: <Wallet size={20} /> },
-              { name: "مكافآت النخبة", icon: <Gift size={20} /> },
-            ]
-          : [
-              { name: "Credit Cards", icon: <CreditCard size={20} /> },
-              { name: "mada Cards", icon: <Smartphone size={20} /> },
-              { name: "Prepaid Cards", icon: <Wallet size={20} /> },
-              { name: "Elite Rewards", icon: <Gift size={20} /> },
-            ],
+      href: "/Personal/Cards", // <-- رابط الصفحة الرئيسية للبطاقات
+      subItems: [
+        {
+          name: t("menu.cards.items.credit"),
+          icon: <CreditCard size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.cards.items.mada"),
+          icon: <Smartphone size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.cards.items.prepaid"),
+          icon: <Wallet size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.cards.items.rewards"),
+          icon: <Gift size={20} />,
+          href: "#",
+        },
+      ],
     },
     {
       id: "finance",
-      name: language === "AR" ? "التمويل" : "Finance",
-      description:
-        language === "AR"
-          ? "حقق أحلامك بتمويل مرن وميسر"
-          : "Achieve dreams with flexible finance",
+      name: t("menu.finance.title"),
+      description: t("menu.finance.desc"),
       icon: <Wallet size={22} />,
-      subItems:
-        language === "AR"
-          ? [
-              { name: "التمويل الشخصي", icon: <Banknote size={20} /> },
-              { name: "التمويل العقاري", icon: <Home size={20} /> },
-              { name: "تمويل السيارات", icon: <Car size={20} /> },
-              { name: "إعادة التمويل", icon: <RefreshCw size={20} /> },
-            ]
-          : [
-              { name: "Personal Finance", icon: <Banknote size={20} /> },
-              { name: "Home Finance", icon: <Home size={20} /> },
-              { name: "Auto Finance", icon: <Car size={20} /> },
-              { name: "Refinancing", icon: <RefreshCw size={20} /> },
-            ],
+      href: "/Personal/Finance", // <-- رابط الصفحة الرئيسية للتمويل
+      subItems: [
+        {
+          name: t("menu.finance.items.personal"),
+          icon: <Banknote size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.finance.items.realestate"),
+          icon: <Home size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.finance.items.auto"),
+          icon: <Car size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.finance.items.refinance"),
+          icon: <RefreshCw size={20} />,
+          href: "#",
+        },
+      ],
     },
     {
       id: "insurance",
-      name: language === "AR" ? "التأمين" : "Insurance",
-      description:
-        language === "AR"
-          ? "حماية لك ولمن تحب"
-          : "Protection for you and loved ones",
+      name: t("menu.insurance.title"),
+      description: t("menu.insurance.desc"),
       icon: <ShieldCheck size={22} />,
-      subItems:
-        language === "AR"
-          ? [
-              { name: "تأمين المركبات", icon: <Car size={20} /> },
-              { name: "التأمين الصحي", icon: <HeartPulse size={20} /> },
-              { name: "تأمين السفر", icon: <Plane size={20} /> },
-              { name: "تأمين الحماية والادخار", icon: <Umbrella size={20} /> },
-            ]
-          : [
-              { name: "Car Insurance", icon: <Car size={20} /> },
-              { name: "Health Insurance", icon: <HeartPulse size={20} /> },
-              { name: "Travel Insurance", icon: <Plane size={20} /> },
-              { name: "Protection & Savings", icon: <Umbrella size={20} /> },
-            ],
+      href: "/Personal/Insurance", // <-- رابط التأمين
+      subItems: [
+        {
+          name: t("menu.insurance.items.car"),
+          icon: <Car size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.insurance.items.health"),
+          icon: <HeartPulse size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.insurance.items.travel"),
+          icon: <Plane size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.insurance.items.protection"),
+          icon: <Umbrella size={20} />,
+          href: "#",
+        },
+      ],
     },
     {
       id: "offers",
-      name: language === "AR" ? "العروض" : "Offers",
-      description:
-        language === "AR"
-          ? "عروض حصرية لعملاء النخبة"
-          : "Exclusive offers for elite clients",
+      name: t("menu.offers.title"),
+      description: t("menu.offers.desc"),
       icon: <Percent size={22} />,
-      subItems:
-        language === "AR"
-          ? [
-              { name: "عروض المطاعم", icon: <Utensils size={20} /> },
-              { name: "خصومات التسوق", icon: <ShoppingBag size={20} /> },
-              { name: "تقسيط بسعر الكاش", icon: <Percent size={20} /> },
-              { name: "عروض حصرية", icon: <Zap size={20} /> },
-            ]
-          : [
-              { name: "Dining Offers", icon: <Utensils size={20} /> },
-              { name: "Shopping Discounts", icon: <ShoppingBag size={20} /> },
-              { name: "0% Installments", icon: <Percent size={20} /> },
-              { name: "Exclusive Offers", icon: <Zap size={20} /> },
-            ],
+      href: "/Personal/Offers", // <-- رابط العروض
+      subItems: [
+        {
+          name: t("menu.offers.items.dining"),
+          icon: <Utensils size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.offers.items.shopping"),
+          icon: <ShoppingBag size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.offers.items.installments"),
+          icon: <Percent size={20} />,
+          href: "#",
+        },
+        {
+          name: t("menu.offers.items.exclusive"),
+          icon: <Zap size={20} />,
+          href: "#",
+        },
+      ],
     },
   ];
 
-  // Helper to find the active menu data
   const activeMenuData = menuData.find((item) => item.id === activeDropdown);
 
   return (
@@ -181,7 +219,7 @@ export default function Navbar() {
       <div
         className="fixed top-0 left-0 right-0 z-50 flex flex-col transition-all"
         dir={dir}
-        onMouseLeave={() => setActiveDropdown(null)} // إغلاق القائمة عند الخروج من الناف بار بالكامل
+        onMouseLeave={() => setActiveDropdown(null)}
       >
         <div
           className={`z-20 relative overflow-hidden transition-all duration-500 ease-in-out hidden lg:block ${
@@ -196,25 +234,25 @@ export default function Navbar() {
           ${
             scrolled
               ? "bg-white/95 backdrop-blur-md shadow-md py-3 border-gray-200"
-              : "bg-white py-4 border-gray-100" // تقليل البادينغ قليلاً
+              : "bg-white py-4 border-gray-100"
           }`}
         >
           <div className="max-w-[1440px] mx-auto px-4 md:px-8">
             <div className="flex justify-between items-center h-14">
-              {/* 1. الشعار والقطاعات */}
+              {/* الشعار */}
               <div className="flex items-center gap-6 xl:gap-12">
                 <Link href="/" className="flex-shrink-0 relative group">
                   <Image
                     src="/Logo.png"
                     alt="Elite Bank"
-                    width={150} // تصغير الشعار قليلاً ليتناسب مع الخط الأصغر
+                    width={150}
                     height={40}
                     priority
                     className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </Link>
 
-                {/* Toggle Switcher */}
+                {/* التبديل بين الأفراد والأعمال */}
                 <div className="hidden lg:flex bg-gray-100/80 p-1 rounded-full relative">
                   <motion.div
                     className="absolute top-1 bottom-1 bg-white rounded-full shadow-sm z-0"
@@ -228,22 +266,12 @@ export default function Navbar() {
                             : 100,
                       width: 100,
                     }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 30,
-                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
 
                   {[
-                    {
-                      id: "individuals",
-                      label: language === "AR" ? "الأفراد" : "Individuals",
-                    },
-                    {
-                      id: "business",
-                      label: language === "AR" ? "الأعمال" : "Business",
-                    },
+                    { id: "individuals", label: t("segments.individuals") },
+                    { id: "business", label: t("segments.business") },
                   ].map((seg) => (
                     <button
                       key={seg.id}
@@ -263,20 +291,20 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* 2. روابط القائمة (Centered Dropdown Logic) */}
+              {/* الروابط (Desktop) */}
               <div className="hidden lg:flex items-center gap-1">
                 {menuData.map((item) => (
-                  <button
+                  // 2. تحويل العنصر الرئيسي في سطح المكتب إلى Link بدلاً من button
+                  <Link
                     key={item.id}
+                    href={item.href || "#"} // استخدام الرابط الرئيسي
                     onMouseEnter={() => setActiveDropdown(item.id)}
                     className={`
                       relative group h-14 flex items-center gap-1.5 px-4 rounded-full text-[#002147] font-bold transition-all duration-300
                       hover:bg-gray-50
-                      ${
-                        activeDropdown === item.id ? "bg-gray-50" : ""
-                      } // إبقاء الخلفية نشطة عند فتح القائمة
-                      ${language === "EN" ? "text-sm" : "text-[15px]"} 
-                    `} // تم تصغير الخط هنا (14px/15px)
+                      ${activeDropdown === item.id ? "bg-gray-50" : ""}
+                      ${locale === "en" ? "text-sm" : "text-[15px]"} 
+                    `}
                   >
                     {item.name}
                     <ChevronDown
@@ -287,47 +315,43 @@ export default function Navbar() {
                           : ""
                       }`}
                     />
-                  </button>
+                  </Link>
                 ))}
               </div>
 
-              {/* 3. الإجراءات (لغة + دخول) */}
+              {/* الإجراءات */}
               <div className="flex items-center gap-2 md:gap-4">
-                {/* --- زر اللغة للكمبيوتر (مخفي في الجوال) --- */}
                 <button
                   onClick={toggleLanguage}
                   className="hidden lg:flex items-center gap-2 text-gray-600 font-bold hover:text-[#002147] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-50"
                 >
                   <Globe size={18} />
                   <span className="text-xs uppercase tracking-wider pt-0.5">
-                    {language === "AR" ? "En" : "عربي"}
+                    {locale === "ar" ? "En" : "عربي"}
                   </span>
                 </button>
 
-                {/* --- زر تسجيل الدخول (مخفي في الجوال) --- */}
                 <button className="hidden lg:flex relative overflow-hidden bg-[#002147] text-white px-6 py-2.5 rounded-full font-bold items-center gap-2 shadow-lg shadow-[#002147]/20 hover:shadow-[#002147]/40 active:scale-95 transition-all group">
                   <div className="absolute inset-0 w-0 bg-white/10 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
                   <User size={18} className="relative z-10" />
                   <span
                     className={`relative z-10 ${
-                      language === "EN" ? "text-sm" : "text-[15px]"
+                      locale === "en" ? "text-sm" : "text-[15px]"
                     }`}
                   >
-                    {language === "AR" ? "تسجيل الدخول" : "Login"}
+                    {t("actions.login")}
                   </span>
                 </button>
 
-                {/* +++ جديد: زر اللغة للجوال (يظهر بجانب المينيو) +++ */}
                 <button
                   onClick={toggleLanguage}
                   className="lg:hidden flex items-center justify-center w-10 h-10 text-[#002147] hover:bg-gray-50 rounded-full transition-colors"
                 >
                   <span className="font-bold text-xs">
-                    {language === "AR" ? "EN" : "عربي"}
+                    {locale === "ar" ? "EN" : "عربي"}
                   </span>
                 </button>
 
-                {/* --- زر القائمة للجوال --- */}
                 <button
                   className="lg:hidden p-2.5 text-[#002147] bg-gray-50 rounded-full hover:bg-gray-100 transition-colors"
                   onClick={() => setIsMobileMenuOpen(true)}
@@ -338,9 +362,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* === CENTRALIZED MEGA DROPDOWN === 
-            موجودة خارج اللوب لتكون ثابتة في المنتصف 
-          */}
+          {/* القائمة المنسدلة (Desktop Dropdown) */}
           <AnimatePresence>
             {activeDropdown && activeMenuData && (
               <motion.div
@@ -350,46 +372,46 @@ export default function Navbar() {
                 transition={{ duration: 0.2 }}
                 className="absolute top-full left-0 w-full flex justify-center pt-2 pointer-events-none z-40"
               >
-                {/* البطاقة الفعلية - pointer-events-auto لتفعيل التفاعل بداخلها */}
                 <div
                   className="bg-white pointer-events-auto rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,33,71,0.15)] border border-gray-100 overflow-hidden w-[800px] p-8 mx-4"
-                  onMouseEnter={() => setActiveDropdown(activeDropdown)} // الإبقاء مفتوحاً عند دخول الماوس للقائمة نفسها
+                  onMouseEnter={() => setActiveDropdown(activeDropdown)}
                 >
                   <motion.div
-                    // إضافة key لإعادة تشغيل الأنيميشن عند تغيير التبويب إذا أردت، أو إزالتها لتبديل سلس
                     key={activeDropdown}
                     initial={{ opacity: 0, x: dir === "rtl" ? 10 : -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.2 }}
                     className="flex gap-8"
                   >
-                    {/* المحتوى */}
                     <div className="flex-1">
-                      <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
-                        <div className="p-3 bg-[#002147]/5 rounded-2xl text-[#002147]">
+                      {/* جعلنا العنوان هنا أيضاً رابطاً (اختياري) */}
+                      <Link
+                        href={activeMenuData.href || "#"}
+                        className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100 group"
+                      >
+                        <div className="p-3 bg-[#002147]/5 rounded-2xl text-[#002147] group-hover:bg-[#002147] group-hover:text-white transition-colors">
                           {activeMenuData.icon}
                         </div>
                         <div>
-                          <h3 className="font-bold text-[#002147] text-xl leading-none mb-1.5">
+                          <h3 className="font-bold text-[#002147] text-xl leading-none mb-1.5 group-hover:underline">
                             {activeMenuData.name}
                           </h3>
                           <p className="text-sm text-gray-500">
                             {activeMenuData.description}
                           </p>
                         </div>
-                      </div>
+                      </Link>
 
                       <div className="grid grid-cols-2 gap-4">
                         {activeMenuData.subItems.map((sub, idx) => (
                           <Link
                             key={idx}
-                            href="#"
+                            href={sub.href || "#"}
                             className="group/link flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F5F8FA] border border-transparent hover:border-gray-100 transition-all duration-200"
                           >
                             <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm text-gray-400 group-hover/link:text-[#002147] group-hover/link:shadow-md transition-all">
                               {sub.icon}
                             </div>
-
                             <div className="flex-1">
                               <div className="flex items-center justify-between">
                                 <span className="text-gray-700 font-bold text-sm group-hover/link:text-[#002147] transition-colors">
@@ -416,7 +438,7 @@ export default function Navbar() {
         </nav>
       </div>
 
-      {/* --- Mobile Menu (بدون تغييرات جوهرية سوى المزامنة) --- */}
+      {/* قائمة الجوال */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
@@ -454,23 +476,20 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex bg-gray-100 p-1.5 rounded-xl mb-8">
-                  {["individuals", "business"].map((seg) => (
+                  {[
+                    { id: "individuals", label: t("segments.individuals") },
+                    { id: "business", label: t("segments.business") },
+                  ].map((seg) => (
                     <button
-                      key={seg}
-                      onClick={() => setActiveSegment(seg)}
+                      key={seg.id}
+                      onClick={() => setActiveSegment(seg.id)}
                       className={`flex-1 py-3 text-center rounded-lg font-bold text-[15px] transition-all shadow-sm ${
-                        activeSegment === seg
+                        activeSegment === seg.id
                           ? "bg-white text-[#002147]"
                           : "text-gray-400 hover:text-gray-600 bg-transparent shadow-none"
                       }`}
                     >
-                      {seg === "individuals"
-                        ? language === "AR"
-                          ? "الأفراد"
-                          : "Individuals"
-                        : language === "AR"
-                          ? "الأعمال"
-                          : "Business"}
+                      {seg.label}
                     </button>
                   ))}
                 </div>
@@ -481,19 +500,20 @@ export default function Navbar() {
                       key={item.id}
                       className="border-b border-gray-50 last:border-0"
                     >
-                      <button
-                        onClick={() =>
-                          setMobileExpandedItem(
-                            mobileExpandedItem === item.id ? null : item.id,
-                          )
-                        }
-                        className={`w-full flex items-center justify-between py-4 px-2 rounded-lg transition-colors ${
+                      {/* 3. فصل العنوان عن زر التوسيع في الجوال */}
+                      <div
+                        className={`w-full flex items-center justify-between py-2 px-2 rounded-lg transition-colors ${
                           mobileExpandedItem === item.id
                             ? "bg-gray-50 text-[#002147]"
                             : "text-gray-600"
                         }`}
                       >
-                        <div className="flex items-center gap-4">
+                        {/* الجزء الأيمن: رابط ينقلك للصفحة */}
+                        <Link
+                          href={item.href || "#"}
+                          onClick={() => setIsMobileMenuOpen(false)} // إغلاق القائمة عند النقر
+                          className="flex items-center gap-4 flex-1 py-2"
+                        >
                           <span
                             className={`${
                               mobileExpandedItem === item.id
@@ -504,16 +524,29 @@ export default function Navbar() {
                             {item.icon}
                           </span>
                           <span className="font-bold text-lg">{item.name}</span>
-                        </div>
-                        <ChevronDown
-                          size={20}
-                          className={`transition-transform duration-300 ${
-                            mobileExpandedItem === item.id
-                              ? "rotate-180 text-[#002147]"
-                              : "text-gray-300"
-                          }`}
-                        />
-                      </button>
+                        </Link>
+
+                        {/* الجزء الأيسر: زر لتوسيع القائمة الفرعية */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation(); // منع النقر من التأثير على الرابط
+                            setMobileExpandedItem(
+                              mobileExpandedItem === item.id ? null : item.id,
+                            );
+                          }}
+                          className="p-2 border-l border-gray-200 pl-4 h-full"
+                        >
+                          <ChevronDown
+                            size={20}
+                            className={`transition-transform duration-300 ${
+                              mobileExpandedItem === item.id
+                                ? "rotate-180 text-[#002147]"
+                                : "text-gray-300"
+                            }`}
+                          />
+                        </button>
+                      </div>
+
                       <motion.div
                         initial={false}
                         animate={{
@@ -526,7 +559,8 @@ export default function Navbar() {
                           {item.subItems.map((sub, idx) => (
                             <Link
                               key={idx}
-                              href="#"
+                              href={sub.href || "#"}
+                              onClick={() => setIsMobileMenuOpen(false)}
                               className="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors"
                             >
                               <span className="text-gray-400">{sub.icon}</span>
@@ -544,7 +578,7 @@ export default function Navbar() {
                 <div className="mt-auto pt-6 space-y-3">
                   <button className="w-full flex items-center justify-center gap-2 bg-[#002147] text-white py-4 rounded-xl font-bold shadow-lg shadow-[#002147]/20 active:scale-95 transition-all text-lg">
                     <User size={22} />
-                    <span>{language === "AR" ? "تسجيل الدخول" : "Login"}</span>
+                    <span>{t("actions.login")}</span>
                   </button>
 
                   <button
@@ -552,9 +586,7 @@ export default function Navbar() {
                     className="w-full flex items-center justify-center gap-3 py-4 border border-gray-200 hover:border-[#002147] hover:bg-[#002147]/5 rounded-xl text-[#002147] font-bold transition-all text-lg"
                   >
                     <Globe size={22} />
-                    {language === "AR"
-                      ? "Switch to English"
-                      : "التحويل للعربية"}
+                    {locale === "ar" ? "Switch to English" : "التحويل للعربية"}
                   </button>
                 </div>
               </div>

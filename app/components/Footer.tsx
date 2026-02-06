@@ -1,111 +1,65 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { useLanguage } from "../context/LanguageContext";
+import { Link } from "@/i18n/routing"; // استخدام Link المخصص
+import { useTranslations, useLocale } from "next-intl"; // استيراد المكتبة
 import { Phone, Mail, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 
 export default function Footer() {
-  const { language, dir } = useLanguage();
+  const t = useTranslations("Footer");
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+  const dir = isRTL ? "rtl" : "ltr";
+
   const currentYear = new Date().getFullYear();
 
-  // بيانات الفوتر (كما هي دون تغيير)
+  // إعادة بناء هيكل البيانات باستخدام الترجمة
   const footerData = {
     personal: {
-      title: language === "AR" ? "الأفراد" : "Personal",
-      links:
-        language === "AR"
-          ? [
-              { name: "الحسابات الجارية", href: "#" },
-              { name: "حسابات التوفير", href: "#" },
-              { name: "البطاقات الائتمانية", href: "#" },
-              { name: "التمويل الشخصي", href: "#" },
-              { name: "التمويل العقاري", href: "#" },
-            ]
-          : [
-              { name: "Current Accounts", href: "#" },
-              { name: "Savings Accounts", href: "#" },
-              { name: "Credit Cards", href: "#" },
-              { name: "Personal Finance", href: "#" },
-              { name: "Mortgage", href: "#" },
-            ],
+      title: t("sections.personal.title"),
+      links: [
+        { name: t("sections.personal.links.current"), href: "#" },
+        { name: t("sections.personal.links.savings"), href: "#" },
+        { name: t("sections.personal.links.cards"), href: "#" },
+        { name: t("sections.personal.links.finance"), href: "#" },
+        { name: t("sections.personal.links.mortgage"), href: "#" },
+      ],
     },
     business: {
-      title: language === "AR" ? "الشركات" : "Business",
-      links:
-        language === "AR"
-          ? [
-              { name: "حسابات الشركات", href: "#" },
-              { name: "تمويل الشركات", href: "#" },
-              { name: "نقاط البيع (POS)", href: "#" },
-              { name: "إدارة الرواتب", href: "#" },
-              { name: "الاعتمادات المستندية", href: "#" },
-            ]
-          : [
-              { name: "Corporate Accounts", href: "#" },
-              { name: "Corporate Finance", href: "#" },
-              { name: "POS Solutions", href: "#" },
-              { name: "Payroll Services", href: "#" },
-              { name: "Trade Finance", href: "#" },
-            ],
+      title: t("sections.business.title"),
+      links: [
+        { name: t("sections.business.links.accounts"), href: "#" },
+        { name: t("sections.business.links.finance"), href: "#" },
+        { name: t("sections.business.links.pos"), href: "#" },
+        { name: t("sections.business.links.payroll"), href: "#" },
+        { name: t("sections.business.links.trade"), href: "#" },
+      ],
     },
     digital: {
-      title: language === "AR" ? "الخدمات الرقمية" : "Digital Banking",
-      links:
-        language === "AR"
-          ? [
-              { name: "تطبيق النخبة", href: "#" },
-              { name: "أونلاين الشركات", href: "#" },
-              { name: "المحفظة الإلكترونية", href: "#" },
-              { name: "برنامج المكافآت", href: "#" },
-            ]
-          : [
-              { name: "Elite Mobile App", href: "#" },
-              { name: "Corporate Online", href: "#" },
-              { name: "E-Wallet", href: "#" },
-              { name: "Loyalty Program", href: "#" },
-            ],
+      title: t("sections.digital.title"),
+      links: [
+        { name: t("sections.digital.links.app"), href: "#" },
+        { name: t("sections.digital.links.online"), href: "#" },
+        { name: t("sections.digital.links.wallet"), href: "#" },
+        { name: t("sections.digital.links.rewards"), href: "#" },
+      ],
     },
     about: {
-      title: language === "AR" ? "عن البنك" : "About Us",
-      links:
-        language === "AR"
-          ? [
-              { name: "لمحة عامة", href: "#" },
-              { name: "مجلس الإدارة", href: "#" },
-              { name: "علاقات المستثمرين", href: "#" },
-              { name: "التوظيف", href: "#" },
-            ]
-          : [
-              { name: "Overview", href: "#" },
-              { name: "Board of Directors", href: "#" },
-              { name: "Investor Relations", href: "#" },
-              { name: "Careers", href: "#" },
-            ],
+      title: t("sections.about.title"),
+      links: [
+        { name: t("sections.about.links.overview"), href: "#" },
+        { name: t("sections.about.links.board"), href: "#" },
+        { name: t("sections.about.links.investors"), href: "#" },
+        { name: t("sections.about.links.careers"), href: "#" },
+      ],
     },
     legal: {
-      links:
-        language === "AR"
-          ? [
-              { name: "الشروط والأحكام", href: "#" },
-              { name: "سياسة الخصوصية", href: "#" },
-              { name: "أمن المعلومات", href: "#" },
-              { name: "خريطة الموقع", href: "#" },
-            ]
-          : [
-              { name: "Terms & Conditions", href: "#" },
-              { name: "Privacy Policy", href: "#" },
-              { name: "Information Security", href: "#" },
-              { name: "Sitemap", href: "#" },
-            ],
-    },
-    newsletter: {
-      title: language === "AR" ? "ابق على اطلاع" : "Stay Updated",
-      desc:
-        language === "AR"
-          ? "اشترك في نشرتنا للحصول على آخر التحديثات المالية والعروض الحصرية."
-          : "Subscribe to our newsletter for the latest financial updates and exclusive offers.",
-      placeholder: language === "AR" ? "البريد الإلكتروني" : "Email Address",
+      links: [
+        { name: t("bottom.legal.terms"), href: "#" },
+        { name: t("bottom.legal.privacy"), href: "#" },
+        { name: t("bottom.legal.security"), href: "#" },
+        { name: t("bottom.legal.sitemap"), href: "#" },
+      ],
     },
   };
 
@@ -114,7 +68,7 @@ export default function Footer() {
       className="bg-[#002147] text-white overflow-hidden relative font-sans"
       dir={dir}
     >
-      {/* ================= BACKGROUND SVGs & EFFECTS ================= */}
+      {/* BACKGROUND SVGs & EFFECTS */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#002147] via-[#001835] to-[#001229] opacity-90 z-0" />
         <svg
@@ -132,11 +86,10 @@ export default function Footer() {
         <div className="absolute bottom-[-50px] left-[-50px] w-[300px] h-[300px] bg-indigo-600/20 rounded-full blur-[80px]"></div>
       </div>
 
-      {/* ================= MAIN CONTENT ================= */}
+      {/* MAIN CONTENT */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 pt-20 pb-8 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-10 lg:gap-8 mb-16">
           {/* 1. Brand Section & Socials */}
-          {/* تم تعديل هذا القسم للتوسيط في الجوال (items-center, text-center) */}
           <div className="col-span-2 md:col-span-1 flex flex-col gap-6 items-center md:items-start text-center md:text-start">
             <Link href="/" className="inline-block w-fit group">
               <div className="flex items-center gap-2">
@@ -151,11 +104,10 @@ export default function Footer() {
             </Link>
 
             <p className="text-blue-100/70 text-sm leading-relaxed max-w-sm font-light">
-              {language === "AR"
-                ? "شريكك المالي نحو مستقبل أكثر ازدهاراً. نقدم حلولاً مصرفية مبتكرة تجمع بين عراقة الخبرة وتطور التكنولوجيا."
-                : "Your financial partner towards a prosperous future. Combining traditional expertise with cutting-edge technology."}
+              {t("brandDesc")}
             </p>
 
+            {/* Social Icons (Static) */}
             <div className="flex flex-col gap-2 mt-2" dir="ltr">
               <div className="flex flex-row gap-2">
                 {/* Instagram */}
@@ -170,7 +122,7 @@ export default function Footer() {
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                   </svg>
                 </button>
-                {/* X (Formerly Twitter) */}
+                {/* X */}
                 <button className="w-10 h-10 outline-none border-none bg-white rounded-[4px_20px_4px_4px] shadow-lg transition-all duration-200 ease-in-out hover:scale-110 hover:bg-black group flex items-center justify-center">
                   <svg
                     className="fill-black group-hover:fill-white transition-colors"
@@ -183,7 +135,6 @@ export default function Footer() {
                   </svg>
                 </button>
               </div>
-
               <div className="flex flex-row gap-2">
                 {/* LinkedIn */}
                 <button className="w-10 h-10 outline-none border-none bg-white rounded-[4px_4px_4px_20px] shadow-lg transition-all duration-200 ease-in-out hover:scale-110 hover:bg-[#0077b5] group flex items-center justify-center">
@@ -213,93 +164,36 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* 2. Personal */}
-          {/* تم إضافة justify-center للجوال في العنوان والروابط */}
-          <div>
-            <h3 className="font-bold text-base mb-6 text-white flex items-center justify-center md:justify-start gap-2">
-              <span className="w-6 h-0.5 bg-blue-500 rounded-full"></span>
-              {footerData.personal.title}
-            </h3>
-            <ul className="space-y-2.5">
-              {footerData.personal.links.map((link, i) => (
-                <li key={i}>
-                  <Link
-                    href={link.href}
-                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center justify-center md:justify-start gap-2 group"
-                  >
-                    <span className="w-0 h-px bg-white group-hover:w-3 transition-all duration-300"></span>
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 3. Business */}
-          <div>
-            <h3 className="font-bold text-base mb-6 text-white flex items-center justify-center md:justify-start gap-2">
-              <span className="w-6 h-0.5 bg-blue-500 rounded-full"></span>
-              {footerData.business.title}
-            </h3>
-            <ul className="space-y-2.5">
-              {footerData.business.links.map((link, i) => (
-                <li key={i}>
-                  <Link
-                    href={link.href}
-                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center justify-center md:justify-start gap-2 group"
-                  >
-                    <span className="w-0 h-px bg-white group-hover:w-3 transition-all duration-300"></span>
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 4. Digital */}
-          <div>
-            <h3 className="font-bold text-base mb-6 text-white flex items-center justify-center md:justify-start gap-2">
-              <span className="w-6 h-0.5 bg-blue-500 rounded-full"></span>
-              {footerData.digital.title}
-            </h3>
-            <ul className="space-y-2.5">
-              {footerData.digital.links.map((link, i) => (
-                <li key={i}>
-                  <Link
-                    href={link.href}
-                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center justify-center md:justify-start gap-2 group"
-                  >
-                    <span className="w-0 h-px bg-white group-hover:w-3 transition-all duration-300"></span>
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 5. About */}
-          <div>
-            <h3 className="font-bold text-base mb-6 text-white flex items-center justify-center md:justify-start gap-2">
-              <span className="w-6 h-0.5 bg-blue-500 rounded-full"></span>
-              {footerData.about.title}
-            </h3>
-            <ul className="space-y-2.5">
-              {footerData.about.links.slice(0, 3).map((link, i) => (
-                <li key={i}>
-                  <Link
-                    href={link.href}
-                    className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center justify-center md:justify-start gap-2 group"
-                  >
-                    <span className="w-0 h-px bg-white group-hover:w-3 transition-all duration-300"></span>
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Links Columns */}
+          {[
+            footerData.personal,
+            footerData.business,
+            footerData.digital,
+            footerData.about,
+          ].map((section, idx) => (
+            <div key={idx}>
+              <h3 className="font-bold text-base mb-6 text-white flex items-center justify-center md:justify-start gap-2">
+                <span className="w-6 h-0.5 bg-blue-500 rounded-full"></span>
+                {section.title}
+              </h3>
+              <ul className="space-y-2.5">
+                {section.links.map((link, i) => (
+                  <li key={i}>
+                    <Link
+                      href={link.href}
+                      className="text-blue-100/60 hover:text-white text-[14px] transition-all duration-300 flex items-center justify-center md:justify-start gap-2 group"
+                    >
+                      <span className="w-0 h-px bg-white group-hover:w-3 transition-all duration-300"></span>
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* ================= 5. NEWSLETTER & CONTACT ================= */}
+        {/* 5. NEWSLETTER & CONTACT */}
         <div className="w-full mb-16">
           <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -308,10 +202,10 @@ export default function Footer() {
               {/* Newsletter Text */}
               <div className="lg:w-1/3 text-center lg:text-start">
                 <h3 className="font-bold text-white text-xl mb-2">
-                  {footerData.newsletter.title}
+                  {t("newsletter.title")}
                 </h3>
                 <p className="text-blue-200/80 text-sm leading-relaxed">
-                  {footerData.newsletter.desc}
+                  {t("newsletter.desc")}
                 </p>
               </div>
 
@@ -319,21 +213,17 @@ export default function Footer() {
               <div className="w-full lg:w-1/3 relative">
                 <input
                   type="email"
-                  placeholder={footerData.newsletter.placeholder}
+                  placeholder={t("newsletter.placeholder")}
                   className={`w-full bg-[#001229]/50 border border-blue-500/30 rounded-xl py-3 px-4 ${
-                    language === "AR" ? "pl-14" : "pr-14"
+                    isRTL ? "pl-14" : "pr-14"
                   } text-sm text-white placeholder:text-blue-300/30 focus:outline-none focus:border-blue-400 focus:bg-[#001229]/80 transition-all shadow-inner`}
                 />
                 <button
                   className={`absolute top-1.5 bottom-1.5 ${
-                    language === "AR" ? "left-1.5" : "right-1.5"
+                    isRTL ? "left-1.5" : "right-1.5"
                   } bg-blue-600 hover:bg-blue-500 text-white w-12 rounded-lg flex items-center justify-center transition-colors shadow-lg shadow-blue-600/20`}
                 >
-                  {dir === "rtl" ? (
-                    <ArrowLeft size={20} />
-                  ) : (
-                    <ArrowRight size={20} />
-                  )}
+                  {isRTL ? <ArrowLeft size={20} /> : <ArrowRight size={20} />}
                 </button>
               </div>
 
@@ -366,22 +256,17 @@ export default function Footer() {
 
         <div className="h-px w-full bg-gradient-to-r from-transparent via-blue-500/20 to-transparent mb-8"></div>
 
-        {/* ================= BOTTOM BAR ================= */}
+        {/* BOTTOM BAR */}
         <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-6 text-sm">
           {/* Copyrights */}
           <div className="text-center md:text-start text-blue-200/50 space-y-1">
             <p className="font-medium">
-              © {currentYear}{" "}
-              {language === "AR"
-                ? "بنك النخبة. جميع الحقوق محفوظة."
-                : "Elite Bank. All rights reserved."}
+              © {currentYear} {t("bottom.copyright")}
             </p>
             <div className="flex items-center justify-center md:justify-start gap-1.5">
               <CheckCircle2 size={12} className="text-emerald-500" />
               <span className="text-[10px] tracking-wide uppercase">
-                {language === "AR"
-                  ? "مرخص من البنك المركزي"
-                  : "Licensed by Central Bank"}
+                {t("bottom.license")}
               </span>
             </div>
           </div>

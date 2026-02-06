@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { useLanguage } from "../context/LanguageContext";
+import { useTranslations, useLocale } from "next-intl"; // استيراد المكتبة
 import { ArrowUpRight, ChevronRight } from "lucide-react";
 
 // استيراد الصور
@@ -12,12 +12,15 @@ import img3 from "@/public/images/BankingCategories_3.png";
 import img4 from "@/public/images/BankingCategories_4.png";
 
 export default function BankingCategories() {
-  const { language, dir } = useLanguage();
-  // نستخدم حالة واحدة للتحكم في العنصر النشط سواء باللمس أو التحويم
+  // 1. تفعيل الترجمة
+  const t = useTranslations("BankingCategories");
+  const locale = useLocale();
+  const dir = locale === "ar" ? "rtl" : "ltr";
+
   const [activeId, setActiveId] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // اكتشاف حجم الشاشة لضبط السلوك
+  // اكتشاف حجم الشاشة
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
@@ -25,62 +28,18 @@ export default function BankingCategories() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const uiText = {
-    sectionTitle:
-      language === "AR"
-        ? "خدمات مصرفية تناسب طموحك"
-        : "Banking Services for Your Ambition",
-    sectionSubtitle:
-      language === "AR"
-        ? "تنوع فريد في الفئات المصرفية لتلبية كافة احتياجاتك المالية."
-        : "Unique diversity in banking categories to meet all your needs.",
-    learnMore: language === "AR" ? "اكتشف المزيد" : "Discover More",
-  };
-
+  // 2. تعريف البيانات: نربط المفتاح (key) بالصورة
   const categories = [
-    {
-      id: 1,
-      title: language === "AR" ? "المصرفية الكلاسيكية" : "Classic Banking",
-      description:
-        language === "AR"
-          ? "الحل الأمثل لاحتياجاتك اليومية"
-          : "The perfect solution for daily needs",
-      image: img1,
-    },
-    {
-      id: 2,
-      title: language === "AR" ? "عالم التميز" : "Al-Tamayuz World",
-      description:
-        language === "AR"
-          ? "رفاهية وخدمات حصرية لك"
-          : "Luxury and exclusive services for you",
-      image: img2,
-    },
-    {
-      id: 3,
-      title: language === "AR" ? "التميز الماسي" : "Diamond Al-Tamayuz",
-      description:
-        language === "AR"
-          ? "آفاق جديدة من الاستثمار"
-          : "New horizons of investment",
-      image: img3,
-    },
-    {
-      id: 4,
-      title: language === "AR" ? "المصرفية الخاصة" : "Private Banking",
-      description:
-        language === "AR"
-          ? "نخبة الخدمات لأعلى المستويات"
-          : "Elite services for the highest levels",
-      image: img4,
-    },
+    { id: 1, key: "classic", image: img1 },
+    { id: 2, key: "tamayuz", image: img2 },
+    { id: 3, key: "diamond", image: img3 },
+    { id: 4, key: "private", image: img4 },
   ];
 
-  // دالة التعامل مع التفاعل
   const handleInteraction = (id: number, type: "hover" | "click" | "leave") => {
     if (isMobile) {
       if (type === "click") {
-        setActiveId(activeId === id ? null : id); // تبديل (Toggle) في الجوال
+        setActiveId(activeId === id ? null : id);
       }
     } else {
       if (type === "hover") {
@@ -96,9 +55,7 @@ export default function BankingCategories() {
       className="relative py-16 md:py-32 overflow-hidden bg-slate-50"
       dir={dir}
     >
-      {/* ========================================= */}
-      {/* خلفية مخففة: تظهر فقط في الشاشات الكبيرة */}
-      {/* ========================================= */}
+      {/* خلفية مخففة */}
       <div className="hidden lg:block absolute inset-0 pointer-events-none">
         <svg
           className="absolute top-0 left-0 w-full h-full opacity-[0.03]"
@@ -129,41 +86,32 @@ export default function BankingCategories() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* ========================================= */}
         {/* رأس القسم */}
-        {/* ========================================= */}
         <div className="max-w-3xl mx-auto text-center mb-10 lg:mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-[#002147] mb-4 md:mb-6 leading-tight">
-            {uiText.sectionTitle}
+            {t("title")}
           </h2>
           <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            {uiText.sectionSubtitle}
+            {t("subtitle")}
           </p>
         </div>
 
-        {/* ========================================= */}
-        {/* الحاوية: فليكس في الديسكتوب، عمودية في الجوال */}
-        {/* ========================================= */}
+        {/* الحاوية */}
         <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 h-auto lg:h-[600px] transition-all duration-500">
           {categories.map((item, index) => {
             const isActive = activeId === item.id;
-
-            // تحديد الستايل بناءً على الجهاز
-            // في الجوال: الارتفاع يتغير. في الديسكتوب: العرض (flex) يتغير
-            const mobileHeightClass = isActive ? "h-[350px]" : "h-[100px]"; // أكورديون في الجوال
+            const mobileHeightClass = isActive ? "h-[350px]" : "h-[100px]";
             const desktopFlexClass = isActive ? "lg:flex-[3.5]" : "lg:flex-[1]";
 
             return (
               <div
                 key={item.id}
-                // أحداث الديسكتوب
                 onMouseEnter={() =>
                   !isMobile && handleInteraction(item.id, "hover")
                 }
                 onMouseLeave={() =>
                   !isMobile && handleInteraction(item.id, "leave")
                 }
-                // أحداث الجوال
                 onClick={() => handleInteraction(item.id, "click")}
                 className={`
                   relative group overflow-hidden rounded-2xl lg:rounded-3xl cursor-pointer
@@ -172,22 +120,20 @@ export default function BankingCategories() {
                   shadow-md hover:shadow-xl
                 `}
               >
-                {/* الصورة الخلفية - مُحسنة */}
+                {/* الصورة الخلفية */}
                 <div className="absolute inset-0 w-full h-full bg-[#d2e2f5]">
                   <Image
                     src={item.image}
-                    alt={item.title}
+                    // استخدام t() لجلب النص بناءً على المفتاح
+                    alt={t(`items.${item.key}.title`)}
                     fill
-                    // هذه الخاصية مهمة جداً للأداء في الجوال
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className={`
                       object-cover transition-transform duration-1000
                       ${isActive ? "scale-110 opacity-100" : "scale-100 opacity-60 lg:opacity-100 lg:grayscale-[0.3]"}
                     `}
-                    priority={index === 0} // تحميل الصورة الأولى فوراً
+                    priority={index === 0}
                   />
-
-                  {/* طبقة التراكب */}
                   <div
                     className={`
                     absolute inset-0 transition-opacity duration-700
@@ -199,7 +145,6 @@ export default function BankingCategories() {
 
                 {/* المحتوى الداخلي */}
                 <div className="absolute inset-0 p-5 md:p-2 flex flex-col justify-between z-20">
-                  {/* الجزء العلوي: الرقم والعنوان */}
                   <div
                     className={`transition-all duration-500 transform ${isActive ? "translate-y-0" : "translate-y-2 lg:translate-y-4"}`}
                   >
@@ -207,7 +152,6 @@ export default function BankingCategories() {
                       <span className="block text-3xl lg:text-5xl font-bold text-white/20 mb-1 lg:mb-2 font-serif">
                         0{index + 1}
                       </span>
-                      {/* أيقونة الحالة للجوال فقط (سهم صغير) */}
                       <div
                         className={`lg:hidden text-white/50 transition-transform duration-300 ${isActive ? "-rotate-90" : "rotate-90"}`}
                       >
@@ -218,13 +162,14 @@ export default function BankingCategories() {
                       </div>
                     </div>
 
+                    {/* العنوان المترجم */}
                     <h3
                       className={`text-xl lg:text-3xl font-bold text-white mb-2 ${isActive ? "" : "line-clamp-1"}`}
                     >
-                      {item.title}
+                      {t(`items.${item.key}.title`)}
                     </h3>
 
-                    {/* الوصف */}
+                    {/* الوصف المترجم */}
                     <div
                       className={`
                       overflow-hidden transition-all duration-500 ease-out
@@ -232,16 +177,15 @@ export default function BankingCategories() {
                     `}
                     >
                       <p className="text-white/80 text-sm lg:text-lg leading-relaxed border-s-2 border-white/30 ps-3 lg:ps-4">
-                        {item.description}
+                        {t(`items.${item.key}.desc`)}
                       </p>
                     </div>
                   </div>
 
-                  {/* الجزء السفلي: الأزرار */}
+                  {/* الأزرار */}
                   <div
                     className={`flex items-end justify-between transition-opacity duration-300 ${isActive || !isMobile ? "opacity-100" : "opacity-0"}`}
                   >
-                    {/* أيقونة السهم الدائري */}
                     <div
                       className={`
                       w-10 h-10 lg:w-12 lg:h-12 rounded-full border border-white/30 flex items-center justify-center backdrop-blur-sm
@@ -252,7 +196,6 @@ export default function BankingCategories() {
                       <ArrowUpRight className="w-5 h-5 lg:w-6 lg:h-6" />
                     </div>
 
-                    {/* زر "المزيد" */}
                     <button
                       className={`
                       px-4 py-2 lg:px-6 lg:py-2.5 bg-white text-[#002147] font-bold rounded-lg shadow-lg text-sm lg:text-base
@@ -260,7 +203,7 @@ export default function BankingCategories() {
                       ${isActive ? "opacity-100 translate-x-0 scale-100" : "opacity-0 translate-x-10 scale-90 pointer-events-none"}
                     `}
                     >
-                      <span>{uiText.learnMore}</span>
+                      <span>{t("learnMore")}</span>
                       <ChevronRight
                         className={`w-3 h-3 lg:w-4 lg:h-4 ${dir === "rtl" ? "rotate-180" : ""}`}
                       />

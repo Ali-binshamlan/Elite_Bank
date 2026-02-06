@@ -1,0 +1,408 @@
+{
+  "Navbar": {
+    "menu": {
+      "accounts": {
+        "title": "Accounts",
+        "desc": "Banking solutions that fit your lifestyle",
+        "items": {
+          "current": "Current Account",
+          "savings": "Savings Account",
+          "elite": "Elite Investment Account",
+          "minors": "Minors Accounts"
+        }
+      },
+      "cards": {
+        "title": "Cards",
+        "desc": "Spend smartly and enjoy endless rewards",
+        "items": {
+          "credit": "Credit Cards",
+          "mada": "mada Cards",
+          "prepaid": "Prepaid Cards",
+          "rewards": "Elite Rewards"
+        }
+      },
+      "finance": {
+        "title": "Finance",
+        "desc": "Achieve your dreams with flexible finance",
+        "items": {
+          "personal": "Personal Finance",
+          "realestate": "Real Estate Finance",
+          "auto": "Auto Finance",
+          "refinance": "Refinancing"
+        }
+      },
+      "insurance": {
+        "title": "Insurance",
+        "desc": "Protection for you and your loved ones",
+        "items": {
+          "car": "Car Insurance",
+          "health": "Health Insurance",
+          "travel": "Travel Insurance",
+          "protection": "Protection & Savings"
+        }
+      },
+      "offers": {
+        "title": "Offers",
+        "desc": "Exclusive offers for Elite clients",
+        "items": {
+          "dining": "Dining Offers",
+          "shopping": "Shopping Discounts",
+          "installments": "0% Installments",
+          "exclusive": "Exclusive Offers"
+        }
+      }
+    },
+    "segments": {
+      "individuals": "Individuals",
+      "business": "Business"
+    },
+    "actions": {
+      "login": "Login",
+      "switchLang": "عربي",
+      "switchLangMobile": "Switch to Arabic"
+    }
+  },
+  "TopBar": {
+    "disclosure": "Disclosure rules for pricing of financing products",
+    "mediaCenter": "Media Center",
+    "support": "Help & Support",
+    "tooltips": {
+      "zoomIn": "Increase Font",
+      "zoomOut": "Decrease Font",
+      "reset": "Reset",
+      "grayscale": "Grayscale Mode",
+      "fullScreen": "Full Screen"
+    }
+  },
+  "Hero": {
+    "title": "A World of Choices",
+    "subtitle": "Tailored For You",
+    "description": "Discover our diverse range of cards meeting all your daily and business needs.",
+    "cards": {
+      "infinite": {
+        "title": "Infinite Card",
+        "category": "Limitless Luxury"
+      },
+      "platinum": {
+        "title": "Platinum Card",
+        "category": "Travel Companion"
+      },
+      "elite": {
+        "title": "Elite Card",
+        "category": "Pure Excellence"
+      },
+      "gold": {
+        "title": "Gold Card",
+        "category": "Daily Rewards"
+      },
+      "business": {
+        "title": "Business Card",
+        "category": "Corporate Solutions"
+      }
+    }
+    
+  },
+  "BankingCategories": {
+    "title": "Banking Services for Your Ambition",
+    "subtitle": "Unique diversity in banking categories to meet all your needs.",
+    "learnMore": "Discover More",
+    "items": {
+      "classic": {
+        "title": "Classic Banking",
+        "desc": "The perfect solution for daily needs"
+      },
+      "tamayuz": {
+        "title": "Al-Tamayuz World",
+        "desc": "Luxury and exclusive services for you"
+      },
+      "diamond": {
+        "title": "Diamond Al-Tamayuz",
+        "desc": "New horizons of investment"
+      },
+      "private": {
+        "title": "Private Banking",
+        "desc": "Elite services for the highest levels"
+      }
+    }
+  },
+  "ExclusiveServices": {
+    "sectionTitle": "Exclusive Services",
+    "mainTitle": {
+      "part1": "Innovating Solutions",
+      "part2": "Beyond Expectations"
+    },
+    "imageLabel": "Overview",
+    "items": {
+      "strategy": {
+        "title": "Strategic Planning",
+        "desc": "Insightful future vision placed in your hands, relying on precise data analysis to build action plans ensuring sustainable growth."
+      },
+      "development": {
+        "title": "Development & Innovation",
+        "desc": "Transforming complex ideas into tangible digital reality using the latest software technologies ensuring efficiency and security."
+      },
+      "growth": {
+        "title": "Accelerated Growth",
+        "desc": "Marketing and technical strategies designed specifically to maximize ROI and expand your customer base."
+      }
+    }
+  },
+  "TasheelPrograms": {
+    "header": {
+      "prefix": "Discover a World of",
+      "highlight": "Financial Excellence",
+      "desc": "Innovative financial solutions meeting your needs with the highest standards of quality and security."
+    },
+    "badge": "Active Now",
+    "items": {
+      "tasheel": {
+        "title": "Payment Flexibility",
+        "subtitle": "Tasheel Program",
+        "desc": "Convert your credit card purchases into easy installments with 0% interest."
+      },
+      "partners": {
+        "title": "Shop with Partners",
+        "subtitle": "Wide Network",
+        "desc": "Pay for all your needs easily through a wide network of authorized partners across the Kingdom."
+      },
+      "credit": {
+        "title": "Credit Solutions",
+        "subtitle": "Easy Procedures",
+        "desc": "No complex paperwork needed. Convert your transactions instantly via the app with a single click."
+      }
+    }
+  },
+  "AppFeatures": {
+    "badge": "All New Update",
+    "title": {
+      "part1": "+ 200 Services in",
+      "part2": "Elite Bank App"
+    },
+    "desc": "Secure digital services for your daily needs. Manage finances, pay bills, and achieve goals with a single touch.",
+    "buttons": {
+      "google": { "main": "Google Play", "sub": "GET IT ON" },
+      "apple": { "main": "App Store", "sub": "Download on the" }
+    },
+    "cards": {
+      "savings": { "label": "Savings Goal", "title": "Buy a Car" },
+      "bills": { 
+        "label": "Bills", 
+        "status": "Paid", 
+        "provider": "Electricity", 
+        "currency": "SAR" 
+      },
+      "credit": { "label": "Available Balance", "currency": "SAR" }
+    }
+  },
+  "BankStats": {
+    "title": {
+      "part1": "Translating Trust into",
+      "part2": "Record Numbers"
+    },
+    "desc": "At Elite Bank, we pride ourselves on a solid base of assets and clients, partnering for your ambitions.",
+    "cta": "Annual Report",
+    "items": {
+      "assets": { "label": "Total Assets", "value": "1,043", "suffix": "Billion" },
+      "accounts": { "label": "Customer Accounts", "value": "+19", "suffix": "Million" },
+      "atms": { "label": "ATMs", "value": "4,322", "suffix": "Unit" },
+      "branches": { "label": "Branches", "value": "537", "suffix": "Branch" },
+      "profits": { 
+        "label": "Net Profits", 
+        "value": "24.79", 
+        "suffix": "Billion",
+        "subLabel": "Q4 2025 Results"
+      }
+    }
+  },
+  "Footer": {
+    "brandDesc": "Your financial partner towards a prosperous future. Combining traditional expertise with cutting-edge technology.",
+    "sections": {
+      "personal": {
+        "title": "Personal",
+        "links": {
+          "current": "Current Accounts",
+          "savings": "Savings Accounts",
+          "cards": "Credit Cards",
+          "finance": "Personal Finance",
+          "mortgage": "Mortgage"
+        }
+      },
+      "business": {
+        "title": "Business",
+        "links": {
+          "accounts": "Corporate Accounts",
+          "finance": "Corporate Finance",
+          "pos": "POS Solutions",
+          "payroll": "Payroll Services",
+          "trade": "Trade Finance"
+        }
+      },
+      "digital": {
+        "title": "Digital Banking",
+        "links": {
+          "app": "Elite Mobile App",
+          "online": "Corporate Online",
+          "wallet": "E-Wallet",
+          "rewards": "Loyalty Program"
+        }
+      },
+      "about": {
+        "title": "About Us",
+        "links": {
+          "overview": "Overview",
+          "board": "Board of Directors",
+          "investors": "Investor Relations",
+          "careers": "Careers"
+        }
+      }
+    },
+    "newsletter": {
+      "title": "Stay Updated",
+      "desc": "Subscribe to our newsletter for the latest financial updates and exclusive offers.",
+      "placeholder": "Email Address"
+    },
+    "bottom": {
+      "copyright": "Elite Bank. All rights reserved.",
+      "license": "Licensed by Central Bank",
+      "legal": {
+        "terms": "Terms & Conditions",
+        "privacy": "Privacy Policy",
+        "security": "Information Security",
+        "sitemap": "Sitemap"
+      }
+    }
+  },
+  "AccountsHero": {
+    "title": "Accounts",
+    "desc": "Diverse accounts serving all your current and future needs for you and your family.",
+    "cta": "Open your account easily now",
+    "cards": {
+      "current": "Current Account"
+    }
+  },
+  "AccountsGrid": {
+    "cta_view": "View Details",
+    "savings": {
+      "title": "Smart Savings",
+      "desc": "Plan your daily payments and purchases smartly."
+    },
+    "returns": {
+      "title": "Returns Account",
+      "desc": "Invest your money with competitive returns."
+    },
+    "family": {
+      "title": "Family Account",
+      "desc": "Manage your family budget with ease."
+    },
+    "follower": {
+      "title": "Follower Account",
+      "desc": "Your children's future starts here."
+    },
+    "gold": {
+      "title": "Elite Account",
+      "desc": "Exclusive services for VIP customers."
+    }
+  },
+  "CardsGrid": {
+    "title": "Choose the Card that Fits You",
+    "subtitle": "An exclusive collection of credit cards designed to give you an exceptional lifestyle.",
+    "cta": "Apply Now",
+    "cards": {
+      "gold": {
+        "type": "Gold",
+        "desc": "Daily luxury and endless rewards with every purchase."
+      },
+      "platinum": {
+        "type": "Platinum",
+        "desc": "Your ideal travel companion with lounge access and travel insurance."
+      },
+      "signature": {
+        "type": "Signature",
+        "desc": "A world of exclusive privileges and private banking services."
+      },
+      "infinite": {
+        "type": "Infinite",
+        "desc": "The highest level of luxury, flexible credit limit, and concierge service."
+      },
+      "business": {
+        "type": "Business",
+        "desc": "Full control over your company expenses with smart payment solutions."
+      }
+    }
+  },
+  "Benefits": {
+    "title": "Because you are our client, we offer:",
+    "cards": {
+      "discounts": {
+        "title": "Instant Discounts",
+        "desc": "Get a wide range of offers and discounts from our partners of international brands and major stores."
+      },
+      "accepted": {
+        "title": "Globally Accepted",
+        "desc": "Accepted at over 30 million local and international POS, including 900,000 ATMs worldwide."
+      },
+      "nfc": {
+        "title": "NFC Technology",
+        "desc": "Enjoy mada Atheer, mada Pay, and Apple Pay services for contactless payments."
+      },
+      "notifications": {
+        "title": "Instant Notifications",
+        "desc": "Free SMS service keeping you informed of all executed financial transactions."
+      },
+      "secure": {
+        "title": "3D Secure",
+        "desc": "Safer online shopping using 3D Secure verification, OTP, and EMV smart chip protection."
+      },
+      "standing": {
+        "title": "Standing Orders",
+        "desc": "Schedule monthly deductions for beneficiaries automatically without needing to visit branches."
+      }
+    }
+  },
+  "FAQSection": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Here are answers to the most common queries about our banking services.",
+    "items": {
+      "q1": {
+        "question": "What is a Safety Deposit Box?",
+        "answer": "A safety deposit box is a secure, protected space located within the bank's vault, designated for keeping your valuables and important documents with complete confidentiality and maximum security."
+      },
+      "q2": {
+        "question": "How can I get my IBAN?",
+        "answer": "You can easily obtain your IBAN via the Elite Bank app, online banking, ATMs, or find it printed on your account statements."
+      },
+      "q3": {
+        "question": "Can I authorize someone else to access my Safety Deposit Box?",
+        "answer": "Yes, you can authorize an agent. This requires visiting the branch and signing the official authorization form in the presence of both you and the agent, with valid IDs."
+      },
+      "q4": {
+        "question": "What can I store inside the Safety Deposit Box?",
+        "answer": "You can store jewelry, important documents (deeds, contracts), precious metals, and data drives. Storing liquids, explosives, or illegal items is prohibited."
+      },
+      "q5": {
+        "question": "How does the 'Sadad Account' service work?",
+        "answer": "Sadad Account is a secure online payment solution that allows you to complete online purchases and bill payments directly from your bank account without needing a credit card."
+      },
+      "q6": {
+        "question": "If I lose my key, what should I do to access my box?",
+        "answer": "If the key is lost, please visit the branch immediately to report it. An appointment will be arranged to drill the lock and replace it with a new one in your presence, subject to lock replacement fees."
+      },
+      "q7": {
+        "question": "At what time can I access my Safety Deposit Box?",
+        "answer": "You can access your safety deposit box at any time during the official working hours of the branch where the box is located."
+      },
+      "q8": {
+        "question": "Can I register for Sadad Account service through the bank?",
+        "answer": "Yes, you can register and activate your Sadad Account instantly via the mobile app or the bank's website in simple, secure steps."
+      },
+      "q9": {
+        "question": "What are Standing Orders?",
+        "answer": "It is a service that allows you to schedule fixed financial transfers (specific amount and date) periodically and automatically to beneficiaries, saving you from repeating the process manually every month."
+      },
+      "q10": {
+        "question": "Is it necessary to visit the branch before the lease ends?",
+        "answer": "Yes, it is preferable to visit the branch to renew the contract and pay annual fees to ensure service continuity, or to return keys and close the contract."
+      }
+    }
+  }
+}

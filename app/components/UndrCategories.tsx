@@ -3,34 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Layers, Code, TrendingUp } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
-
-// =========================================================
-// 1. تعريف الأنواع
-// =========================================================
-
-type ServiceItem = {
-  id: number;
-  imageName: string;
-  imagePath: string;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-};
-
-type SectionContent = {
-  sectionTitle: string;
-  mainTitle: {
-    part1: string;
-    part2: string;
-  };
-  imageLabel: string;
-  items: ServiceItem[];
-};
-
-type ContentDictionary = {
-  [key: string]: SectionContent;
-};
+import { useTranslations, useLocale } from "next-intl"; // استيراد المكتبة
 
 type UndrCategoriesProps = {
   autoPlayInterval?: number;
@@ -39,12 +12,34 @@ type UndrCategoriesProps = {
 export default function UndrCategories({
   autoPlayInterval = 6000,
 }: UndrCategoriesProps) {
+  // 1. تفعيل الترجمة
+  const t = useTranslations("ExclusiveServices");
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+  const dir = isRTL ? "rtl" : "ltr";
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false); // حالة لاكتشاف الجوال
+  const [isMobile, setIsMobile] = useState(false);
 
-  const { language } = useLanguage();
-  const isRTL = language === "AR";
+  // 2. تعريف البيانات الثابتة (التي لا تحتاج ترجمة)
+  const items = [
+    {
+      id: "strategy",
+      imagePath: "/images/Image_1.png",
+      icon: <Layers size={24} />,
+    },
+    {
+      id: "development",
+      imagePath: "/images/Image_2.png",
+      icon: <Code size={24} />,
+    },
+    {
+      id: "growth",
+      imagePath: "/images/Image_3.jpeg",
+      icon: <TrendingUp size={24} />,
+    },
+  ];
 
   // اكتشاف الجوال
   useEffect(() => {
@@ -54,89 +49,9 @@ export default function UndrCategories({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const content: ContentDictionary = {
-    AR: {
-      sectionTitle: "خدماتنا الحصرية",
-      mainTitle: {
-        part1: "نبتكر حلولاً",
-        part2: "تسبق توقعاتك",
-      },
-      imageLabel: "نظرة عامة",
-      items: [
-        {
-          id: 1,
-          imageName: "Strategy",
-          imagePath: "/images/Image_1.png",
-          title: "التخطيط الاستراتيجي",
-          description:
-            "رؤية ثاقبة للمستقبل نضعها بين يديك، نعتمد على تحليل البيانات الدقيق لبناء خطط عمل تضمن النمو المستدام.",
-          icon: <Layers size={24} />,
-        },
-        {
-          id: 2,
-          imageName: "Development",
-          imagePath: "/images/Image_2.png",
-          title: "التطوير والابتكار",
-          description:
-            "نحول الأفكار المعقدة إلى واقع رقمي ملموس باستخدام أحدث التقنيات البرمجية التي تضمن الكفاءة والأمان.",
-          icon: <Code size={24} />,
-        },
-        {
-          id: 3,
-          imageName: "Growth",
-          imagePath: "/images/Image_3.jpeg",
-          title: "حلول النمو المتسارع",
-          description:
-            "استراتيجيات تسويقية وتقنية مصممة خصيصاً لمضاعفة العائد على الاستثمار وتوسيع قاعدة عملائك.",
-          icon: <TrendingUp size={24} />,
-        },
-      ],
-    },
-    EN: {
-      sectionTitle: "Exclusive Services",
-      mainTitle: {
-        part1: "Innovating Solutions",
-        part2: "Beyond Expectations",
-      },
-      imageLabel: "Overview",
-      items: [
-        {
-          id: 1,
-          imageName: "Strategy",
-          imagePath: "/images/Image_1.png",
-          title: "Strategic Planning",
-          description:
-            "Insightful future vision placed in your hands, relying on precise data analysis to build action plans ensuring sustainable growth.",
-          icon: <Layers size={24} />,
-        },
-        {
-          id: 2,
-          imageName: "Development",
-          imagePath: "/images/Image_2.png",
-          title: "Development & Innovation",
-          description:
-            "Transforming complex ideas into tangible digital reality using the latest software technologies ensuring efficiency and security.",
-          icon: <Code size={24} />,
-        },
-        {
-          id: 3,
-          imageName: "Growth",
-          imagePath: "/images/Image_3.jpeg",
-          title: "Accelerated Growth",
-          description:
-            "Marketing and technical strategies designed specifically to maximize ROI and expand your customer base.",
-          icon: <TrendingUp size={24} />,
-        },
-      ],
-    },
-  };
-
-  const t = content[language] || content.AR;
-  const items = t.items;
-
-  // التعامل مع التغيير التلقائي (يعمل فقط في الديسكتوب لتوفير البطارية وتحسين UX الجوال)
+  // التعامل مع التغيير التلقائي
   useEffect(() => {
-    if (isMobile) return; // إيقاف التلقائي في الجوال
+    if (isMobile) return;
 
     const intervalTime = 50;
     const step = 100 / (autoPlayInterval / intervalTime);
@@ -164,11 +79,9 @@ export default function UndrCategories({
   return (
     <section
       className="relative w-full min-h-auto lg:h-[750px] bg-slate-50 overflow-hidden flex flex-col"
-      dir={isRTL ? "rtl" : "ltr"}
+      dir={dir}
     >
-      {/* ========================================= */}
-      {/* خلفية SVG: تظهر فقط في الشاشات الكبيرة */}
-      {/* ========================================= */}
+      {/* خلفية SVG */}
       <div
         className={`hidden lg:block absolute inset-0 pointer-events-none z-0 ${!isRTL ? "scale-x-[-1]" : ""}`}
       >
@@ -213,10 +126,7 @@ export default function UndrCategories({
       </div>
 
       <div className="flex flex-col lg:flex-row h-full relative z-10 w-full">
-        {/* ========================================= */}
         {/* الجانب: عرض الصور */}
-        {/* تحسين الجوال: جعل الصورة في الأعلى (Order 1) */}
-        {/* ========================================= */}
         <div className="order-1 lg:order-2 w-full lg:w-[55%] relative h-[250px] md:h-[350px] lg:h-auto overflow-hidden">
           <div
             className={`absolute inset-0 overflow-hidden shadow-2xl bg-white z-20 h-full
@@ -225,7 +135,6 @@ export default function UndrCategories({
                 ? "lg:ml-8 lg:rounded-tr-[4rem] lg:rounded-bl-[4rem]"
                 : "lg:mr-8 lg:rounded-tl-[4rem] lg:rounded-br-[4rem]"
             }
-            /* في الجوال، نجعل الزوايا مستقيمة أو منحنية قليلاً من الأسفل فقط */
             rounded-b-[2rem] lg:rounded-b-none
             `}
           >
@@ -235,13 +144,14 @@ export default function UndrCategories({
                 <div
                   key={item.id}
                   className={`
-                          absolute inset-0 w-full h-full transition-all duration-700 ease-in-out
-                          ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-110"}
-                        `}
+                        absolute inset-0 w-full h-full transition-all duration-700 ease-in-out
+                        ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-110"}
+                      `}
                 >
                   <Image
                     src={item.imagePath}
-                    alt={item.title}
+                    // العنوان للصورة من الترجمة
+                    alt={t(`items.${item.id}.title`)}
                     fill
                     className="object-cover"
                     priority={index === 0}
@@ -251,30 +161,29 @@ export default function UndrCategories({
                   <div className="absolute inset-0 bg-[#002147]/20 mix-blend-multiply" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#002147] via-transparent to-transparent opacity-80 lg:opacity-90" />
 
-                  {/* المحتوى العائم فوق الصورة - مخفف للجوال */}
+                  {/* المحتوى العائم فوق الصورة */}
                   <div
                     className={`
-                           absolute bottom-0 w-full p-6 lg:p-10 transform transition-all duration-700 ${isRTL ? "left-0" : "right-0"}
-                           ${isActive ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
+                          absolute bottom-0 w-full p-6 lg:p-10 transform transition-all duration-700 ${isRTL ? "left-0" : "right-0"}
+                          ${isActive ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}
                         `}
-                    dir={isRTL ? "rtl" : "ltr"}
+                    dir={dir}
                   >
-                    {/* إخفاء الوصف الطويل فوق الصورة في الجوال لتجنب التكرار */}
                     <div className="hidden lg:block">
                       <div className="flex items-center gap-4 text-white mb-2">
                         <span className="w-12 h-[1px] bg-white/50"></span>
                         <span className="text-xs font-bold uppercase tracking-widest text-blue-300">
-                          {t.imageLabel}
+                          {t("imageLabel")}
                         </span>
                       </div>
                       <p className="text-xl font-medium text-white/90 max-w-lg leading-relaxed">
-                        {item.description}
+                        {t(`items.${item.id}.desc`)}
                       </p>
                     </div>
-                    {/* في الجوال نعرض العنوان فقط فوق الصورة كعنوان للقسم */}
+                    {/* في الجوال نعرض العنوان فقط */}
                     <div className="lg:hidden">
                       <h3 className="text-2xl font-bold text-white mb-1">
-                        {item.title}
+                        {t(`items.${item.id}.title`)}
                       </h3>
                       <div className="w-12 h-1 bg-blue-500 rounded-full mt-2"></div>
                     </div>
@@ -285,25 +194,22 @@ export default function UndrCategories({
           </div>
         </div>
 
-        {/* ========================================= */}
         {/* الجانب: القائمة والمحتوى */}
-        {/* تحسين الجوال: جعل القائمة في الأسفل (Order 2) */}
-        {/* ========================================= */}
         <div className="order-2 lg:order-1 w-full lg:w-[45%] p-6 md:p-10 lg:p-16 flex flex-col justify-center">
           <div className="flex items-center gap-3 mb-6 lg:mb-10">
             <span className="w-8 lg:w-10 h-1 bg-[#002147] rounded-full"></span>
             <span className="text-[#002147] font-bold tracking-wider text-xs lg:text-sm uppercase">
-              {t.sectionTitle}
+              {t("sectionTitle")}
             </span>
           </div>
 
-          <h2 className="text-3xl lg:text-5xl  font-black text-[#002147] mb-8 lg:mb-12 leading-tight">
-            {t.mainTitle.part1} <br />
+          <h2 className="text-3xl lg:text-5xl font-black text-[#002147] mb-8 lg:mb-12 leading-tight">
+            {t("mainTitle.part1")} <br />
             <span className="relative inline-block">
               <span
                 className={`relative z-10 text-transparent bg-clip-text bg-gradient-to-${isRTL ? "l" : "r"} from-[#002147] to-blue-600`}
               >
-                {t.mainTitle.part2}
+                {t("mainTitle.part2")}
               </span>
               <svg
                 className="absolute -bottom-1 lg:-bottom-2 w-full h-2 lg:h-3 text-blue-200 -z-0"
@@ -329,13 +235,13 @@ export default function UndrCategories({
                   key={item.id}
                   onClick={() => handleItemClick(index)}
                   className={`
-                      group cursor-pointer rounded-xl p-4 lg:p-5 transition-all duration-500 border
-                      ${
-                        isActive
-                          ? `bg-white border-blue-100 shadow-lg lg:shadow-xl shadow-blue-900/5 ${isRTL ? "lg:translate-x-2" : "lg:-translate-x-2"}`
-                          : "bg-white/60 lg:bg-white/40 border-transparent hover:bg-white hover:border-gray-100"
-                      }
-                    `}
+                    group cursor-pointer rounded-xl p-4 lg:p-5 transition-all duration-500 border
+                    ${
+                      isActive
+                        ? `bg-white border-blue-100 shadow-lg lg:shadow-xl shadow-blue-900/5 ${isRTL ? "lg:translate-x-2" : "lg:-translate-x-2"}`
+                        : "bg-white/60 lg:bg-white/40 border-transparent hover:bg-white hover:border-gray-100"
+                    }
+                  `}
                 >
                   <div className="flex items-start gap-4 lg:gap-5">
                     {/* الأيقونة */}
@@ -357,25 +263,25 @@ export default function UndrCategories({
                         <h3
                           className={`text-base lg:text-lg font-bold transition-colors ${isActive ? "text-[#002147]" : "text-gray-600"}`}
                         >
-                          {item.title}
+                          {t(`items.${item.id}.title`)}
                         </h3>
                       </div>
 
                       {/* الوصف القابل للتمدد */}
                       <div
                         className={`
-                            grid transition-all duration-500 ease-in-out
-                            ${isActive ? "grid-rows-[1fr] opacity-100 mt-2 lg:mt-3" : "grid-rows-[0fr] opacity-0 mt-0"}
+                          grid transition-all duration-500 ease-in-out
+                          ${isActive ? "grid-rows-[1fr] opacity-100 mt-2 lg:mt-3" : "grid-rows-[0fr] opacity-0 mt-0"}
                         `}
                       >
                         <div className="overflow-hidden">
                           <p
                             className={`text-gray-500 text-sm leading-relaxed border-[#002147]/10 ${isRTL ? "border-r-2 pr-4" : "border-l-2 pl-4"}`}
                           >
-                            {item.description}
+                            {t(`items.${item.id}.desc`)}
                           </p>
 
-                          {/* شريط التقدم - يظهر فقط في الديسكتوب */}
+                          {/* شريط التقدم */}
                           {!isMobile && (
                             <div className="mt-4 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
                               <div

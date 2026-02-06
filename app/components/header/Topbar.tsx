@@ -1,6 +1,7 @@
 "use client";
+
 import { useState, useEffect } from "react";
-import { useLanguage } from "../../context/LanguageContext"; // استيراد الهوك
+import { useTranslations, useLocale } from "next-intl"; // استيراد أدوات المكتبة
 import {
   ZoomIn,
   ZoomOut,
@@ -12,7 +13,13 @@ import {
 } from "lucide-react";
 
 export default function TopBar() {
-  const { language, dir } = useLanguage(); // جلب حالة اللغة والاتجاه
+  // 1. تفعيل الترجمة ومعرفة اللغة الحالية
+  const t = useTranslations("TopBar");
+  const locale = useLocale();
+
+  // تحديد الاتجاه بناءً على اللغة
+  const dir = locale === "ar" ? "rtl" : "ltr";
+
   const [fontSize, setFontSize] = useState(100);
   const [isGrayscale, setIsGrayscale] = useState(false);
 
@@ -21,7 +28,7 @@ export default function TopBar() {
     document.documentElement.style.fontSize = `${fontSize}%`;
   }, [fontSize]);
 
-  // منطق عمى الألوان
+  // منطق عمى الألوان (Grayscale)
   useEffect(() => {
     document.documentElement.style.filter = isGrayscale
       ? "grayscale(100%)"
@@ -40,63 +47,46 @@ export default function TopBar() {
   const decreaseFont = () => setFontSize((prev) => Math.max(prev - 10, 80));
   const resetFont = () => setFontSize(100);
 
-  // نصوص الترجمة
-  const content = {
-    disclosure:
-      language === "AR"
-        ? "قواعد الإفصاح عن أسعار المنتجات التمويلية"
-        : "Disclosure rules for pricing of financing products",
-    mediaCenter: language === "AR" ? "المركز الإعلامي" : "Media Center",
-    support: language === "AR" ? "المساعدة والدعم" : "Help & Support",
-    tooltips: {
-      zoomIn: language === "AR" ? "تكبير الخط" : "Increase Font",
-      zoomOut: language === "AR" ? "تصغير الخط" : "Decrease Font",
-      reset: language === "AR" ? "إعادة ضبط" : "Reset",
-      grayscale: language === "AR" ? "إزالة الألوان" : "Grayscale Mode",
-      fullScreen: language === "AR" ? "ملء الشاشة" : "Full Screen",
-    },
-  };
-
   return (
     <div
       className="bg-[#002147] text-white py-2 border-b border-[#A8A9AD]/20 shadow-sm"
       dir={dir}
     >
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-        {/* القسم الأيمن/الأيسر (حسب اللغة): قواعد الإفصاح */}
+        {/* القسم الأول: قواعد الإفصاح */}
         <div className="flex items-center">
           <a
             href="#"
             className={`flex items-center gap-2 text-[#A8A9AD] hover:text-white transition-colors font-medium ${
-              language === "EN" ? "text-[10px]" : "text-xs"
+              locale === "en" ? "text-[10px]" : "text-xs"
             }`}
           >
             <FileText size={14} className="text-[#A8A9AD]" />
-            <span>{content.disclosure}</span>
+            <span>{t("disclosure")}</span>
           </a>
         </div>
 
-        {/* القسم الآخر: الروابط وأدوات الوصول */}
+        {/* القسم الثاني: الروابط وأدوات الوصول */}
         <div className="flex items-center gap-6">
-          {/* المركز الإعلامي والمساعدة - استخدام border-s (Start) للتكيف مع اللغة */}
+          {/* المركز الإعلامي والمساعدة */}
           <div className="hidden md:flex items-center gap-6 border-s border-white/10 ps-6">
             <a
               href="#"
               className={`flex items-center gap-1 text-[#A8A9AD] hover:text-white transition-colors ${
-                language === "EN" ? "text-[11px]" : "text-xs"
+                locale === "en" ? "text-[11px]" : "text-xs"
               }`}
             >
               <Newspaper size={14} />
-              <span>{content.mediaCenter}</span>
+              <span>{t("mediaCenter")}</span>
             </a>
             <a
               href="#"
               className={`flex items-center gap-1 text-[#A8A9AD] hover:text-white transition-colors ${
-                language === "EN" ? "text-[11px]" : "text-xs"
+                locale === "en" ? "text-[11px]" : "text-xs"
               }`}
             >
               <HelpCircle size={14} />
-              <span>{content.support}</span>
+              <span>{t("support")}</span>
             </a>
           </div>
 
@@ -107,7 +97,7 @@ export default function TopBar() {
               <button
                 onClick={increaseFont}
                 className="text-[#A8A9AD] hover:text-white transition-colors"
-                title={content.tooltips.zoomIn}
+                title={t("tooltips.zoomIn")}
               >
                 <ZoomIn size={16} />
               </button>
@@ -115,7 +105,7 @@ export default function TopBar() {
               <button
                 onClick={resetFont}
                 className="text-[10px] text-white font-bold min-w-[30px] text-center"
-                title={content.tooltips.reset}
+                title={t("tooltips.reset")}
               >
                 {fontSize}%
               </button>
@@ -123,7 +113,7 @@ export default function TopBar() {
               <button
                 onClick={decreaseFont}
                 className="text-[#A8A9AD] hover:text-white transition-colors"
-                title={content.tooltips.zoomOut}
+                title={t("tooltips.zoomOut")}
               >
                 <ZoomOut size={16} />
               </button>
@@ -137,7 +127,7 @@ export default function TopBar() {
                   ? "bg-[#A8A9AD] text-[#002147]"
                   : "text-[#A8A9AD] hover:bg-white/10"
               }`}
-              title={content.tooltips.grayscale}
+              title={t("tooltips.grayscale")}
             >
               <EyeOff size={16} />
             </button>
@@ -146,7 +136,7 @@ export default function TopBar() {
             <button
               onClick={toggleFullScreen}
               className="p-1.5 text-[#A8A9AD] hover:text-white hover:bg-white/10 rounded-md transition-all"
-              title={content.tooltips.fullScreen}
+              title={t("tooltips.fullScreen")}
             >
               <Maximize size={16} />
             </button>

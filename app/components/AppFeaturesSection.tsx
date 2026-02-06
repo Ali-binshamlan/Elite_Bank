@@ -2,95 +2,45 @@
 
 import Image from "next/image";
 import { CreditCard, TrendingUp, Zap, Star } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function AppFeaturesSection() {
-  const { language } = useLanguage();
-  const isRTL = language === "AR";
-
-  const content = {
-    AR: {
-      badge: "تحديث جديد كلياً",
-      titlePart1: "+ 200 خدمة في تطبيق",
-      titlePart2: "بنك النخبة",
-      description:
-        "خدمات رقمية سهلة وآمنة، تواكب احتياجات يومك. أنجز معاملاتك المالية، سدد فواتيرك، وحقق أهدافك بلمسة واحدة.", // تم اختصار الوصف قليلاً للجوال
-      buttons: {
-        google: "Google Play",
-        googleSub: "GET IT ON",
-        apple: "App Store",
-        appleSub: "Download on the",
-      },
-      cards: {
-        savings: { label: "هدف توفير", title: "شراء سيارة" },
-        bills: {
-          status: "تم السداد",
-          label: "فواتير",
-          provider: "الكهرباء",
-          currency: "ر.س",
-        },
-        credit: { label: "الرصيد المتاح", currency: "ر.س" },
-      },
-    },
-    EN: {
-      badge: "All New Update",
-      titlePart1: "+ 200 Services in",
-      titlePart2: "Elite Bank App",
-      description:
-        "Secure digital services for your daily needs. Manage finances, pay bills, and achieve goals with a single touch.",
-      buttons: {
-        google: "Google Play",
-        googleSub: "GET IT ON",
-        apple: "App Store",
-        appleSub: "Download on the",
-      },
-      cards: {
-        savings: { label: "Savings Goal", title: "Buy a Car" },
-        bills: {
-          status: "Paid",
-          label: "Bills",
-          provider: "Electricity",
-          currency: "SAR",
-        },
-        credit: { label: "Available Balance", currency: "SAR" },
-      },
-    },
-  };
-
-  const t = content[language] || content.AR;
+  const t = useTranslations("AppFeatures");
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+  const dir = isRTL ? "rtl" : "ltr";
 
   return (
     <section
       className="relative w-full py-12 lg:py-20 bg-[#f8fafc] overflow-hidden flex flex-col items-center justify-center min-h-auto lg:min-h-[900px]"
-      dir={isRTL ? "rtl" : "ltr"}
+      dir={dir}
     >
-      {/* خلفية جمالية - مخففة للجوال */}
+      {/* الخلفية */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[10%] left-[50%] -translate-x-1/2 w-[300px] lg:w-[600px] h-[300px] lg:h-[600px] bg-blue-100/40 rounded-full blur-3xl opacity-50"></div>
         <div className="absolute bottom-[-10%] left-[50%] -translate-x-1/2 w-[350px] lg:w-[700px] h-[350px] lg:h-[700px] bg-[#002147]/5 rounded-full blur-3xl opacity-50"></div>
       </div>
+
       <div className="container mx-auto px-4 relative z-10 flex flex-col items-center">
-        {/* ========================================= */}
-        {/* 1. النصوص (Text Content) */}
-        {/* ========================================= */}
+        {/* النصوص */}
         <div className="text-center max-w-3xl mb-8 lg:mb-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
           <div className="inline-flex items-center gap-2 px-3 py-1 lg:px-4 lg:py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 font-bold text-[10px] lg:text-xs mb-4 lg:mb-6 shadow-sm">
             <Star size={12} className="fill-blue-700" />
-            {t.badge}
+            {t("badge")}
           </div>
 
           <h2 className="text-3xl lg:text-5xl font-black text-[#002147] mb-4 lg:mb-6 leading-tight">
-            {t.titlePart1} <br className="hidden lg:block" />
+            {t("title.part1")} <br className="hidden lg:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-l from-[#002147] to-blue-600 block lg:inline mt-1 lg:mt-0">
-              {t.titlePart2}
+              {t("title.part2")}
             </span>
           </h2>
 
           <p className="text-base lg:text-lg text-gray-500 leading-relaxed max-w-xl mx-auto mb-6 lg:mb-8 px-2">
-            {t.description}
+            {t("desc")}
           </p>
 
-          {/* أزرار التحميل - Optimized Layout */}
+          {/* أزرار التحميل */}
           <div
             className="flex flex-col sm:flex-row justify-center gap-3 lg:gap-4 w-full px-4 lg:px-0"
             dir="ltr"
@@ -118,10 +68,10 @@ export default function AppFeaturesSection() {
                 </svg>
                 <div className="flex flex-col items-start leading-none">
                   <div className="text-[9px] lg:text-[10px] font-medium text-gray-300">
-                    {t.buttons.googleSub}
+                    {t("buttons.google.sub")}
                   </div>
                   <div className="text-base lg:text-lg font-bold font-sans mt-0.5">
-                    {t.buttons.google}
+                    {t("buttons.google.main")}
                   </div>
                 </div>
               </div>
@@ -135,10 +85,10 @@ export default function AppFeaturesSection() {
                 </svg>
                 <div className="flex flex-col items-start leading-none">
                   <div className="text-[9px] lg:text-[10px] font-medium text-gray-300">
-                    {t.buttons.appleSub}
+                    {t("buttons.apple.sub")}
                   </div>
                   <div className="text-base lg:text-lg font-bold font-sans mt-0.5">
-                    {t.buttons.apple}
+                    {t("buttons.apple.main")}
                   </div>
                 </div>
               </div>
@@ -146,37 +96,26 @@ export default function AppFeaturesSection() {
           </div>
         </div>
 
-        {/* ========================================= */}
-        {/* 2. الهاتف (Visuals) */}
-        {/* ========================================= */}
+        {/* الهاتف والبطاقات العائمة */}
         <div className="relative w-[260px] lg:w-[360px] flex justify-center mb-0 mt-8 lg:mt-0">
-          {/* خلفية دوارة - تظهر فقط في الديسكتوب (lg:block) لتحسين أداء الجوال */}
           <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-blue-100/50 rounded-full animate-[spin_60s_linear_infinite]"></div>
           <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] border border-dashed border-blue-200/50 rounded-full"></div>
 
-          {/* صورة الهاتف */}
           <div className="relative z-10 w-full drop-shadow-2xl">
             <Image
               src="/images/phonee.png"
-              alt="Elite Bank App Interface"
+              alt="Elite Bank App"
               width={360}
               height={700}
-              // تحسين الأداء: تحميل أحجام مختلفة
               sizes="(max-width: 768px) 100vw, 360px"
               className="w-full h-auto drop-shadow-2xl"
               priority
             />
           </div>
 
-          {/* --- البطاقات العائمة --- */}
-
           {/* أ. بطاقة أهداف التوفير */}
           <div
-            // التغييرات: scale-75 للجوال، وتعديل القيم المكانية (top/right) لتناسب الشاشات الصغيرة
-            className={`absolute z-20 animate-float-slow 
-            scale-75 lg:scale-100 origin-center transition-transform duration-500
-            top-4 lg:top-20 
-            ${isRTL ? "-right-20 lg:-right-32" : "-left-20 lg:-left-32"}`}
+            className={`absolute z-20 animate-float-slow scale-75 lg:scale-100 origin-center transition-transform duration-500 top-4 lg:top-20 ${isRTL ? "-right-20 lg:-right-32" : "-left-20 lg:-left-32"}`}
           >
             <div className="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 w-56">
               <div className="flex items-center gap-3 mb-3">
@@ -185,10 +124,10 @@ export default function AppFeaturesSection() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 font-bold">
-                    {t.cards.savings.label}
+                    {t("cards.savings.label")}
                   </p>
                   <p className="text-sm font-bold text-[#002147]">
-                    {t.cards.savings.title}
+                    {t("cards.savings.title")}
                   </p>
                 </div>
               </div>
@@ -200,11 +139,7 @@ export default function AppFeaturesSection() {
 
           {/* ب. بطاقة سداد الفواتير */}
           <div
-            // التغييرات: scale-75 وتغيير الموقع ليكون مناسباً للجوال
-            className={`absolute z-20 animate-float-medium 
-            scale-75 lg:scale-100 origin-center transition-transform duration-500
-            bottom-10 lg:bottom-32 
-            ${isRTL ? "-left-20 lg:-left-28" : "-right-20 lg:-right-28"}`}
+            className={`absolute z-20 animate-float-medium scale-75 lg:scale-100 origin-center transition-transform duration-500 bottom-10 lg:bottom-32 ${isRTL ? "-left-20 lg:-left-28" : "-right-20 lg:-right-28"}`}
           >
             <div className="bg-[#002147] text-white p-4 rounded-2xl shadow-xl border border-blue-800/50 w-52 relative overflow-hidden">
               <div className="flex justify-between items-start mb-4">
@@ -212,29 +147,25 @@ export default function AppFeaturesSection() {
                   <Zap size={18} className="text-yellow-400 fill-yellow-400" />
                 </div>
                 <span className="bg-green-500/20 text-green-300 text-[10px] px-2 py-1 rounded-md border border-green-500/30">
-                  {t.cards.bills.status}
+                  {t("cards.bills.status")}
                 </span>
               </div>
               <p className="text-xs text-blue-200 mb-1">
-                {t.cards.bills.label}
+                {t("cards.bills.label")}
               </p>
               <h4 className="font-bold text-lg mb-3">
-                {t.cards.bills.provider}
+                {t("cards.bills.provider")}
               </h4>
               <div className="flex items-center justify-between text-[10px] text-blue-200 border-t border-white/10 pt-2">
                 <span className="font-bold text-white text-base">380.50</span>
-                <span className="text-xs">{t.cards.bills.currency}</span>
+                <span className="text-xs">{t("cards.bills.currency")}</span>
               </div>
             </div>
           </div>
 
           {/* ج. بطاقة الفيزا */}
           <div
-            // التغييرات: scale-75 وتعديل الموقع ليظهر في المنتصف أو الجانب قليلاً
-            className={`absolute z-30 animate-float-fast 
-            scale-75 lg:scale-100 origin-center transition-transform duration-500
-            bottom-24 lg:bottom-48 
-            ${isRTL ? "-right-20 lg:-right-24" : "-left-20 lg:-left-24"}`}
+            className={`absolute z-30 animate-float-fast scale-75 lg:scale-100 origin-center transition-transform duration-500 bottom-24 lg:bottom-48 ${isRTL ? "-right-20 lg:-right-24" : "-left-20 lg:-left-24"}`}
           >
             <div className="bg-white/80 backdrop-blur-xl p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/60 w-52">
               <div className="flex items-center justify-between mb-4">
@@ -242,12 +173,12 @@ export default function AppFeaturesSection() {
                 <CreditCard size={18} className="text-gray-400" />
               </div>
               <p className="text-gray-400 text-xs mb-1">
-                {t.cards.credit.label}
+                {t("cards.credit.label")}
               </p>
               <p className="text-xl font-black text-[#002147] mb-3">
                 24,500{" "}
                 <span className="text-xs font-normal">
-                  {t.cards.credit.currency}
+                  {t("cards.credit.currency")}
                 </span>
               </p>
               <div className="flex items-center gap-2">
@@ -262,52 +193,98 @@ export default function AppFeaturesSection() {
             </div>
           </div>
         </div>
-      </div>{" "}
-      {/* إغلاق الحاوية الرئيسية للبطاقات */}
-      <style jsx>{`
+      </div>
+ <style jsx>{`
+
         /* قمت بإزالة @media query لكي تعمل الأنيميشن في الجوال أيضاً */
 
+
+
         @keyframes float-slow {
+
           0%,
+
           100% {
+
             transform: translateY(0px) scale(var(--tw-scale-x));
+
           }
+
           50% {
+
             transform: translateY(-15px) scale(var(--tw-scale-x));
+
           }
-        }
-        @keyframes float-medium {
-          0%,
-          100% {
-            transform: translateY(0px) scale(var(--tw-scale-x));
-          }
-          50% {
-            transform: translateY(-10px) scale(var(--tw-scale-x));
-          }
-        }
-        @keyframes float-fast {
-          0%,
-          100% {
-            transform: translateY(0px) scale(var(--tw-scale-x));
-          }
-          50% {
-            transform: translateY(-8px) scale(var(--tw-scale-x));
-          }
+
         }
 
-        /* ملاحظة: أضفت scale(var(--tw-scale-x)) داخل الكي فريم 
+        @keyframes float-medium {
+
+          0%,
+
+          100% {
+
+            transform: translateY(0px) scale(var(--tw-scale-x));
+
+          }
+
+          50% {
+
+            transform: translateY(-10px) scale(var(--tw-scale-x));
+
+          }
+
+        }
+
+        @keyframes float-fast {
+
+          0%,
+
+          100% {
+
+            transform: translateY(0px) scale(var(--tw-scale-x));
+
+          }
+
+          50% {
+
+            transform: translateY(-8px) scale(var(--tw-scale-x));
+
+          }
+
+        }
+
+
+
+        /* ملاحظة: أضفت scale(var(--tw-scale-x)) داخل الكي فريم
+
              للحفاظ على التصغير (scale-75) أثناء الحركة */
 
+
+
         .animate-float-slow {
+
           animation: float-slow 6s ease-in-out infinite;
+
         }
+
         .animate-float-medium {
+
           animation: float-medium 5s ease-in-out infinite;
+
         }
+
         .animate-float-fast {
+
           animation: float-fast 4s ease-in-out infinite;
+
         }
+
       `}</style>
+
     </section>
+
   );
+
+  
 }
