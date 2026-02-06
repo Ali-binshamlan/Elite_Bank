@@ -33,7 +33,6 @@ export default async function Home({ params }: Props) {
         <EliteBankStats />
       </main>
 
-      <Footer />
     </div>
   );
 }
