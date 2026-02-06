@@ -5,7 +5,6 @@ import UndrCategories from "../components/UndrCategories";
 import TasheelPrograms from "../components/TasheelPrograms";
 import EliteBankStats from "../components/EliteBankStats";
 import AppFeaturesSection from "../components/AppFeaturesSection";
-import Footer from "../components/Footer";
 
 // تعريف نوع الخصائص للتوافق مع Next.js 15/16
 type Props = {
