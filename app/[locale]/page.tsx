@@ -1,5 +1,4 @@
 import { setRequestLocale } from "next-intl/server";
-import Header from "../components/header/Header";
 import Hero from "../components/Hero";
 import BankingCategories from "../components/BankingCategories";
 import UndrCategories from "../components/UndrCategories";
