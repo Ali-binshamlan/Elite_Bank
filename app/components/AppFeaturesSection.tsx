@@ -196,7 +196,6 @@ export default function AppFeaturesSection() {
       </div>
  <style jsx>{`
 
-        /* قمت بإزالة @media query لكي تعمل الأنيميشن في الجوال أيضاً */
 
 
 

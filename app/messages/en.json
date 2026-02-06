@@ -100,7 +100,6 @@
         "category": "Corporate Solutions"
       }
     }
-    
   },
   "BankingCategories": {
     "title": "Banking Services for Your Ambition",
@@ -185,11 +184,11 @@
     },
     "cards": {
       "savings": { "label": "Savings Goal", "title": "Buy a Car" },
-      "bills": { 
-        "label": "Bills", 
-        "status": "Paid", 
-        "provider": "Electricity", 
-        "currency": "SAR" 
+      "bills": {
+        "label": "Bills",
+        "status": "Paid",
+        "provider": "Electricity",
+        "currency": "SAR"
       },
       "credit": { "label": "Available Balance", "currency": "SAR" }
     }
@@ -206,9 +205,9 @@
       "accounts": { "label": "Customer Accounts", "value": "+19", "suffix": "Million" },
       "atms": { "label": "ATMs", "value": "4,322", "suffix": "Unit" },
       "branches": { "label": "Branches", "value": "537", "suffix": "Branch" },
-      "profits": { 
-        "label": "Net Profits", 
-        "value": "24.79", 
+      "profits": {
+        "label": "Net Profits",
+        "value": "24.79",
         "suffix": "Billion",
         "subLabel": "Q4 2025 Results"
       }
@@ -402,6 +401,105 @@
       "q10": {
         "question": "Is it necessary to visit the branch before the lease ends?",
         "answer": "Yes, it is preferable to visit the branch to renew the contract and pay annual fees to ensure service continuity, or to return keys and close the contract."
+      }
+    }
+  },
+  "AccountDetails": {
+    "current": {
+      "title": "Current Account",
+      "tagline": "Manage your daily finances with flexibility",
+      "desc": "The Elite Bank Current Account is your gateway to integrated banking services, giving you freedom to manage your money anytime, anywhere.",
+      "features": [
+        "Free checkbook upon opening.",
+        "Globally accepted ATM card.",
+        "Access via App and Online Banking.",
+        "Free monthly statement."
+      ],
+      "cardType": "platinum"
+    },
+    "savings": {
+      "title": "Savings Account",
+      "tagline": "Let your money grow with you",
+      "desc": "Designed to give you competitive returns on your savings while maintaining flexibility to withdraw and deposit when needed.",
+      "features": [
+        "Annual returns up to 3.5%.",
+        "Quarterly profit distribution.",
+        "No minimum balance required.",
+        "Withdraw twice a month without losing profits."
+      ],
+      "cardType": "gold"
+    },
+    "elite": {
+      "title": "Elite Account",
+      "tagline": "A world of exclusive privileges",
+      "desc": "Banking designed specifically for VIP clients, offering priority service, dedicated relationship manager, and tailored investment solutions.",
+      "features": [
+        "Dedicated relationship manager 24/7.",
+        "Free access to global airport lounges.",
+        "Full waiver of banking transaction fees.",
+        "Preferential rates on foreign currencies."
+      ],
+      "cardType": "infinite"
+    },
+    "minors": {
+      "title": "Minors Account",
+      "tagline": "Secure their future today",
+      "desc": "Dedicated to children and youth to promote savings culture and build a secure financial future under guardian supervision.",
+      "features": [
+        "Special card designs for kids.",
+        "Educational savings app.",
+        "Full parental control on spending.",
+        "No administrative fees."
+      ],
+      "cardType": "youth"
+    },
+    "RequirementsList": {
+      "0": {
+        "title": "National ID",
+        "desc": "Valid National ID or Iqama residence."
+      },
+      "1": {
+        "title": "National Address",
+        "desc": "Must be registered in the 'National Address' service."
+      },
+      "2": {
+        "title": "Age Requirement",
+        "desc": "18 years and above (for independent accounts)."
+      },
+      "3": {
+        "title": "Mobile Number",
+        "desc": "Active mobile number registered in Absher."
+      }
+    }
+  },
+  "Common": {
+    "featuresTitle": "Features & Benefits",
+    "applyNow": "Open Account Now",
+    "requirements": "Requirements"
+  },
+  "AppSection": {
+    "title": "Download Elite Bank App",
+    "subtitle": "Manage accounts, pay bills, and reach financial goals all in one place.",
+    "cards": {
+      "apply": {
+        "title": "Apply Now",
+        "desc": "You can apply through our website easily.",
+        "action": "Login"
+      },
+      "contact": {
+        "title": "Contact Us",
+        "desc": "Our team is at your service for requests or help.",
+        "action": "800 124 1222"
+      },
+      "visit": {
+        "title": "Visit Us",
+        "desc": "We serve you at your nearest branch.",
+        "action": "Find Nearest Branch"
+      },
+      "floating": {
+        "savings": "Savings Goal",
+        "bills": "Pay Bills",
+        "billss": "Electricity"
       }
     }
   }
