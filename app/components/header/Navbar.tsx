@@ -5,36 +5,19 @@ import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+// استيراد الأيقونات الخاصة بواجهة المستخدم فقط (وليس البيانات)
 import {
   User,
   Menu,
   X,
   ChevronDown,
   Globe,
-  CreditCard,
-  Landmark,
-  ShieldCheck,
-  Percent,
-  Wallet,
   ArrowRight,
   ArrowLeft,
-  Banknote,
-  PiggyBank,
-  TrendingUp,
-  Baby,
-  Smartphone,
-  Gift,
-  Home,
-  Car,
-  RefreshCw,
-  HeartPulse,
-  Plane,
-  Umbrella,
-  Utensils,
-  ShoppingBag,
-  Zap,
 } from "lucide-react";
 import TopBar from "./Topbar";
+// استيراد دالة البيانات من الملف الجديد
+import { getMenuData } from "@/app/data/menuData";
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
@@ -52,6 +35,10 @@ export default function Navbar() {
   );
   const [scrolled, setScrolled] = useState(false);
 
+  // --- جلب البيانات هنا ---
+  // نقوم بتمرير دالة الترجمة t ليتم ترجمة النصوص داخل ملف البيانات
+  const menuData = getMenuData(t);
+
   const toggleLanguage = () => {
     const nextLocale = locale === "ar" ? "en" : "ar";
     router.replace({ pathname }, { locale: nextLocale });
@@ -62,155 +49,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // --- 1. تحديث البيانات: إضافة href للعناصر الرئيسية ---
-  const menuData = [
-    {
-      id: "accounts",
-      name: t("menu.accounts.title"),
-      description: t("menu.accounts.desc"),
-      icon: <Landmark size={22} />,
-      href: "/Personal/Accounts", // <-- رابط الصفحة الرئيسية للحسابات
-      subItems: [
-        {
-          name: t("menu.accounts.items.current"),
-          icon: <Banknote size={20} />,
-          href: "/Personal/Accounts/Current",
-        },
-        {
-          name: t("menu.accounts.items.savings"),
-          icon: <PiggyBank size={20} />,
-          href: "/Personal/Accounts/Savings",
-        },
-        {
-          name: t("menu.accounts.items.elite"),
-          icon: <TrendingUp size={20} />,
-          href: "/Personal/Accounts/Elite",
-        },
-        {
-          name: t("menu.accounts.items.minors"),
-          icon: <Baby size={20} />,
-          href: "/Personal/Accounts/Minors",
-        },
-      ],
-    },
-    {
-      id: "cards",
-      name: t("menu.cards.title"),
-      description: t("menu.cards.desc"),
-      icon: <CreditCard size={22} />,
-      href: "/Personal/Cards", // <-- رابط الصفحة الرئيسية للبطاقات
-      subItems: [
-        {
-          name: t("menu.cards.items.credit"),
-          icon: <CreditCard size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.cards.items.mada"),
-          icon: <Smartphone size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.cards.items.prepaid"),
-          icon: <Wallet size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.cards.items.rewards"),
-          icon: <Gift size={20} />,
-          href: "#",
-        },
-      ],
-    },
-    {
-      id: "finance",
-      name: t("menu.finance.title"),
-      description: t("menu.finance.desc"),
-      icon: <Wallet size={22} />,
-      href: "/Personal/Finance", // <-- رابط الصفحة الرئيسية للتمويل
-      subItems: [
-        {
-          name: t("menu.finance.items.personal"),
-          icon: <Banknote size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.finance.items.realestate"),
-          icon: <Home size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.finance.items.auto"),
-          icon: <Car size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.finance.items.refinance"),
-          icon: <RefreshCw size={20} />,
-          href: "#",
-        },
-      ],
-    },
-    {
-      id: "insurance",
-      name: t("menu.insurance.title"),
-      description: t("menu.insurance.desc"),
-      icon: <ShieldCheck size={22} />,
-      href: "/Personal/Insurance", // <-- رابط التأمين
-      subItems: [
-        {
-          name: t("menu.insurance.items.car"),
-          icon: <Car size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.insurance.items.health"),
-          icon: <HeartPulse size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.insurance.items.travel"),
-          icon: <Plane size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.insurance.items.protection"),
-          icon: <Umbrella size={20} />,
-          href: "#",
-        },
-      ],
-    },
-    {
-      id: "offers",
-      name: t("menu.offers.title"),
-      description: t("menu.offers.desc"),
-      icon: <Percent size={22} />,
-      href: "/Personal/Offers", // <-- رابط العروض
-      subItems: [
-        {
-          name: t("menu.offers.items.dining"),
-          icon: <Utensils size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.offers.items.shopping"),
-          icon: <ShoppingBag size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.offers.items.installments"),
-          icon: <Percent size={20} />,
-          href: "#",
-        },
-        {
-          name: t("menu.offers.items.exclusive"),
-          icon: <Zap size={20} />,
-          href: "#",
-        },
-      ],
-    },
-  ];
 
   const activeMenuData = menuData.find((item) => item.id === activeDropdown);
 
@@ -294,10 +132,9 @@ export default function Navbar() {
               {/* الروابط (Desktop) */}
               <div className="hidden lg:flex items-center gap-1">
                 {menuData.map((item) => (
-                  // 2. تحويل العنصر الرئيسي في سطح المكتب إلى Link بدلاً من button
                   <Link
                     key={item.id}
-                    href={item.href || "#"} // استخدام الرابط الرئيسي
+                    href={item.href || "#"}
                     onMouseEnter={() => setActiveDropdown(item.id)}
                     className={`
                       relative group h-14 flex items-center gap-1.5 px-4 rounded-full text-[#002147] font-bold transition-all duration-300
@@ -384,7 +221,6 @@ export default function Navbar() {
                     className="flex gap-8"
                   >
                     <div className="flex-1">
-                      {/* جعلنا العنوان هنا أيضاً رابطاً (اختياري) */}
                       <Link
                         href={activeMenuData.href || "#"}
                         className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100 group"
@@ -500,7 +336,6 @@ export default function Navbar() {
                       key={item.id}
                       className="border-b border-gray-50 last:border-0"
                     >
-                      {/* 3. فصل العنوان عن زر التوسيع في الجوال */}
                       <div
                         className={`w-full flex items-center justify-between py-2 px-2 rounded-lg transition-colors ${
                           mobileExpandedItem === item.id
@@ -508,10 +343,9 @@ export default function Navbar() {
                             : "text-gray-600"
                         }`}
                       >
-                        {/* الجزء الأيمن: رابط ينقلك للصفحة */}
                         <Link
                           href={item.href || "#"}
-                          onClick={() => setIsMobileMenuOpen(false)} // إغلاق القائمة عند النقر
+                          onClick={() => setIsMobileMenuOpen(false)}
                           className="flex items-center gap-4 flex-1 py-2"
                         >
                           <span
@@ -526,10 +360,9 @@ export default function Navbar() {
                           <span className="font-bold text-lg">{item.name}</span>
                         </Link>
 
-                        {/* الجزء الأيسر: زر لتوسيع القائمة الفرعية */}
                         <button
                           onClick={(e) => {
-                            e.stopPropagation(); // منع النقر من التأثير على الرابط
+                            e.stopPropagation();
                             setMobileExpandedItem(
                               mobileExpandedItem === item.id ? null : item.id,
                             );

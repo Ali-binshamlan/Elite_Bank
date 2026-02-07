@@ -122,13 +122,9 @@ export default function AccountDetailsView({
           </svg>
         </div>
 
-       
-
-
         <div className="container mx-auto px-4 md:px-8 relative z-10 h-full">
           <div className="flex flex-col lg:flex-row items-center h-full gap-12">
             <div className="w-full lg:w-1/2 pt-20 lg:pt-0 space-y-8">
-              
               <h1 className="text-5xl md:text-7xl font-black text-[#002147] leading-[1.1]">
                 {t(`${type}.title`)}
               </h1>
@@ -185,9 +181,7 @@ export default function AccountDetailsView({
                 <h2 className="text-4xl md:text-6xl font-black text-[#002147] leading-tight mb-6">
                   {tCommon("featuresTitle")}
                 </h2>
-                <div
-                  className={`w-24 h-2 rounded-full ${currentConfig.color}`}
-                ></div>
+                <div className={`w-24 h-2 rounded-full bg-[#002147]`}></div>
                 <div className="mt-10 opacity-10">
                   <svg
                     width="200"
@@ -212,12 +206,12 @@ export default function AccountDetailsView({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
                 {benefitsData.map((item, index) => (
                   <div key={item.id} className="stack-container group">
-                    <div className={`card ${currentConfig.border}`}>
+                    <div className={`card bg-[#002147]`}>
                       <div
                         className={`image-area flex flex-col items-start justify-between p-6 h-full bg-white/90 backdrop-blur-sm ${currentConfig.border}`}
                       >
                         <div
-                          className={`w-14 h-14 ${currentConfig.color}/10 rounded-full flex items-center justify-center ${currentConfig.text} mb-4 group-hover:${currentConfig.color} group-hover:text-white transition-colors duration-300`}
+                          className={`w-14 h-14 ${currentConfig.color}/10 rounded-full flex items-center justify-center  mb-4 group-hover:bg-[#002147] group-hover:text-white transition-colors duration-300`}
                         >
                           <item.icon size={28} />
                         </div>
@@ -228,7 +222,7 @@ export default function AccountDetailsView({
                               : `Feature ${index + 1}`}
                           </p>
                           <h3
-                            className={`text-xl font-bold text-[#002147] leading-snug group-hover:underline decoration-2 underline-offset-4`}
+                            className={`text-xl font-bold text-[#002147] leading-snug decoration-2 underline-offset-4`}
                           >
                             {item.title}
                           </h3>
@@ -249,7 +243,7 @@ export default function AccountDetailsView({
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
           <div
-            className={`absolute top-20 ${isRTL ? "left-0" : "right-0"} w-96 h-96 bg-gray-50 rounded-full blur-3xl opacity-50`}
+            className={`absolute top-20 ${isRTL ? "left-0" : "right-0"} w-96 h-96 bg-gray-100 rounded-full blur-3xl opacity-50`}
           />
         </div>
 
@@ -289,7 +283,7 @@ export default function AccountDetailsView({
                 ].map((req, index) => (
                   <div
                     key={index}
-                    className={`group relative overflow-hidden bg-white p-8 rounded-[2rem] border border-gray-100 hover:border-gray-200 hover:shadow-2xl transition-all duration-500`}
+                    className={`group relative overflow-hidden bg-gray-100 p-8 rounded-[2rem] border border-gray-100 hover:border-gray-200 hover:shadow-2xl transition-all duration-500`}
                   >
                     {/* SVG Background */}
                     <div className="absolute right-0 top-0 w-32 h-32 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-500 pointer-events-none">
@@ -325,7 +319,7 @@ export default function AccountDetailsView({
 
                     {/* أيقونة المتطلب */}
                     <div
-                      className={`w-14 h-14 rounded-2xl ${currentConfig.color} bg-opacity-5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                      className={`w-14 h-14 rounded-2xl bg-[#002147] bg-opacity-5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
                     >
                       {/* ✅ استدعاء الأيقونة كـ Component */}
                       <req.Icon size={28} className="text-white" />

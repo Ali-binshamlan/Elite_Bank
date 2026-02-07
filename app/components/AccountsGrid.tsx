@@ -3,16 +3,11 @@
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
-import {
-  PiggyBank,
-  TrendingUp,
-  Users,
-  UserPlus,
-  Crown,
-  ArrowUpRight,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+// استيراد البيانات من الملف الجديد
+import { accountsData } from "@/app/data/accountsData";
 
-// --- تعريف أنماط SVG الخلفية (كما هي) ---
+// --- تعريف أنماط SVG الخلفية ---
 const BackgroundPatterns = {
   waves: (
     <svg
@@ -76,6 +71,7 @@ const BackgroundPatterns = {
   ),
 };
 
+// --- مكون البطاقة ---
 const AccountCard = ({
   title,
   desc,
@@ -142,23 +138,23 @@ const AccountCard = ({
 
       {/* 2. المحتوى */}
       <div className="absolute inset-0 p-7 flex flex-col justify-between z-20">
-        {/* الأيقونة العلوية (تم التعديل لتكون ملونة افتراضياً) */}
         <div className="flex justify-between items-start">
           <motion.div
             variants={{
               rest: {
                 y: 0,
-                color: "#color", // الأيقونة بيضاء
+                color: "#ffffff",
                 backdropFilter: "blur(0px)",
+                backgroundColor: "transparent",
               },
               hover: {
                 y: -5,
-                backgroundColor: "#ffffff", // عند الهوفر تصبح الخلفية بيضاء
-                color: color, // والأيقونة تأخذ لون البطاقة
+                backgroundColor: "#ffffff",
+                color: color,
                 backdropFilter: "blur(8px)",
               },
             }}
-            className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg"
+            className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border border-white/10"
           >
             <Icon size={26} className="transition-colors duration-300" />
           </motion.div>
@@ -174,7 +170,6 @@ const AccountCard = ({
           </motion.div>
         </div>
 
-        {/* النصوص */}
         <motion.div
           variants={{
             rest: { y: 0 },
@@ -205,53 +200,11 @@ const AccountCard = ({
   );
 };
 
+// --- المكون الرئيسي ---
 export default function AccountsGrid() {
   const t = useTranslations("AccountsGrid");
   const locale = useLocale();
   const isRTL = locale === "ar";
-
-  const accounts = [
-    {
-      id: "savings",
-      large: true,
-      img: "/images/Hero_5.png",
-      color: "#33465c", // كحلي غامق
-      icon: PiggyBank,
-      pattern: "waves",
-    },
-    {
-      id: "returns",
-      large: false,
-      img: "/images/hero_2.png",
-      color: "#d9a55b", // ذهبي/برتقالي
-      icon: TrendingUp,
-      pattern: "dots",
-    },
-    {
-      id: "family",
-      large: false,
-      img: "/images/hero_3.png",
-      color: "#9e474e", // أحمر غامق
-      icon: Users,
-      pattern: "circles",
-    },
-    {
-      id: "follower",
-      large: false,
-      img: "/images/Hero_4.png",
-      color: "#4a7a72", // أخضر/تركواز غامق
-      icon: UserPlus,
-      pattern: "dots",
-    },
-    {
-      id: "gold",
-      large: false,
-      img: "/images/Hero_1.png",
-      color: "#8c7e56", // ذهبي مطفأ
-      icon: Crown,
-      pattern: "circles",
-    },
-  ];
 
   return (
     <section
@@ -260,7 +213,8 @@ export default function AccountsGrid() {
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[320px]">
-          {accounts.map((acc) => (
+          {/* استخدام البيانات المستوردة مع تطبيق الترجمة */}
+          {accountsData.map((acc) => (
             <AccountCard
               key={acc.id}
               large={acc.large}

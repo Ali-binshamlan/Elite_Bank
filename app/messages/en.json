@@ -477,30 +477,125 @@
     "applyNow": "Open Account Now",
     "requirements": "Requirements"
   },
-  "AppSection": {
-    "title": "Download Elite Bank App",
-    "subtitle": "Manage accounts, pay bills, and reach financial goals all in one place.",
+  "CardsHero": {
+    "tabs": {
+      "prepaid": "Prepaid",
+      "credit": "Credit",
+      "monthly": "Monthly",
+      "platinum": "Platinum"
+    },
     "cards": {
-      "apply": {
-        "title": "Apply Now",
-        "desc": "You can apply through our website easily.",
-        "action": "Login"
+      "prepaid": {
+        "title": "Travel Plus Card",
+        "subtitle": "Your ideal travel companion with 45+ currencies",
+        "card_type": "TRAVEL PLUS",
+        "features": {
+          "0": {
+            "title": "Multi-Currency",
+            "desc": "Over 45 currencies in one wallet"
+          },
+          "1": {
+            "title": "Fixed Rate",
+            "desc": "Fixed exchange rate for USD and major currencies"
+          },
+          "2": {
+            "title": "Global Acceptance",
+            "desc": "Accepted at millions of stores worldwide"
+          }
+        }
       },
-      "contact": {
-        "title": "Contact Us",
-        "desc": "Our team is at your service for requests or help.",
-        "action": "800 124 1222"
+      "credit": {
+        "title": "Infinite Card",
+        "subtitle": "A world of luxury and exclusive services for you",
+        "card_type": "INFINITE",
+        "features": {
+          "0": {
+            "title": "Lounge Access",
+            "desc": "Free access to over 1000 airport lounges"
+          },
+          "1": {
+            "title": "Reward Points",
+            "desc": "Earn double points on every purchase"
+          },
+          "2": {
+            "title": "Concierge Service",
+            "desc": "Personal assistant for all your needs"
+          }
+        }
       },
-      "visit": {
-        "title": "Visit Us",
-        "desc": "We serve you at your nearest branch.",
-        "action": "Find Nearest Branch"
+      "monthly": {
+        "title": "Cashback Card",
+        "subtitle": "Get instant cashback on your purchases",
+        "card_type": "CASHBACK",
+        "features": {
+          "0": {
+            "title": "Instant Cashback",
+            "desc": "Up to 5% cashback on purchases"
+          },
+          "1": {
+            "title": "No Interest",
+            "desc": "Pay full amount at month end with 0% interest"
+          },
+          "2": {
+            "title": "Exclusive Offers",
+            "desc": "Instant discounts at selected partners"
+          }
+        }
       },
-      "floating": {
-        "savings": "Savings Goal",
-        "bills": "Pay Bills",
-        "billss": "Electricity"
+      "platinum": {
+        "title": "Platinum Card",
+        "subtitle": "Unmatched luxury and exclusive privileges for the elite",
+        "card_type": "PLATINUM",
+        "features": {
+          "0": {
+            "title": "VIP Service",
+            "desc": "Dedicated relationship manager 24/7"
+          },
+          "1": {
+            "title": "Limitless Travel",
+            "desc": "Unlimited access to VIP lounges worldwide"
+          },
+          "2": {
+            "title": "Comprehensive Insurance",
+            "desc": "Full coverage during travel and shopping"
+          }
+        }
+      }
+    },
+    "apply_btn": "Apply Now",
+    "more_btn": "Know More"
+  },
+  "BenefitsCard": {
+    "title": "Features Available on All Cards",
+    "cards": {
+      "streek": {
+        "title": "Streek Card Program",
+        "desc": "Enjoy exclusive offers and discounts designed specifically for our credit card holders."
+      },
+      "cash": {
+        "title": "Cash Withdrawal",
+        "desc": "Local and international cash withdrawal up to 30% of the card's credit limit."
+      },
+      "accepted": {
+        "title": "Globally Accepted",
+        "desc": "Accepted at over 30 million POS terminals and 900,000 ATMs worldwide."
+      },
+      "nfc": {
+        "title": "NFC Technology",
+        "desc": "Fast and secure payments via mada Atheer, Apple Pay, and mada Pay by tapping your card."
+      },
+      "notifications": {
+        "title": "Instant Notifications",
+        "desc": "Free SMS service keeping you informed of all executed financial transactions."
+      },
+      "secure": {
+        "title": "3D Secure",
+        "desc": "Secure online shopping with two-factor authentication and One-Time Password (OTP) protection."
       }
     }
+  },
+  "PaymentFeatures": {
+    "title": "Payment Features Available on All Cards",
+    "learnMore": "Learn More"
   }
 }
