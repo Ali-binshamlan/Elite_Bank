@@ -160,7 +160,7 @@ export default function SingleCardHero({
               </div>
 
               {/* زر التقديم */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-2">
+              <div className="flex flex-wrap justify-center lg:justify-center gap-4 pt-2">
                 <button
                   // w-full للجوال ليأخذ العرض الكامل
                   className={`w-full md:w-auto text-white px-8 md:px-16 py-4 rounded-xl font-bold text-lg md:text-xl hover:shadow-xl active:scale-95 transition-all flex items-center justify-center gap-4 ${currentCard.backdropColor}`}
