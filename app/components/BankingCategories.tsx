@@ -55,36 +55,7 @@ export default function BankingCategories() {
       className="relative py-16 md:py-32 overflow-hidden bg-slate-50"
       dir={dir}
     >
-      {/* خلفية مخففة */}
-      <div className="hidden lg:block absolute inset-0 pointer-events-none">
-        <svg
-          className="absolute top-0 left-0 w-full h-full opacity-[0.03]"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <pattern
-              id="dot-pattern"
-              width="20"
-              height="20"
-              patternUnits="userSpaceOnUse"
-            >
-              <circle cx="2" cy="2" r="1" fill="#002147" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#dot-pattern)" />
-        </svg>
-        <svg
-          className="absolute -top-20 -right-20 w-96 h-96 text-[#002147] opacity-[0.04]"
-          viewBox="0 0 200 200"
-        >
-          <path
-            fill="currentColor"
-            d="M45.7,-76.3C58.9,-69.3,69.1,-55.6,76.5,-41.2C83.9,-26.8,88.5,-11.7,85.8,2.3C83.1,16.3,73.1,29.2,63.1,40.8C53.1,52.4,43.1,62.7,31.4,69.6C19.7,76.5,6.3,80,-6.3,78.8C-18.9,77.6,-31.6,71.7,-43.3,64.2C-55,56.7,-65.7,47.6,-73.4,36.2C-81.1,24.8,-85.8,11.1,-84.6,-2.1C-83.4,-15.3,-76.3,-28,-67.2,-39.1C-58.1,-50.2,-47,-59.7,-35.1,-67.2C-23.2,-74.7,-10.5,-80.2,2.9,-85.2L16.3,-90.2"
-            transform="translate(100 100)"
-          />
-        </svg>
-      </div>
-
+      
       <div className="container mx-auto px-4 relative z-10">
         {/* رأس القسم */}
         <div className="max-w-3xl mx-auto text-center mb-10 lg:mb-16">
