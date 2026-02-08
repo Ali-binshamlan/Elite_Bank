@@ -15,10 +15,11 @@
         "title": "Cards",
         "desc": "Spend smartly and enjoy endless rewards",
         "items": {
-          "credit": "Credit Cards",
-          "mada": "mada Cards",
-          "prepaid": "Prepaid Cards",
-          "rewards": "Elite Rewards"
+          "prepaid": "Travel Plus Card",
+          "credit": "Infinite Card",
+          "monthly": "Cashback Card",
+          "platinum": "Platinum Card",
+          "world_elite": "World Elite Card"
         }
       },
       "finance": {
@@ -475,90 +476,101 @@
   "Common": {
     "featuresTitle": "Features & Benefits",
     "applyNow": "Open Account Now",
-    "requirements": "Requirements"
+    "requirements": "Requirements",
+    "backToCards": "Back to Cards"
   },
   "CardsHero": {
     "tabs": {
       "prepaid": "Prepaid",
       "credit": "Credit",
       "monthly": "Monthly",
-      "platinum": "Platinum"
+      "platinum": "Platinum",
+      "world_elite": "World Elite Card"
     },
     "cards": {
       "prepaid": {
         "title": "Travel Plus Card",
         "subtitle": "Your ideal travel companion with 45+ currencies",
         "card_type": "TRAVEL PLUS",
+        "description_long": "Travel the world with confidence and peace of mind with the Travel Plus card. This card gives you the freedom to pay in over 45 different currencies without worrying about exchange rate fluctuations. Designed to be your secure global wallet, with full control via the app.",
         "features": {
-          "0": {
-            "title": "Multi-Currency",
-            "desc": "Over 45 currencies in one wallet"
-          },
-          "1": {
-            "title": "Fixed Rate",
-            "desc": "Fixed exchange rate for USD and major currencies"
-          },
-          "2": {
-            "title": "Global Acceptance",
-            "desc": "Accepted at millions of stores worldwide"
-          }
+          "0": { "title": "Multi-Currency", "desc": "Over 45 currencies in one wallet" },
+          "1": { "title": "Fixed Rate", "desc": "Fixed exchange rate for USD and major currencies" },
+          "2": { "title": "Global Acceptance", "desc": "Accepted at millions of stores worldwide" }
+        },
+        "extended_features": {
+          "0": { "title": "Instant Issuance", "desc": "Get your digital card instantly and start shopping." },
+          "1": { "title": "Free Transfers", "desc": "Move money between currencies within the wallet for free." },
+          "2": { "title": "High Security", "desc": "Freeze and unfreeze your card with a single click." },
+          "3": { "title": "Family Cards", "desc": "Issue up to 5 additional cards for your family members." }
         }
       },
       "credit": {
         "title": "Infinite Card",
         "subtitle": "A world of luxury and exclusive services for you",
         "card_type": "INFINITE",
+        "description_long": "The Infinite Card is not just a payment tool; it is your key to a world of limitless privileges. Designed to meet elite aspirations, offering global concierge services, comprehensive travel insurance, and unique experiences at luxury hotels.",
         "features": {
-          "0": {
-            "title": "Lounge Access",
-            "desc": "Free access to over 1000 airport lounges"
-          },
-          "1": {
-            "title": "Reward Points",
-            "desc": "Earn double points on every purchase"
-          },
-          "2": {
-            "title": "Concierge Service",
-            "desc": "Personal assistant for all your needs"
-          }
+          "0": { "title": "Lounge Access", "desc": "Free access to over 1000 airport lounges" },
+          "1": { "title": "Reward Points", "desc": "Earn double points on every purchase" },
+          "2": { "title": "Concierge Service", "desc": "Personal assistant for all your needs" }
+        },
+        "extended_features": {
+          "0": { "title": "Purchase Protection", "desc": "Comprehensive protection against theft or accidental damage." },
+          "1": { "title": "Extended Warranty", "desc": "Double the original manufacturer's warranty on purchases." },
+          "2": { "title": "Luxury Hotel Collection", "desc": "Room upgrades and free breakfast at Visa Luxury Hotels." },
+          "3": { "title": "Medical Travel Insurance", "desc": "Coverage up to $1 million for you and your family." }
         }
       },
       "monthly": {
         "title": "Cashback Card",
         "subtitle": "Get instant cashback on your purchases",
         "card_type": "CASHBACK",
+        "description_long": "Why pay full price when you can get some back? The Cashback Card gives you smart purchasing power. Enjoy automatic cashback on all daily purchases, whether groceries, fuel, or online shopping, with no complications.",
         "features": {
-          "0": {
-            "title": "Instant Cashback",
-            "desc": "Up to 5% cashback on purchases"
-          },
-          "1": {
-            "title": "No Interest",
-            "desc": "Pay full amount at month end with 0% interest"
-          },
-          "2": {
-            "title": "Exclusive Offers",
-            "desc": "Instant discounts at selected partners"
-          }
+          "0": { "title": "Instant Cashback", "desc": "Up to 5% cashback on purchases" },
+          "1": { "title": "No Interest", "desc": "Pay full amount at month end with 0% interest" },
+          "2": { "title": "Exclusive Offers", "desc": "Instant discounts at selected partners" }
+        },
+        "extended_features": {
+          "0": { "title": "Unlimited Cashback", "desc": "No upper limit on monthly cashback earnings." },
+          "1": { "title": "Free Annual Fee", "desc": "Lifetime free when spending a certain amount annually." },
+          "2": { "title": "Easy Installments", "desc": "Convert large purchases into installments at cash price." },
+          "3": { "title": "Bill Payments", "desc": "Earn cashback even when paying your utility bills." }
         }
       },
       "platinum": {
         "title": "Platinum Card",
         "subtitle": "Unmatched luxury and exclusive privileges for the elite",
         "card_type": "PLATINUM",
+        "description_long": "The Platinum Card combines global acceptance with the recognition you deserve. Designed to give you peace of mind through a comprehensive insurance package, priority customer service, and exclusive offers fitting your distinguished lifestyle.",
         "features": {
-          "0": {
-            "title": "VIP Service",
-            "desc": "Dedicated relationship manager 24/7"
-          },
-          "1": {
-            "title": "Limitless Travel",
-            "desc": "Unlimited access to VIP lounges worldwide"
-          },
-          "2": {
-            "title": "Comprehensive Insurance",
-            "desc": "Full coverage during travel and shopping"
-          }
+          "0": { "title": "VIP Service", "desc": "Dedicated relationship manager 24/7" },
+          "1": { "title": "Limitless Travel", "desc": "Unlimited access to VIP lounges worldwide" },
+          "2": { "title": "Comprehensive Insurance", "desc": "Full coverage during travel and shopping" }
+        },
+        "extended_features": {
+          "0": { "title": "Dining Discounts", "desc": "Exclusive discounts at fine dining restaurants worldwide." },
+          "1": { "title": "Cinema Offers", "desc": "Discounted tickets at selected cinema theaters." },
+          "2": { "title": "Roadside Assistance", "desc": "Emergency assistance service locally and internationally." },
+          "3": { "title": "Fraud Protection", "desc": "Full protection against unauthorized transactions." }
+        }
+      },
+"world_elite": {
+        "title": "World Elite Card",
+        "subtitle": "Absolute luxury, designed for the chosen few.",
+        "card_type": "WORLD ELITE",
+        "description_long": "The World Elite Card is a symbol of power and distinction, granting you a limitless world of luxury services. From private jets to secluded islands, every detail is crafted to fit your exceptional lifestyle. Enjoy global personal assistant service and unforgettable shopping and travel experiences.",
+        "features": {
+          "0": { "title": "Exclusive Services", "desc": "Exclusive access to global and private events." },
+          "1": { "title": "Private Jets", "desc": "Preferential rates and offers on private flights." },
+          "2": { "title": "Comprehensive Insurance", "desc": "Medical and accident coverage up to $2 million." }
+        },
+        "extended_features": {
+          "0": { "title": "Hotel Membership", "desc": "Instant upgrade to top tier in global hotel chains." },
+          "1": { "title": "Concierge Service", "desc": "Personal assistant to fulfill your requests worldwide." },
+          "2": { "title": "Stadium Access", "desc": "VIP access to major sporting events." },
+          "3": { "title": "Dining Experience", "desc": "Priority booking at Michelin-starred restaurants." }
         }
       }
     },

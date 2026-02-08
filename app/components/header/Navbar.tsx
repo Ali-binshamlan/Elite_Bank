@@ -37,8 +37,7 @@ export default function Navbar() {
 
   // --- جلب البيانات هنا ---
   // نقوم بتمرير دالة الترجمة t ليتم ترجمة النصوص داخل ملف البيانات
-  const menuData = getMenuData(t);
-
+const menuData = getMenuData(t, locale);
   const toggleLanguage = () => {
     const nextLocale = locale === "ar" ? "en" : "ar";
     router.replace({ pathname }, { locale: nextLocale });

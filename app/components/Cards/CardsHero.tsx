@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link"; // 1. استيراد Link
 import BankCard3D from "../ui/BankCard3D";
 import { cardsData } from "../../data/cardsData";
 import {
@@ -44,8 +45,7 @@ export default function CardsHero({ locale }: CardsHeroProps) {
         ${currentCard.backdropColor} 
         ${isRTL ? "right-0 rounded-bl-[500px]" : "left-0 rounded-br-[500px]"} 
         hidden lg:block`}
-      >
-      </div>
+      ></div>
 
       {/* خلفية للجوال */}
       <div
@@ -59,7 +59,7 @@ export default function CardsHero({ locale }: CardsHeroProps) {
           {/* ======================================================= */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start order-1 relative z-20">
             {/* --- أزرار التبديل (Tabs) تم نقلها هنا --- */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-10">
+            <div className="flex flex-wrap justify-center  lg:justify-start gap-2 mb-10">
               {cardsData.map((card) => (
                 <button
                   key={card.id}
@@ -153,9 +153,14 @@ export default function CardsHero({ locale }: CardsHeroProps) {
                 {t("apply_btn")}
                 {isRTL ? <ArrowLeft size={20} /> : <ArrowRight size={20} />}
               </button>
-              <button className="bg-white text-[#002147] border-2 border-gray-100 px-8 py-4 rounded-xl font-bold text-lg hover:border-gray-300 active:scale-95 transition-all">
+
+              {/* 2. تحويل الزر إلى رابط Link وتمرير id البطاقة النشطة */}
+              <Link
+                href={`/${locale}/Personal/Cards/${activeTab}`}
+                className="bg-white text-[#002147] border-2 border-gray-100 px-8 py-4 rounded-xl font-bold text-lg hover:border-gray-300 active:scale-95 transition-all"
+              >
                 {t("more_btn")}
-              </button>
+              </Link>
             </div>
           </div>
         </div>

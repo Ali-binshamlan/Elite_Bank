@@ -34,9 +34,18 @@ export const cardsData: CardData[] = [
   {
     id: "platinum",
     // تدرج رمادي معدني (Silver/Dark Grey)
-    bgGradient: "linear-gradient(135deg, #434343 0%, #000000 100%)",
+    bgGradient: "linear-gradient(135deg, #434343 0%, #ff0000 100%)",
     accentColor: "rgba(255, 255, 255, 0.4)", // وهج أبيض/فضي
-    backdropColor: "bg-[#2c2c2c]", // خلفية رمادية غامقة للصفحة
-    featuresIconColor: "text-[#2c2c2c]",
+    backdropColor: "bg-[#ec2c2c]", // خلفية رمادية غامقة للصفحة
+    featuresIconColor: "text-[#ff0000]",
+  },
+  {
+    id: "world_elite",
+    // تدرج أسود ملكي مع لمسة ذهبية
+    bgGradient:
+      "linear-gradient(135deg, #000000 0%, #2b2b2b 74%, #1a1a1a 100%)",
+    accentColor: "rgba(212, 175, 55, 0.5)", // لون ذهبي
+    backdropColor: "bg-[#121212]", // خلفية سوداء داكنة جداً
+    featuresIconColor: "text-[#D4AF37]", // لون النص والأيقونات ذهبي
   },
 ];
