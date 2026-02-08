@@ -104,7 +104,7 @@ export default function SingleCardHero({
                   <BankCard3D
                     type={t(`cards.${currentCard.id}.card_type`)}
                     cardNumber="4000 1234 5678 9010"
-                    holderName="MOHAMMED ALI"
+                    holderName="ALI SHAMLAN"
                     bgGradient={currentCard.bgGradient}
                     accentColor={currentCard.accentColor}
                   />
