@@ -5,7 +5,14 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ضع إعداداتك الأخرى هنا إن وجدت
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

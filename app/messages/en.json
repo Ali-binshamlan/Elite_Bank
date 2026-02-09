@@ -609,5 +609,148 @@
   "PaymentFeatures": {
     "title": "Payment Features Available on All Cards",
     "learnMore": "Learn More"
+  },
+  "FinanceHero": {
+  "title": "Finance that Meets Your Ambitions",
+  "desc": "Whether you are planning to own your dream home, buy a new car, or need cash liquidity, we offer flexible financing solutions tailored to your needs.",
+  "cta": "Calculate Your Finance"
+},
+
+  "FinanceVisuals": {
+    "real_estate": "Real Estate",
+    "auto": "Auto",
+    "personal": "Personal"
+  },
+  "FinanceOptions": {
+    "section_title": "Diverse Financing Options",
+    "section_subtitle": "Discover our financing programs designed specifically to meet your needs, with easy installments and fast procedures.",
+    "auto": {
+      "title": "Auto Finance",
+      "desc": "Drive your dream car today with competitive profit rates and instant approval. We offer Lease to Own and Murabaha options.",
+      "cta": "Explore Options"
+    },
+    "personal": {
+      "title": "Personal Finance",
+      "desc": "Whether planning for marriage, education, or settling obligations, Personal Finance gives you the liquidity you need with flexible repayment up to 5 years.",
+      "cta": "Explore Options"
+    },
+    "realestate": {
+      "title": "Real Estate Finance",
+      "desc": "Own your home now with comprehensive support. Financing solutions for self-construction, ready units, or land and loan.",
+      "cta": "Explore Options"
+    }
+  },
+  "AppSection": {
+    "title": "Download Elite Bank App",
+    "subtitle": "Control your accounts, pay bills, and achieve your financial goals all in one place.",
+    "cards": {
+      "apply": {
+        "title": "Apply Now",
+        "desc": "You can easily submit your application through our website.",
+        "action": "Login"
+      },
+      "contact": {
+        "title": "Contact Us",
+        "desc": "Our team is at your service, contact us for requests or assistance.",
+        "action": "800 124 1222"
+      },
+      "visit": {
+        "title": "Visit Us",
+        "desc": "We serve you at your nearest branch.",
+        "action": "Find Nearest Branch"
+      },
+      "floating": {
+        "savings": "Savings Goal",
+        "bills": "Bill Payment",
+        "billss": "Electricity"
+      }
+    }
+  },
+  "FinanceHero": {
+    "title": "Finance that Meets Your Ambitions",
+    "desc": "Whether you are planning to own your dream home, buy a new car, or need cash liquidity, we offer flexible financing solutions tailored to your needs.",
+    "cta": "Calculate Your Finance"
+  },
+  "FinanceOptions": {
+    "section_title": "Diverse Financing Options",
+    "section_subtitle": "Discover our financing programs designed specifically to meet your needs, with easy installments and fast procedures.",
+    "auto": {
+      "title": "Auto Finance",
+      "desc": "Drive your dream car today with competitive profit rates and instant approval.",
+      "cta": "Explore Options"
+    },
+    "personal": {
+      "title": "Personal Finance",
+      "desc": "Whether planning for marriage or education, Personal Finance gives you the liquidity you need.",
+      "cta": "Explore Options"
+    },
+    "realestate": {
+      "title": "Real Estate Finance",
+      "desc": "Own your home now with comprehensive support from the Real Estate Fund.",
+      "cta": "Explore Options"
+    }
+  },
+  
+  "FinanceDetails": {
+    "auto": {
+      "Hero": {
+        "title": "Drive Your Dream Car Today",
+        "description": "Get instant approval for your car finance with competitive profit rates and flexible repayment options up to 5 years, for both new and used cars.",
+        "badge": "Auto Finance"
+      },
+      "Features": {
+        "0": { "title": "Competitive Margin", "desc": "We offer the best rates in the market." },
+        "1": { "title": "Instant Approval", "desc": "Fast digital procedures without complexity." },
+        "2": { "title": "No Salary Transfer", "desc": "Flexible options for public and private sectors." },
+        "3": { "title": "Up to 500k SAR", "desc": "Including luxury cars financing." }
+      }
+    },
+    "realestate": {
+      "Hero": {
+        "title": "Own Your Dream Home Easily",
+        "description": "Comprehensive real estate financing solutions supported by the Real Estate Development Fund, whether you want to buy a villa, apartment, or self-construction.",
+        "badge": "Real Estate Finance"
+      },
+      "Features": {
+        "0": { "title": "Housing Support", "desc": "Compatible with Ministry of Housing programs." },
+        "1": { "title": "Long Tenure", "desc": "Repayment period up to 25 years." },
+        "2": { "title": "Comprehensive Insurance", "desc": "Full coverage against hazards." },
+        "3": { "title": "Heirs Exemption", "desc": "In case of death (God forbid)." }
+      }
+    },
+    "personal": {
+      "Hero": {
+        "title": "Cash Liquidity for Your Ambitions",
+        "description": "Whether planning for marriage, education, or travel, Personal Finance gives you the liquidity you need with fully digital procedures in minutes.",
+        "badge": "Personal Finance"
+      },
+      "Features": {
+        "0": { "title": "Shares or Commodities", "desc": "Fully Sharia compliant." },
+        "1": { "title": "Flexible Repayment", "desc": "Installments scheduled to fit your income." },
+        "2": { "title": "Top-up Finance", "desc": "Possibility to get additional finance." },
+        "3": { "title": "Available for Retirees", "desc": "Up to 75 years of age." }
+      }
+    },
+    "Common": {
+      "whyChoose": "Why Choose This Finance?",
+      "whyChooseDesc": "We offer exclusive benefits designed to give you peace of mind and ease of procedures.",
+      "requirementsTitle": "Steps & Documents",
+      "requirementsDesc": "No paper complexity. We have simplified your journey to get finance in just a few steps.",
+      "req1": { "title": "National ID", "desc": "Valid ID for citizens and residents." },
+      "req2": { "title": "Salary Certificate", "desc": "Recent and certified letter." },
+      "req3": { "title": "Bank Statement", "desc": "Last 3 months for transferred salaries." },
+      "req4": { "title": "Elite App", "desc": "Download the app to complete the request." },
+      "formTitle": "Are You Ready?",
+      "formDesc": "Start your request now and get initial approval.",
+      "inputs": {
+        "name": "Full Name",
+        "phone": "Mobile Number",
+        "salary": "Monthly Salary",
+        "submit": "Submit Request"
+      }
+    }
   }
 }
+
+
+

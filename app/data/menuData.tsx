@@ -78,7 +78,7 @@ export const getMenuData = (t: any, locale: string) => [
     name: t("menu.finance.title"),
     description: t("menu.finance.desc"),
     icon: <Landmark size={22} />,
-    href: "#",
+    href: "/Personal/Finance",
     subItems: [
       {
         name: t("menu.finance.items.personal"),
