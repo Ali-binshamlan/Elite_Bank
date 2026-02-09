@@ -38,29 +38,37 @@ export default function FinanceDetailsView({
   return (
     <main className="min-h-screen bg-white" dir={isRTL ? "rtl" : "ltr"}>
       {/* ========================================= */}
+      {/* ========================================= */}
       {/* 1. Hero Section */}
       {/* ========================================= */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#EFF4FA]">
-        <div className="absolute inset-0 z-0">
-          <svg
-            className={`absolute top-0 ${isRTL ? "left-0" : "right-0"} h-full w-1/2 text-white opacity-50`}
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-          >
-            <path d="M0 0 L100 0 L50 100 L0 100 Z" fill="currentColor" />
-          </svg>
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-[#EFF4FA]">
+        {/* الحاوية الرئيسية للمنحنى والصورة معاً */}
+        <div
+          className={`absolute top-0 bottom-0 w-[55%] z-0 ${
+            isRTL
+              ? "left-0 rounded-br-[400px] md:rounded-br-[550px]"
+              : "right-0 rounded-bl-[400px] md:rounded-bl-[550px]"
+          } hidden lg:block overflow-hidden shadow-2xl`}
+        >
+          {/* الصورة الآن داخل المنحنى مباشرة وتملأه بالكامل */}
+          <Image
+            src={theme.heroImage}
+            alt={t("Hero.title")}
+            fill
+            className="object-cover transition-transform duration-1000 hover:scale-105"
+            priority
+            sizes="60vw"
+          />
+
+          {/* طبقة شفافة اختيارية فوق الصورة لإبراز النص إذا لزم الأمر */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#002147]/40 to-transparent"></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10 py-20">
-          <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
-            {/* النصوص (من ملف الترجمة JSON) */}
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            {/* قسم النصوص - سياخذ نصف المساحة لترك المجال للصورة في الخلفية */}
             <div className="w-full lg:w-1/2 space-y-8 text-center lg:text-start">
-              <div
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${theme.bgColor} ${theme.primaryColor} font-bold text-sm`}
-              >
-                <span className="w-2 h-2 rounded-full bg-current animate-pulse"></span>
-                {t("Hero.badge")}
-              </div>
+             
 
               <h1 className="text-4xl md:text-6xl font-black text-[#002147] leading-tight">
                 {t("Hero.title")}
@@ -71,45 +79,16 @@ export default function FinanceDetailsView({
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button className="bg-[#002147] text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#003366] transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                <button className="bg-[#002147] text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#003366] transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl">
                   {tGeneral("applyNow")}
                   {isRTL ? <ArrowLeft size={20} /> : <ArrowRight size={20} />}
                 </button>
               </div>
             </div>
 
-            {/* الصورة (من ملف الداتا financeData.ts) */}
-            <div className="w-full lg:w-1/2 relative h-[300px] md:h-[500px] w-full">
-              <div className="absolute inset-0 bg-[#002147] rounded-[3rem] rotate-3 opacity-10 scale-95"></div>
-              <div className="relative h-full w-full rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white">
-                <Image
-                  src={theme.heroImage}
-                  alt={t("Hero.title")}
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-
-                {/* بطاقة عائمة جمالية */}
-                <div
-                  className={`absolute bottom-6 ${isRTL ? "right-6" : "left-6"} bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-lg max-w-[200px]`}
-                >
-                  <div className="flex items-center gap-3 mb-2">
-                    <div
-                      className={`p-2 rounded-full ${theme.bgColor} ${theme.primaryColor}`}
-                    >
-                      <Percent size={20} />
-                    </div>
-                    <div className="text-sm font-bold text-gray-800">
-                      معدلات تنافسية
-                    </div>
-                  </div>
-                  <div className="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
-                    <div className={`h-full w-3/4 ${theme.accentColor}`}></div>
-                  </div>
-                </div>
-              </div>
+            {/* نترك الجهة الأخرى فارغة لأن الصورة أصبحت خلفية في الـ div المطلق */}
+            <div className="w-full lg:w-1/2 pointer-events-none">
+              {/* يمكنك وضع البطاقة العائمة هنا إذا كنت لا تزال تريدها */}
             </div>
           </div>
         </div>
