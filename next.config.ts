@@ -1,15 +1,18 @@
 import createNextIntlPlugin from 'next-intl/plugin';
+import { NextConfig } from 'next';
 
-// بشكل افتراضي، يبحث عن الملف في './src/i18n/request.ts'
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "images.unsplash.com",
+        // إضافة 'as const' تحل مشكلة الـ Type Error في TypeScript
+        protocol: 'https' as const, 
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
