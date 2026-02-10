@@ -25,6 +25,12 @@ export default function FinanceDetailsView({
   const tGeneral = useTranslations("Common");
   const isRTL = locale === "ar";
 
+  // ✅ 1. تعريف المتغير theme لإصلاح خطأ Vercel (ReferenceError: theme is not defined)
+  // نستخدم "general" كقيمة احتياطية (Fallback) في حال عدم وجود النوع
+  const theme = financeConfig[type] || financeConfig.auto;
+
+  // ✅ 2. جلب الأيقونات المخصصة لهذا النوع
+  const icons = featureIcons[type] || featureIcons.auto;
 
   return (
     <main className="min-h-screen bg-white" dir={isRTL ? "rtl" : "ltr"}>
@@ -37,6 +43,7 @@ export default function FinanceDetailsView({
               : "right-0 rounded-bl-[400px] md:rounded-bl-[550px]"
           } hidden lg:block overflow-hidden shadow-2xl`}
         >
+          {/* ✅ تم إصلاح استدعاء theme.heroImage هنا */}
           <Image
             src={theme.heroImage}
             alt={t("Hero.title")}
@@ -69,9 +76,7 @@ export default function FinanceDetailsView({
         </div>
       </section>
 
-      {/* ========================================= */}
       {/* 2. المميزات (Stacked Text Cards) */}
-      {/* ========================================= */}
       <StyledFeaturesStack $isRTL={isRTL}>
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center mb-20 max-w-3xl mx-auto">
@@ -87,16 +92,14 @@ export default function FinanceDetailsView({
                   <div className="stack">
                     <div className="card-stack">
                       <div className="inner-content">
-                        {/* الأيقونة في الأعلى */}
                         <div className="icon-wrapper">
                           <IconComponent
                             size={32}
+                            // ✅ ربط اللون بالثيم المختار ديناميكياً
                             className={theme.primaryColor}
                             strokeWidth={2}
                           />
                         </div>
-
-                        {/* النصوص داخل الكارد */}
                         <h3 className="feature-card-title">
                           {t(`Features.${idx}.title` as any)}
                         </h3>
@@ -115,13 +118,6 @@ export default function FinanceDetailsView({
 
       {/* 3. المستندات والشروط */}
       <section className="py-24 bg-[#002147] text-white overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
-          <svg viewBox="0 0 100 100" fill="none" className="w-full h-full">
-            <circle cx="100" cy="0" r="50" stroke="white" strokeWidth="0.5" />
-            <circle cx="0" cy="100" r="70" stroke="white" strokeWidth="0.5" />
-          </svg>
-        </div>
-
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
             <div className="w-full lg:w-1/2">
@@ -191,6 +187,7 @@ export default function FinanceDetailsView({
   );
 }
 
+// Styled Components
 const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
   padding: 6rem 0;
   background-color: #ffffff;
@@ -210,9 +207,8 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
 
   .features-grid {
     display: grid;
-    /* ✅ فرض 4 أعمدة متساوية في الشاشات الكبيرة */
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 2rem; /* تقليل الفجوة قليلاً لتناسب الصف الواحد */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
     width: 100%;
   }
 
@@ -224,9 +220,9 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
 
   .stack {
     width: 100%;
-    max-width: 280px; /* تقليل العرض الأقصى ليتناسب 4 في الصف */
+    max-width: 280px;
     transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
+
     &:hover {
       transform: translateY(-10px);
       .card-stack:before {
@@ -241,7 +237,7 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
   }
 
   .card-stack {
-    min-height: 250px; 
+    min-height: 250px;
     border: 3px solid #002147;
     background-color: #fff;
     position: relative;
@@ -268,8 +264,12 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
       left: 0;
     }
 
-    &:before { transform: translateY(-2%) rotate(-4deg); }
-    &:after { transform: translateY(2%) rotate(4deg); }
+    &:before {
+      transform: translateY(-2%) rotate(-4deg);
+    }
+    &:after {
+      transform: translateY(2%) rotate(4deg);
+    }
   }
 
   .inner-content {
@@ -292,7 +292,7 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
   }
 
   .feature-card-title {
-    font-size: 1.1rem; /* تصغير الخط قليلاً ليناسب العرض الجديد */
+    font-size: 1.1rem;
     font-weight: 800;
     color: #002147;
     line-height: 1.3;
@@ -304,17 +304,16 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
     line-height: 1.5;
   }
 
-  /* ✅ التجاوب مع الشاشات المتوسطة والصغيرة */
   @media (max-width: 1200px) {
     .features-grid {
-      grid-template-columns: repeat(2, 1fr); /* 2 في الصف للأجهزة المتوسطة */
+      grid-template-columns: repeat(2, 1fr);
       gap: 4rem 2rem;
     }
   }
 
   @media (max-width: 640px) {
     .features-grid {
-      grid-template-columns: 1fr; /* 1 في الصف للجوال */
+      grid-template-columns: 1fr;
       gap: 5rem;
     }
   }

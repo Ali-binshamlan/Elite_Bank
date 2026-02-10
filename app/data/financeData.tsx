@@ -38,21 +38,20 @@ export const financeConfig: Record<FinanceType, FinanceTheme> = {
   },
   realestate: {
     primaryColor: "text-emerald-600",
-    bgColor: "bg-emerald-50",
-    borderColor: "border-emerald-100",
-    accentColor: "bg-emerald-600",
+    bgColor: "bg-blue-50",
+    borderColor: "border-blue-100",
+    accentColor: "bg-blue-600",
     heroImage:
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop",
   },
   personal: {
     primaryColor: "text-purple-600",
-    bgColor: "bg-purple-50",
-    borderColor: "border-purple-100",
-    accentColor: "bg-purple-600",
+    bgColor: "bg-blue-50",
+    borderColor: "border-blue-100",
+    accentColor: "bg-blue-600",
     heroImage:
       "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?q=80&w=2000&auto=format&fit=crop",
   },
- 
 };
 
 // 2. إعدادات أيقونات المميزات (Features Icons)

@@ -71,7 +71,7 @@ const menuData = getMenuData(t, locale);
           ${
             scrolled
               ? "bg-white/60 backdrop-blur-md shadow-md py-3 border-gray-200"
-              : "bg-white/80 py-4 border-gray-100"
+              : "bg-white/95 py-4 border-gray-100"
           }`}
         >
           <div className="max-w-[1440px] mx-auto px-4 md:px-8">
