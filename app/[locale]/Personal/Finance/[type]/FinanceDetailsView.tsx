@@ -25,8 +25,6 @@ export default function FinanceDetailsView({
   const tGeneral = useTranslations("Common");
   const isRTL = locale === "ar";
 
-  const theme = financeConfig[type] || financeConfig.general;
-  const icons = featureIcons[type] || featureIcons.general;
 
   return (
     <main className="min-h-screen bg-white" dir={isRTL ? "rtl" : "ltr"}>
