@@ -23,23 +23,26 @@ export default function UndrCategories({
   const [isMobile, setIsMobile] = useState(false);
 
   // 2. تعريف البيانات الثابتة (التي لا تحتاج ترجمة)
-  const items = [
-    {
-      id: "strategy",
-      imagePath: "/images/Image_1.png",
-      icon: <Layers size={24} />,
-    },
-    {
-      id: "development",
-      imagePath: "/images/Image_2.png",
-      icon: <Code size={24} />,
-    },
-    {
-      id: "growth",
-      imagePath: "/images/Image_3.jpeg",
-      icon: <TrendingUp size={24} />,
-    },
-  ];
+ const items = [
+   {
+     id: "strategy",
+     imagePath:
+       "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1200&auto=format&fit=crop",
+     icon: <Layers size={24} />,
+   },
+   {
+     id: "development",
+     imagePath:
+       "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+     icon: <Code size={24} />,
+   },
+   {
+     id: "growth",
+     imagePath:
+       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+     icon: <TrendingUp size={24} />,
+   },
+ ];
 
   // اكتشاف الجوال
   useEffect(() => {

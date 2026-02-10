@@ -1,68 +1,67 @@
 {
   "Navbar": {
-    "menu": {
-      "accounts": {
-        "title": "Accounts",
-        "desc": "Banking solutions that fit your lifestyle",
-        "items": {
-          "current": "Current Account",
-          "savings": "Savings Account",
-          "elite": "Elite Investment Account",
-          "minors": "Minors Accounts"
-        }
-      },
-      "cards": {
-        "title": "Cards",
-        "desc": "Spend smartly and enjoy endless rewards",
-        "items": {
-          "prepaid": "Travel Plus Card",
-          "credit": "Infinite Card",
-          "monthly": "Cashback Card",
-          "platinum": "Platinum Card",
-          "world_elite": "World Elite Card"
-        }
-      },
-      "finance": {
-        "title": "Finance",
-        "desc": "Achieve your dreams with flexible finance",
-        "items": {
-          "personal": "Personal Finance",
-          "realestate": "Real Estate Finance",
-          "auto": "Auto Finance",
-          "refinance": "Refinancing"
-        }
-      },
-      "insurance": {
-        "title": "Insurance",
-        "desc": "Protection for you and your loved ones",
-        "items": {
-          "car": "Car Insurance",
-          "health": "Health Insurance",
-          "travel": "Travel Insurance",
-          "protection": "Protection & Savings"
-        }
-      },
-      "offers": {
-        "title": "Offers",
-        "desc": "Exclusive offers for Elite clients",
-        "items": {
-          "dining": "Dining Offers",
-          "shopping": "Shopping Discounts",
-          "installments": "0% Installments",
-          "exclusive": "Exclusive Offers"
-        }
+  "menu": {
+    "accounts": {
+      "title": "Accounts",
+      "desc": "Banking solutions for your lifestyle",
+      "items": {
+        "current": "Current Account",
+        "savings": "Savings Account",
+        "elite": "Elite Investment Account",
+        "minors": "Minors Accounts"
       }
     },
-    "segments": {
-      "individuals": "Individuals",
-      "business": "Business"
+    "cards": {
+      "title": "Cards",
+      "desc": "Spend smart and enjoy rewards",
+      "items": {
+        "prepaid": "Travel Plus Card",
+        "credit": "Infinite Card",
+        "monthly": "Cashback Card",
+        "platinum": "Platinum Card",
+        "world_elite": "World Elite Card"
+      }
     },
-    "actions": {
-      "login": "Login",
-      "switchLang": "عربي",
-      "switchLangMobile": "Switch to Arabic"
+    "finance": {
+      "title": "Finance",
+      "desc": "Achieve your dreams with flexible finance",
+      "items": {
+        "personal": "Personal Finance",
+        "realestate": "Real Estate Finance",
+        "auto": "Auto Finance",
+        "refinance": "Refinance"
+      }
+    },
+    "insurance": {
+      "title": "Insurance",
+      "desc": "Protection for you and your loved ones",
+      "items": {
+        "car": "Motor Insurance",
+        "home": "Home Insurance",
+        "retirement": "Retirement Plan"
+      }
+    },
+    "offers": {
+      "title": "Offers",
+      "desc": "Exclusive offers for Elite customers",
+      "items": {
+        "dining": "Dining Offers",
+        "shopping": "Shopping Discounts",
+        "installments": "0% Installments",
+        "exclusive": "Exclusive Deals"
+      }
     }
   },
+  "segments": {
+    "individuals": "Individuals",
+    "business": "Business"
+  },
+  "actions": {
+    "login": "Login",
+    "switchLang": "العربية",
+    "switchLangMobile": "Switch to Arabic"
+  }
+},
   "TopBar": {
     "disclosure": "Disclosure rules for pricing of financing products",
     "mediaCenter": "Media Center",
@@ -405,6 +404,17 @@
       }
     }
   },
+  "menu": {
+    "accounts": {
+      "desc": "Innovative banking solutions designed to meet your financial aspirations and manage your wealth securely.",
+      "items": {
+        "current": "Current Account",
+        "savings": "Savings Account",
+        "elite": "Elite Account",
+        "minors": "Minors Account"
+      }
+    }
+  },
   "AccountDetails": {
     "current": {
       "title": "Current Account",
@@ -690,7 +700,65 @@
       "cta": "Explore Options"
     }
   },
-  
+  "InsuranceDetails": {
+    "Common": {
+      "whyChoose": "Why Choose Elite Bank Insurance?",
+      "whyChooseDesc": "We provide comprehensive coverage, fast claims processing, and complete peace of mind.",
+      "requirementsTitle": "Required Documents & Conditions",
+      "requirementsDesc": "Please ensure the following documents are available to ensure immediate approval of your request.",
+      "req1": { "title": "National ID / Iqama", "desc": "Must be valid and not expired." },
+      "req2": { "title": "Application Form", "desc": "Accurate information about the insured person." },
+      "req3": { "title": "Supporting Documents", "desc": "Depending on insurance type (Ownership, reports, etc.)." },
+      "req4": { "title": "Fees Payment", "desc": "You can pay through our digital channels." },
+      "formTitle": "Apply Now",
+      "formDesc": "Fill in the details and our experts will contact you immediately.",
+      "inputs": {
+        "name": "Full Name",
+        "phone": "Mobile Number",
+        "salary": "Monthly Salary (Optional)",
+        "submit": "Submit Request"
+      }
+    },
+    "auto": {
+      "Hero": {
+        "badge": "Motor Insurance",
+        "title": "Drive Safely with Comprehensive Car Insurance",
+        "description": "Full coverage against accidents, damages, and theft with 24/7 roadside assistance."
+      },
+      "Features": {
+        "0": { "title": "Instant Claims", "desc": "Claims settled via the app within minutes." },
+        "1": { "title": "Replacement Car", "desc": "We provide a temporary car in case of an accident." },
+        "2": { "title": "Global Coverage", "desc": "Protection that extends to include GCC countries." },
+        "3": { "title": "Competitive Rates", "desc": "Special discounts for professionals and safe driving." }
+      }
+    },
+    "home": {
+      "Hero": {
+        "badge": "Home Insurance",
+        "title": "Your Home is Your Kingdom, Protect It",
+        "description": "Comprehensive protection for your home contents and building structure against fire, floods, and theft."
+      },
+      "Features": {
+        "0": { "title": "Contents Protection", "desc": "Coverage includes appliances and valuable furniture." },
+        "1": { "title": "Third Party Liability", "desc": "Coverage for damages to others caused by your home." },
+        "2": { "title": "Alternative Accommodation", "desc": "We cover housing costs if your home becomes uninhabitable." },
+        "3": { "title": "24/7 Technical Support", "desc": "Free emergency services for plumbing and electricity." }
+      }
+    },
+    "retirement": {
+      "Hero": {
+        "badge": "Retirement Plan",
+        "title": "Plan for a Peaceful and Stable Future",
+        "description": "Enjoy your retirement years with savings and investment plans that guarantee a rewarding financial return."
+      },
+      "Features": {
+        "0": { "title": "Guaranteed Returns", "desc": "We guarantee the growth of your savings over time." },
+        "1": { "title": "Flexible Contributions", "desc": "Ability to adjust monthly savings based on your capability." },
+        "2": { "title": "Family Protection", "desc": "Integrated insurance coverage protecting your family." },
+        "3": { "title": "Professional Management", "desc": "A team of experts manages your investments to maximize profit." }
+      }
+    }
+  },
   "FinanceDetails": {
     "auto": {
       "Hero": {
@@ -749,8 +817,65 @@
         "submit": "Submit Request"
       }
     }
+  },
+  
+  "InsuranceHero": {
+    "badge": "Complete Protection",
+    "title": "Security for You and Your Family at Every Step",
+    "desc": "Choose from a variety of insurance packages designed to suit your needs, from vehicle insurance to protection and savings plans.",
+    "cta": "Discover Our Packages"
+  },
+  "InsuranceOptions": {
+    "section_title": "Insurance & Protection Solutions",
+    "section_subtitle": "We offer a comprehensive suite of insurance services that provide safety and peace of mind for you and your family.",
+    "learn_more": "Learn More",
+    "auto": { "title": "Auto Insurance", "desc": "Comprehensive protection for your vehicle against accidents and breakdowns." },
+    "protection": { "title": "Protection ", "desc": "Investment plans that secure your future and the future of your family." },
+    "retirement": { "title": "Private Retirement Plan", "desc": "Enjoy a comfortable retirement with guaranteed financial returns." },
+    "returns": { "title": "Savings, Protection & Returns Package", "desc": "Innovative financial solutions combining returns and protection." },
+    "travel": { "title": "Travel Insurance", "desc": "Travel the world with peace of mind with full medical and accident coverage." },
+    "home": { "title": "Home Insurance", "desc": "Protect your property and home against fire and theft." },
+    "medical": { "title": "Medical Malpractice Insurance", "desc": "Specialized legal and professional coverage for medical staff." },
+    "labor": { "title": "Domestic Labor Insurance", "desc": "Protection against risks of absconding or domestic labor injuries." },
+    "visit": { "title": "Visit Visa Extension Insurance", "desc": "Mandatory health insurance for extending visit visas." },
+    "family": { "title": "Family Protection Insurance", "desc": "Comprehensive healthcare and accident coverage for all family members." }
+  },
+  "InsuranceVisuals": {
+    "life": "Life Insurance",
+    "comprehensive": "Comprehensive",
+    "protection": "Protection"
+  },
+
+  "InsuranceVisualss": {
+    "auto": "Auto Insurance",
+    "home": "Home Insurance",
+    "retirement": "Retirement Plan"
+  },
+  "BankingCategories": {
+    "title": "Banking Solutions Tailored for You",
+    "subtitle": "Explore a variety of accounts specifically designed to meet your daily and future financial needs.",
+    "learnMore": "Discover More",
+    "items": {
+      "current": {
+        "title": "Current Account",
+        "desc": "Flexible management of your daily funds with easy access anytime, anywhere via our digital app."
+      },
+      "savings": {
+        "title": "Savings Account",
+        "desc": "Watch your savings grow safely with competitive returns and flexible plans to help achieve your goals."
+      },
+      "elite": {
+        "title": "Elite Account",
+        "desc": "An exceptional banking experience offering exclusive benefits and personalized services for your lifestyle."
+      },
+      "minors": {
+        "title": "Minors Accounts",
+        "desc": "Help your children build a bright financial future and teach them the culture of saving from a young age."
+      }
+    }
   }
 }
+
 
 
 

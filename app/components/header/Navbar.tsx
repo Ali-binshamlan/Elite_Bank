@@ -70,8 +70,8 @@ const menuData = getMenuData(t, locale);
           className={`w-full transition-all duration-300 border-b relative z-10
           ${
             scrolled
-              ? "bg-white/95 backdrop-blur-md shadow-md py-3 border-gray-200"
-              : "bg-white py-4 border-gray-100"
+              ? "bg-white/60 backdrop-blur-md shadow-md py-3 border-gray-200"
+              : "bg-white/80 py-4 border-gray-100"
           }`}
         >
           <div className="max-w-[1440px] mx-auto px-4 md:px-8">
@@ -137,8 +137,7 @@ const menuData = getMenuData(t, locale);
                     onMouseEnter={() => setActiveDropdown(item.id)}
                     className={`
                       relative group h-14 flex items-center gap-1.5 px-4 rounded-full text-[#002147] font-bold transition-all duration-300
-                      hover:bg-gray-50
-                      ${activeDropdown === item.id ? "bg-gray-50" : ""}
+                      ${activeDropdown === item.id ? "" : ""}
                       ${locale === "en" ? "text-sm" : "text-[15px]"} 
                     `}
                   >
@@ -228,7 +227,7 @@ const menuData = getMenuData(t, locale);
                           {activeMenuData.icon}
                         </div>
                         <div>
-                          <h3 className="font-bold text-[#002147] text-xl leading-none mb-1.5 group-hover:underline">
+                          <h3 className="font-bold text-[#002147] text-xl leading-none mb-1.5 ">
                             {activeMenuData.name}
                           </h3>
                           <p className="text-sm text-gray-500">

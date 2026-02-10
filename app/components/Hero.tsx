@@ -1,20 +1,20 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { useTranslations, useLocale } from "next-intl"; // استيراد المكتبة
+import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { ChevronRight, ChevronLeft, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
-// تعريف شكل البيانات الجديد (مبسط)
 type CardData = {
   id: number;
-  key: string; // مفتاح للترجمة
+  key: string;
   img: string;
-  title: string; // النص المترجم الجاهز
-  category: string; // النص المترجم الجاهز
+  title: string;
+  category: string;
+  href: string;
 };
 
-// تعريف شكل الشريحة
 type SlideData = {
   originalIndex: number;
   data: CardData;
@@ -22,7 +22,6 @@ type SlideData = {
 };
 
 export default function Hero() {
-  // 1. تفعيل الترجمة
   const t = useTranslations("Hero");
   const locale = useLocale();
   const dir = locale === "ar" ? "rtl" : "ltr";
@@ -30,7 +29,6 @@ export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(2);
   const [isMobile, setIsMobile] = useState(false);
 
-  // التحقق من حجم الشاشة
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -38,16 +36,15 @@ export default function Hero() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // 2. بناء مصفوفة البطاقات باستخدام الترجمة
-  // نستخدم useMemo لضمان عدم إعادة البناء إلا عند تغيير اللغة
   const cards: CardData[] = useMemo(
     () => [
       {
         id: 1,
         key: "infinite",
-        img: "/images/Hero_1.png", // تأكد من وجود / في بداية المسار
+        img: "/images/Hero_1.png",
         title: t("cards.infinite.title"),
         category: t("cards.infinite.category"),
+        href: "/Personal/Cards/infinite",
       },
       {
         id: 2,
@@ -55,6 +52,7 @@ export default function Hero() {
         img: "/images/Hero_2.png",
         title: t("cards.platinum.title"),
         category: t("cards.platinum.category"),
+        href: "/Personal/Cards/platinum",
       },
       {
         id: 3,
@@ -62,6 +60,7 @@ export default function Hero() {
         img: "/images/Hero_3.png",
         title: t("cards.elite.title"),
         category: t("cards.elite.category"),
+        href: "/Personal/Cards/world_elite",
       },
       {
         id: 4,
@@ -69,6 +68,7 @@ export default function Hero() {
         img: "/images/Hero_4.png",
         title: t("cards.gold.title"),
         category: t("cards.gold.category"),
+        href: "/Personal/Cards/monthly",
       },
       {
         id: 5,
@@ -76,10 +76,11 @@ export default function Hero() {
         img: "/images/Hero_5.png",
         title: t("cards.business.title"),
         category: t("cards.business.category"),
+        href: "/Personal/Cards/prepaid",
       },
     ],
     [t],
-  ); // يعاد الحساب عند تغير دالة الترجمة
+  );
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % cards.length);
@@ -89,10 +90,7 @@ export default function Hero() {
     setCurrentIndex((prev) => (prev - 1 + cards.length) % cards.length);
   }, [cards.length]);
 
-  const handleDragEnd = (
-    event: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo,
-  ) => {
+  const handleDragEnd = (event: any, info: PanInfo) => {
     const threshold = 50;
     if (info.offset.x > threshold) {
       dir === "rtl" ? nextSlide() : prevSlide();
@@ -104,7 +102,6 @@ export default function Hero() {
   const getVisibleSlides = () => {
     const visibleSlides: SlideData[] = [];
     const range = isMobile ? 1 : 2;
-
     for (let i = -range; i <= range; i++) {
       let index = (currentIndex + i + cards.length) % cards.length;
       visibleSlides.push({
@@ -127,6 +124,7 @@ export default function Hero() {
       dir={dir}
     >
       {/* الخلفية كما هي بدون تغيير */}
+
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute w-full h-full opacity-[0.03]">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -145,19 +143,23 @@ export default function Hero() {
                 />
               </pattern>
             </defs>
+
             <rect width="100%" height="100%" fill="url(#small-grid)" />
           </svg>
         </div>
+
         <motion.div
           animate={{ x: [0, 50, 0], y: [0, 30, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
           className="absolute -top-[10%] -left-[10%] w-[500px] h-[500px] bg-blue-200/20 rounded-full blur-[100px]"
         />
+
         <motion.div
           animate={{ x: [0, -30, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           className="absolute top-[20%] -right-[10%] w-[400px] h-[400px] bg-indigo-200/20 rounded-full blur-[80px]"
         />
+
         <div className="absolute bottom-0 left-0 w-full h-[300px] opacity-10">
           <svg
             viewBox="0 0 1440 320"
@@ -171,6 +173,7 @@ export default function Hero() {
             ></path>
           </svg>
         </div>
+
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
@@ -186,6 +189,7 @@ export default function Hero() {
               strokeWidth="1"
               fill="none"
             />
+
             <rect
               x="30"
               y="30"
@@ -197,6 +201,7 @@ export default function Hero() {
             />
           </svg>
         </motion.div>
+
         <div className="absolute top-[40%] left-[5%] opacity-10">
           <svg width="80" height="80">
             <defs>
@@ -211,14 +216,17 @@ export default function Hero() {
                 <circle cx="2" cy="2" r="1.5" fill="#002147" />
               </pattern>
             </defs>
+
             <rect width="80" height="80" fill="url(#dots)" />
           </svg>
         </div>
+
         <div className="absolute top-0 w-full h-full md:h-64 bg-gradient-to-b from-white via-[#fafbfd]/80 to-transparent" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10 w-full">
         {/* منطقة العنوان - استخدام الترجمة */}
+
         <div className="relative text-center mb-6 md:mb-8">
           <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] pointer-events-none -z-10">
             <svg
@@ -235,6 +243,7 @@ export default function Hero() {
                 strokeWidth="1"
                 strokeDasharray="20 20"
               />
+
               <circle
                 cx="300"
                 cy="300"
@@ -244,6 +253,7 @@ export default function Hero() {
                 strokeOpacity="0.04"
                 strokeWidth="0.5"
               />
+
               <circle
                 cx="300"
                 cy="300"
@@ -253,6 +263,7 @@ export default function Hero() {
                 strokeWidth="2"
                 strokeOpacity="0.1"
               />
+
               <defs>
                 <linearGradient
                   id="blueGradient"
@@ -262,6 +273,7 @@ export default function Hero() {
                   y2="100%"
                 >
                   <stop offset="0%" stopColor="#2563eb" />
+
                   <stop offset="100%" stopColor="#002147" />
                 </linearGradient>
               </defs>
@@ -270,7 +282,9 @@ export default function Hero() {
 
           <h1 className="text-[#002147] text-4xl md:text-7xl lg:text-7xl font-black mb-4 md:mb-6 leading-[1.2] md:leading-[1.1] tracking-tight">
             {t("title")}
+
             <br />
+
             <span className="relative inline-block">
               <svg
                 className="hidden md:block absolute w-[110%] h-4 -bottom-2 -left-[5%] text-blue-500/20"
@@ -284,6 +298,7 @@ export default function Hero() {
                   strokeLinecap="round"
                 />
               </svg>
+
               <span className="text-transparent bg-clip-text bg-gradient-to-br from-[#002147] to-[#2563eb]">
                 {t("subtitle")}
               </span>
@@ -295,7 +310,7 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* السلايدر */}
+        {/* Slider Area */}
         <div className="relative h-[420px] md:h-[550px] w-full flex items-center justify-center touch-pan-y">
           <div className="relative w-full max-w-6xl h-full flex items-center justify-center perspective-[1200px]">
             <AnimatePresence mode="popLayout">
@@ -311,10 +326,7 @@ export default function Hero() {
                 return (
                   <motion.div
                     key={slide.originalIndex}
-                    initial={false}
                     drag={isCenter ? "x" : false}
-                    dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={0.1}
                     onDragEnd={handleDragEnd}
                     animate={{
                       x: xOffset,
@@ -333,12 +345,7 @@ export default function Hero() {
                           : slide.position * (isMobile ? -15 : -25),
                       z: -absPos * (isMobile ? 40 : 60),
                     }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 150,
-                      damping: 22,
-                      mass: 1,
-                    }}
+                    transition={{ type: "spring", stiffness: 150, damping: 22 }}
                     className="absolute w-[75vw] max-w-[300px] md:max-w-none md:w-[350px] aspect-[3/4.5] cursor-grab active:cursor-grabbing md:cursor-pointer"
                     style={{
                       transformStyle: "preserve-3d",
@@ -347,81 +354,14 @@ export default function Hero() {
                     onClick={() => setCurrentIndex(slide.originalIndex)}
                   >
                     <div
-                      className={`relative w-full h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden transition-all duration-300 group
-                        ${
-                          isCenter
-                            ? "shadow-[0_15px_40px_-10px_rgba(0,33,71,0.5)] md:shadow-[0_25px_60px_-15px_rgba(0,33,71,0.5)] ring-1 ring-white/20 border border-white/10"
-                            : "brightness-[0.8] md:brightness-[0.7] grayscale-[0.2] shadow-xl"
-                        }`}
+                      className={`relative w-full h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden transition-all duration-300 group ${isCenter ? "shadow-2xl border border-white/10" : "brightness-75 grayscale-[0.2]"}`}
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-[#d3daf8] via-[#304ba3] to-[#1e3a8a]" />
-
-                      {/* محتوى البطاقة الداخلي */}
-                      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-                        <svg
-                          className="w-full h-full"
-                          width="100%"
-                          height="100%"
-                          preserveAspectRatio="none"
-                        >
-                          <defs>
-                            <pattern
-                              id="cardPattern"
-                              width="20"
-                              height="20"
-                              patternUnits="userSpaceOnUse"
-                            >
-                              <path
-                                d="M0 20 L20 0 M-5 5 L5 -5 M15 25 L25 15"
-                                stroke="white"
-                                strokeWidth="0.5"
-                                strokeOpacity="0.3"
-                                fill="none"
-                              />
-                            </pattern>
-                            <linearGradient
-                              id="fadeGrad"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="1"
-                            >
-                              <stop
-                                offset="0%"
-                                stopColor="white"
-                                stopOpacity="0.2"
-                              />
-                              <stop
-                                offset="100%"
-                                stopColor="white"
-                                stopOpacity="0"
-                              />
-                            </linearGradient>
-                          </defs>
-                          <rect
-                            width="100%"
-                            height="100%"
-                            fill="url(#cardPattern)"
-                          />
-                          <circle
-                            cx="90"
-                            cy="10"
-                            r="40"
-                            fill="url(#fadeGrad)"
-                            opacity="0.3"
-                          />
-                        </svg>
-                      </div>
-
-                      <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay z-0" />
-
                       <img
                         src={slide.data.img}
                         alt={slide.data.title}
-                        className="relative z-10 w-full h-full object-cover mix-blend-hard-light opacity-90 md:hover:scale-105 transition-transform duration-700 pointer-events-none"
-                        draggable={false}
+                        className="relative z-10 w-full h-full object-cover mix-blend-hard-light opacity-90 transition-transform duration-700 pointer-events-none"
                       />
-
                       {isCenter && (
                         <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#000f21] via-transparent to-transparent flex flex-col justify-end p-6 md:p-8">
                           <div className="text-white">
@@ -432,24 +372,24 @@ export default function Hero() {
                             >
                               {slide.data.category}
                             </motion.span>
-
                             <div className="flex justify-between items-center">
                               <motion.h3
                                 key={slide.data.id}
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.1 }}
-                                className="text-xl md:text-2xl font-bold tracking-wide drop-shadow-md"
+                                className="text-xl md:text-2xl font-bold tracking-wide"
                               >
                                 {slide.data.title}
                               </motion.h3>
-
-                              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-all cursor-pointer">
+                              <Link
+                                href={`/${locale}${slide.data.href}`}
+                                className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-all cursor-pointer z-30"
+                              >
                                 <ArrowUpRight
                                   size={18}
-                                  className="md:w-5 md:h-5"
+                                  className="md:w-5 md:h-5 text-white"
                                 />
-                              </div>
+                              </Link>
                             </div>
                           </div>
                         </div>
@@ -462,8 +402,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* أزرار التحكم */}
+        {/* ✅ أزرار التحكم (الأسهم والنقاط) */}
         <div className="flex items-center justify-center gap-6 mt-10 relative z-20">
+          {/* زر السابق */}
           <button
             onClick={prevSlide}
             className="hidden md:flex w-14 h-14 rounded-full bg-white border border-slate-200 text-[#002147] items-center justify-center hover:bg-[#002147] hover:text-white transition-all hover:scale-105 shadow-sm"
@@ -471,6 +412,7 @@ export default function Hero() {
             {dir === "rtl" ? <ChevronRight /> : <ChevronLeft />}
           </button>
 
+          {/* نقاط المؤشر (Dots) */}
           <div className="flex gap-2">
             {cards.map((_, i) => (
               <button
@@ -485,6 +427,7 @@ export default function Hero() {
             ))}
           </div>
 
+          {/* زر التالي */}
           <button
             onClick={nextSlide}
             className="hidden md:flex w-14 h-14 rounded-full bg-white border border-slate-200 text-[#002147] items-center justify-center hover:bg-[#002147] hover:text-white transition-all hover:scale-105 shadow-sm"

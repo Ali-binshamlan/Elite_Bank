@@ -15,7 +15,7 @@ import {
   Plane,
   HeartPulse,
 } from "lucide-react";
-import { cardsData } from "@/app/data/cardsData"; // تأكد من المسار الصحيح
+import { cardsData } from "@/app/data/cardsData";
 
 // 1. خريطة الأيقونات لربط كل نوع بطاقة بأيقونة مناسبة
 const cardIcons: Record<string, any> = {
@@ -25,7 +25,7 @@ const cardIcons: Record<string, any> = {
   platinum: Gem,
 };
 
-// 2. دالة البيانات (تستقبل دالة الترجمة t واللغة locale)
+// 2. دالة البيانات المحدثة بالروابط الصحيحة
 export const getMenuData = (t: any, locale: string) => [
   {
     id: "accounts",
@@ -37,22 +37,22 @@ export const getMenuData = (t: any, locale: string) => [
       {
         name: t("menu.accounts.items.current"),
         icon: <Banknote size={20} />,
-        href: "/Personal/Accounts/Current",
+        href: "/Personal/Accounts/current", // تم التحديث لمسار ديناميكي
       },
       {
         name: t("menu.accounts.items.savings"),
         icon: <PiggyBank size={20} />,
-        href: "/Personal/Accounts/Savings",
+        href: "/Personal/Accounts/savings",
       },
       {
         name: t("menu.accounts.items.elite"),
         icon: <TrendingUp size={20} />,
-        href: "/Personal/Accounts/Elite",
+        href: "/Personal/Accounts/elite",
       },
       {
         name: t("menu.accounts.items.minors"),
         icon: <Baby size={20} />,
-        href: "/Personal/Accounts/Minors",
+        href: "/Personal/Accounts/minors",
       },
     ],
   },
@@ -61,15 +61,13 @@ export const getMenuData = (t: any, locale: string) => [
     name: t("menu.cards.title"),
     description: t("menu.cards.desc"),
     icon: <CreditCard size={22} />,
-    href: `/Personal/Cards`, // الرابط الرئيسي لصفحة البطاقات
-
-    // ✅ هنا يتم جلب بيانات البطاقات ديناميكياً من cardsData
+    href: `/Personal/Cards`,
     subItems: cardsData.map((card) => {
       const IconComponent = cardIcons[card.id] || CreditCard;
       return {
-        name: t(`menu.cards.items.${card.id}`), // يجلب الاسم من ملف الترجمة
+        name: t(`menu.cards.items.${card.id}`),
         icon: <IconComponent size={20} />,
-        href: `/Personal/Cards/${card.id}`, // ✅ رابط ديناميكي لكل بطاقة
+        href: `/Personal/Cards/${card.id}`,
       };
     }),
   },
@@ -83,22 +81,22 @@ export const getMenuData = (t: any, locale: string) => [
       {
         name: t("menu.finance.items.personal"),
         icon: <Banknote size={20} />,
-        href: "#",
+        href: "/Personal/Finance/personal", // تم التحديث
       },
       {
         name: t("menu.finance.items.realestate"),
         icon: <Home size={20} />,
-        href: "#",
+        href: "/Personal/Finance/realestate",
       },
       {
         name: t("menu.finance.items.auto"),
         icon: <Car size={20} />,
-        href: "#",
+        href: "/Personal/Finance/auto",
       },
       {
         name: t("menu.finance.items.refinance"),
         icon: <RefreshCw size={20} />,
-        href: "#",
+        href: "/Personal/Finance/refinance",
       },
     ],
   },
@@ -107,97 +105,29 @@ export const getMenuData = (t: any, locale: string) => [
     name: t("menu.insurance.title"),
     description: t("menu.insurance.desc"),
     icon: <ShieldCheck size={22} />,
-    href: "#",
+    href: "/Personal/Insurance",
     subItems: [
       {
         name: t("menu.insurance.items.car"),
         icon: <Car size={20} />,
-        href: "#",
+        href: "/Personal/Insurance/auto", // تم التحديث ليتوافق مع المفتاح في insuranceData
       },
       {
-        name: t("menu.insurance.items.health"),
-        icon: <HeartPulse size={20} />,
-        href: "#",
+        name: t("menu.insurance.items.home"), // تم التعديل من health إلى home حسب توافر البيانات
+        icon: <Home size={20} />,
+        href: "/Personal/Insurance/home",
       },
       {
-        name: t("menu.insurance.items.travel"),
-        icon: <Plane size={20} />,
-        href: "#",
-      },
-      {
-        name: t("menu.insurance.items.protection"),
-        icon: <ShieldCheck size={20} />,
-        href: "#",
+        name: t("menu.insurance.items.retirement"), // تم التعديل لتتوافق معretirement في insuranceData
+        icon: <TrendingUp size={20} />,
+        href: "/Personal/Insurance/retirement",
       },
     ],
   },
-  {
-    id: "offers",
-    name: t("menu.offers.title"),
-    description: t("menu.offers.desc"),
-    icon: <Percent size={22} />,
-    href: "#",
-    subItems: [
-      {
-        name: t("menu.offers.items.dining"),
-        icon: <UtensilsIcon size={20} />,
-        href: "#",
-      },
-      {
-        name: t("menu.offers.items.shopping"),
-        icon: <ShoppingBagIcon size={20} />,
-        href: "#",
-      },
-      {
-        name: t("menu.offers.items.installments"),
-        icon: <CalendarClockIcon size={20} />,
-        href: "#",
-      },
-      {
-        name: t("menu.offers.items.exclusive"),
-        icon: <StarIcon size={20} />,
-        href: "#",
-      },
-    ],
-  },
+ 
 ];
 
-// أيقونات مساعدة (لأن Lucide لا تصدر كل شيء افتراضياً بنفس الأسماء أحياناً)
-const PiggyBankIcon = ({ size }: { size: number }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2.5V5z" />
-    <path d="M2 9v1c0 1.1.9 2 2 2h1" />
-    <path d="M16 11h.01" />
-  </svg>
-);
-
-const UserIcon = ({ size }: { size: number }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
-
+// --- أيقونات مساعدة مخصصة ---
 const UtensilsIcon = ({ size }: { size: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

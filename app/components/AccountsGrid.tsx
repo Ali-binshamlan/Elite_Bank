@@ -1,14 +1,20 @@
 "use client";
 
+import styled from "styled-components";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-// استيراد البيانات من الملف الجديد
-import { accountsData } from "@/app/data/accountsData";
+import { Link } from "@/i18n/routing"; // تأكد من صحة مسار الاستيراد في مشروعك
+import {
+  ArrowUpRight,
+  Banknote,
+  PiggyBank,
+  TrendingUp,
+  Baby,
+} from "lucide-react";
 
-// --- تعريف أنماط SVG الخلفية ---
-const BackgroundPatterns = {
+// ✅ 1. تعريف الأنماط الخلفية أولاً (خارج المكون لتجنب ReferenceError)
+const BackgroundPatterns: Record<string, React.ReactNode> = {
   waves: (
     <svg
       width="100%"
@@ -50,185 +56,273 @@ const BackgroundPatterns = {
       <rect x="0" y="0" width="100%" height="100%" fill="url(#dotPattern)" />
     </svg>
   ),
-  circles: (
-    <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 400 400"
-      xmlns="http://www.w3.org/2000/svg"
-      className="absolute inset-0 text-white"
-    >
-      <circle cx="0" cy="400" r="300" fill="currentColor" fillOpacity="0.05" />
-      <circle cx="400" cy="0" r="200" fill="currentColor" fillOpacity="0.05" />
-      <circle
-        cx="200"
-        cy="200"
-        r="100"
-        fill="currentColor"
-        fillOpacity="0.03"
-      />
-    </svg>
-  ),
 };
 
-// --- مكون البطاقة ---
-const AccountCard = ({
-  title,
-  desc,
-  icon: Icon,
-  img,
-  color,
-  large = false,
-  ctaText,
-  patternType = "waves",
-}: any) => {
-  const SelectedPattern =
-    BackgroundPatterns[patternType as keyof typeof BackgroundPatterns] ||
-    BackgroundPatterns.waves;
+const accountsList = [
+  {
+    id: "current",
+    icon: Banknote,
+    color: "#002147",
+    pattern: "waves",
+    img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000",
+    href: "/Personal/Accounts/current",
+  },
+  {
+    id: "savings",
+    icon: PiggyBank,
+    color: "#00418c",
+    pattern: "dots",
+    img: "https://images.unsplash.com/photo-1616077168712-fc6c788db4af?q=80&w=2000",
+    href: "/Personal/Accounts/savings",
+  },
+  {
+    id: "elite",
+    icon: TrendingUp,
+    color: "#dda36c",
+    pattern: "waves",
+    img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2000",
+    href: "/Personal/Accounts/elite",
+  },
+  {
+    id: "minors",
+    icon: Baby,
+    color: "#67aaf7",
+    pattern: "dots",
+    img: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?q=80&w=2000",
+    href: "/Personal/Accounts/minors",
+  },
+];
 
-  return (
-    <motion.div
-      whileHover="hover"
-      initial="rest"
-      className={`
-        relative overflow-hidden rounded-[2rem] group cursor-pointer
-        ${large ? "lg:row-span-2 lg:col-span-1" : "col-span-1 h-[280px]"}
-        bg-gray-100 shadow-sm hover:shadow-2xl transition-shadow duration-500
-      `}
-    >
-      {/* 1. الخلفية والصورة */}
-      <motion.div
-        variants={{
-          rest: { scale: 1 },
-          hover: { scale: 1.05 },
-        }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="absolute inset-0 w-full h-full"
-      >
-        <Image src={img} alt={title} fill className="object-cover" />
-
-        {/* SVG Pattern */}
-        <motion.div
-          variants={{
-            rest: { opacity: 0.6, scale: 1, rotate: 0 },
-            hover: { opacity: 1, scale: 1.1, rotate: 2 },
-          }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0 z-0 pointer-events-none mix-blend-overlay"
-        >
-          {SelectedPattern}
-        </motion.div>
-
-        {/* Gradient Overlay */}
-        <motion.div
-          variants={{
-            rest: {
-              opacity: 0.4,
-              background:
-                "linear-gradient(to top, rgba(0,15,35,0.8), rgba(0,33,71,0.3))",
-            },
-            hover: {
-              opacity: 0.95,
-              background: `linear-gradient(to top, ${color}, ${color}cc, transparent)`,
-            },
-          }}
-          className="absolute inset-0 transition-all duration-500 z-1"
-        />
-      </motion.div>
-
-      {/* 2. المحتوى */}
-      <div className="absolute inset-0 p-7 flex flex-col justify-between z-20">
-        <div className="flex justify-between items-start">
-          <motion.div
-            variants={{
-              rest: {
-                y: 0,
-                color: "#ffffff",
-                backdropFilter: "blur(0px)",
-                backgroundColor: "transparent",
-              },
-              hover: {
-                y: -5,
-                backgroundColor: "#ffffff",
-                color: color,
-                backdropFilter: "blur(8px)",
-              },
-            }}
-            className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border border-white/10"
-          >
-            <Icon size={26} className="transition-colors duration-300" />
-          </motion.div>
-
-          <motion.div
-            variants={{
-              rest: { opacity: 0, scale: 0.5, x: -10 },
-              hover: { opacity: 1, scale: 1, x: 0 },
-            }}
-            className="w-10 h-10 rounded-full bg-white/20 text-white backdrop-blur-md flex items-center justify-center"
-          >
-            <ArrowUpRight size={20} />
-          </motion.div>
-        </div>
-
-        <motion.div
-          variants={{
-            rest: { y: 0 },
-            hover: { y: -15 },
-          }}
-        >
-          <h3 className="text-3xl font-bold text-white mb-3 drop-shadow-lg">
-            {title}
-          </h3>
-
-          <motion.div
-            variants={{
-              rest: { opacity: 0, height: 0 },
-              hover: { opacity: 1, height: "auto" },
-            }}
-            className="overflow-hidden"
-          >
-            <p className="text-white/90 text-base leading-relaxed mb-5 font-medium drop-shadow-md">
-              {desc}
-            </p>
-            <button className="px-6 py-3 bg-white text-[#002147] rounded-xl text-sm font-bold shadow-lg hover:bg-gray-50 transition-colors">
-              {ctaText}
-            </button>
-          </motion.div>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-};
-
-// --- المكون الرئيسي ---
-export default function AccountsGrid() {
-  const t = useTranslations("AccountsGrid");
+export default function BentoAccountsGrid() {
+  const t = useTranslations("menu.accounts");
   const locale = useLocale();
   const isRTL = locale === "ar";
 
   return (
-    <section
-      className="w-full py-16 md:py-24 bg-white"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[320px]">
-          {/* استخدام البيانات المستوردة مع تطبيق الترجمة */}
-          {accountsData.map((acc) => (
-            <AccountCard
-              key={acc.id}
-              large={acc.large}
-              title={t(`${acc.id}.title`)}
-              desc={t(`${acc.id}.desc`)}
-              icon={acc.icon}
-              img={acc.img}
-              color={acc.color}
-              patternType={acc.pattern}
-              ctaText={t("cta_view")}
-            />
-          ))}
+    <StyledBentoWrapper $isRTL={isRTL}>
+      <div className="container mx-auto px-4 md:px-8 py-16">
+        <div className="bento-grid">
+          {accountsList.map((acc, index) => {
+            const area = String.fromCharCode(97 + index);
+            const Icon = acc.icon;
+            const SelectedPattern =
+              BackgroundPatterns[acc.pattern] || BackgroundPatterns.waves;
+
+            return (
+              <motion.div
+                key={acc.id}
+                initial="rest"
+                whileHover="hover"
+                className={`bento-card area-${area}`}
+                style={{ gridArea: area }}
+              >
+                {/* رابط يغطي الكارت بالكامل لتسهيل تجربة المستخدم */}
+                <Link href={acc.href} className="absolute inset-0 z-30" />
+
+                <motion.div
+                  variants={{ rest: { scale: 1 }, hover: { scale: 1.05 } }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={acc.img}
+                    alt={acc.id}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="pattern-overlay">{SelectedPattern}</div>
+                  <motion.div
+                    className="gradient-overlay"
+                    variants={{
+                      rest: {
+                        opacity: 0.6,
+                        background:
+                          "linear-gradient(to top, rgba(0,20,40,0.9), transparent)",
+                      },
+                      hover: {
+                        opacity: 0.9,
+                        background: `linear-gradient(to top, ${acc.color}, transparent)`,
+                      },
+                    }}
+                  />
+                </motion.div>
+
+                <div className="card-content">
+                  <div className="top-row">
+                    <motion.div
+                      variants={{
+                        rest: {
+                          backgroundColor: "rgba(255,255,255,0.1)",
+                          color: "#fff",
+                        },
+                        hover: { backgroundColor: "#fff", color: acc.color },
+                      }}
+                      className="icon-box"
+                    >
+                      <Icon size={24} />
+                    </motion.div>
+                    <div className="arrow-box">
+                      <ArrowUpRight size={18} />
+                    </div>
+                  </div>
+
+                  <div className="text-box">
+                    <h3 className="card-title">{t(`items.${acc.id}`)}</h3>
+                    <motion.div
+                      variants={{
+                        rest: { opacity: 0, height: 0 },
+                        hover: { opacity: 1, height: "auto" },
+                      }}
+                      className="overflow-hidden"
+                    >
+                      {/* وصف مخصص أو مترجم */}
+                      <p className="card-desc">
+                        {isRTL
+                          ? "إدارة مرنة وحلول ذكية تلبي طموحاتك المالية."
+                          : "Smart and flexible management for your financial goals."}
+                      </p>
+
+                      {/* زر اكتشف المزيد المفعل */}
+                      <Link
+                        href={acc.href}
+                        className="relative z-40 block w-fit"
+                      >
+                        <button
+                          className="cta-button"
+                          style={{ color: acc.color }}
+                        >
+                          {isRTL ? "اكتشف المزيد" : "Explore More"}
+                        </button>
+                      </Link>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
-    </section>
+    </StyledBentoWrapper>
   );
 }
+
+const StyledBentoWrapper = styled.div<{ $isRTL: boolean }>`
+  direction: ${(props) => (props.$isRTL ? "rtl" : "ltr")};
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 320px);
+    grid-template-areas:
+      "a b b"
+      "a c d";
+    gap: 20px;
+  }
+
+  .bento-grid:hover > .bento-card:not(:hover) {
+    filter: blur(8px);
+    transform: scale(0.98);
+    opacity: 0.6;
+  }
+
+  .bento-card {
+    position: relative;
+    border-radius: 2.5rem;
+    overflow: hidden;
+    background: #002147;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .card-content {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none; /* للسماح للرابط الخلفي باستلام النقرات */
+  }
+
+  .text-box {
+    pointer-events: auto; /* إعادة تفعيل النقرات للنصوص والأزرار */
+  }
+
+  .icon-box {
+    width: 54px;
+    height: 54px;
+    border-radius: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .card-title {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-desc {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .cta-button {
+    background: white;
+    padding: 0.6rem 1.8rem;
+    border-radius: 1.2rem;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+  }
+  .pattern-overlay {
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: overlay;
+  }
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .arrow-box {
+    color: white;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas: "a b" "c d";
+      grid-template-rows: repeat(2, 350px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bento-grid {
+      display: flex;
+      flex-direction: column;
+    }
+    .bento-card {
+      height: 320px;
+    }
+  }
+`;

@@ -1,30 +1,31 @@
 "use client";
 
-import { useTranslations } from "next-intl"; // 1. استيراد الهوك
-import { Home, Car, Banknote } from "lucide-react";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 export default function FinanceVisuals() {
-  const t = useTranslations("FinanceVisuals"); // 2. تفعيل الترجمة
+  const t = useTranslations("FinanceVisuals");
 
+  // ✅ استخدام نفس صور الداتا والروابط التي تعمل في مشروعك
   const cards = [
     {
       id: 1,
-      title: t("real_estate"), // 3. استخدام مفتاح الترجمة
-      icon: <Home size={64} strokeWidth={1.5} />,
+      title: t("real_estate"),
+      img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop",
       rotate: "-15deg",
       zIndex: 10,
     },
     {
       id: 2,
-      title: t("auto"), // 3. استخدام مفتاح الترجمة
-      icon: <Car size={64} strokeWidth={1.5} />,
+      title: t("auto"),
+      img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2000&auto=format&fit=crop",
       rotate: "0deg",
       zIndex: 20,
     },
     {
       id: 3,
-      title: t("personal"), // 3. استخدام مفتاح الترجمة
-      icon: <Banknote size={64} strokeWidth={1.5} />,
+      title: t("personal"),
+      img: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?q=80&w=2000&auto=format&fit=crop",
       rotate: "15deg",
       zIndex: 10,
     },
@@ -33,14 +34,13 @@ export default function FinanceVisuals() {
   return (
     <div className="relative w-full mt-20 max-w-[600px] h-[450px] flex items-center justify-center py-10">
       {/* 1. خلفية ملونة (Blob) */}
-      <div className="absolute w-[400px] h-[400px] bg-gradient-to-r from-[#002147] to-[#00418c] rounded-full blur-[100px] opacity-80 animate-pulse" />
 
       {/* 2. حاوية الكروت */}
-      <div className="relative flex gap-10 justify-center items-center group">
+      <div className="relative flex  justify-center items-center group">
         {cards.map((card) => (
           <div
             key={card.id}
-            className="glass-card relative flex flex-col justify-center items-center transition-all duration-500 ease-in-out"
+            className="glass-card relative overflow-hidden transition-all duration-500 ease-in-out "
             style={
               {
                 "--r": card.rotate,
@@ -48,51 +48,54 @@ export default function FinanceVisuals() {
               } as React.CSSProperties
             }
           >
-            {/* الأيقونة */}
-            <div className="text-white drop-shadow-lg mb-4 transform group-hover:scale-110 transition-transform duration-300">
-              {card.icon}
+            {/* الصورة الخلفية للكارت */}
+            <div className="absolute inset-0 w-full h-full">
+              <Image
+                src={card.img}
+                alt={card.title}
+                fill
+                className="object-cover transition-transform duration-700 "
+              />
+              {/* Overlay لتسهيل قراءة النص */}
             </div>
 
-            {/* النص السفلي (Data Text) */}
-            <div className="absolute bottom-0 w-full h-16 bg-white/10 flex justify-center items-center text-[#002147] text-xl font-bold tracking-wider backdrop-blur-[4px] border-t border-white/20 group-hover:bg-white/80 transition-colors duration-300">
+            {/* النص السفلي المصمم بأسلوب Glass */}
+            <div className="absolute bottom-0 w-full h-16 bg-white/10 flex justify-center items-center text-white text-lg font-bold tracking-wider backdrop-blur-md border-t border-white/20  transition-all duration-300">
               {card.title}
             </div>
           </div>
         ))}
       </div>
 
-      {/* 3. ستايلات مخصصة */}
       <style jsx>{`
         .glass-card {
           width: 160px;
           height: 220px;
-          background: linear-gradient(
-            to bottom,
-            rgba(255, 255, 255, 0.2),
-            transparent
-          );
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          box-shadow: 0 30px 40px rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
           border-radius: 20px;
-          backdrop-filter: blur(12px);
-          overflow: hidden;
-
-          /* الحالة الافتراضية */
+          /* الحالة الافتراضية (متداخلة) */
           transform: rotate(var(--r));
-          margin: 0 -30px;
+          margin: 0 -40px;
+          transition: 0.5s ease;
         }
 
-        
+        /* عند هوفر المجموعة: الكروت تتوزع وتعتدل */
+        .group:hover .glass-card {
+          transform: rotate(0deg) translateY(-10px);
+          margin: 0 10px;
+        }
 
-        /* أحجام الديسك توب */
         @media (min-width: 768px) {
           .glass-card {
-            width: 180px;
-            height: 250px;
-            margin: 0 -50px;
+            width: 200px;
+            height: 280px;
+            margin: 0 -60px;
             border-radius: 24px;
           }
-          
+          .group:hover .glass-card {
+            margin: 0 15px;
+          }
         }
       `}</style>
     </div>

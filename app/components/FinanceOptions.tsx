@@ -13,7 +13,6 @@ export default function FinanceOptions({ locale }: FinanceOptionsProps) {
   const isRTL = locale === "ar";
 
   // استخدام صور من الداتا (أو صورة افتراضية)
-  const cardImage = "/images/Hero_1.png";
 
   const options = [
     {
@@ -26,13 +25,13 @@ export default function FinanceOptions({ locale }: FinanceOptionsProps) {
       id: "personal",
       icon: <Banknote size={24} strokeWidth={2} />,
       imageUrl:
-        "https://images.unsplash.com/photo-1579621970563-ebec7560eb3e?q=80&w=2059&auto=format&fit=crop", // صورة شخصي
+        "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?q=80&w=2000&auto=format&fit=crop",
     },
     {
       id: "realestate",
       icon: <Home size={24} strokeWidth={2} />,
       imageUrl:
-        "https://images.unsplash.com/photo-1600596542815-2495db9dc2c3?q=80&w=2070&auto=format&fit=crop", // صورة عقار
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop",
     },
   ];
 

@@ -42,7 +42,7 @@ export const financeConfig: Record<FinanceType, FinanceTheme> = {
     borderColor: "border-emerald-100",
     accentColor: "bg-emerald-600",
     heroImage:
-      "https://images.unsplash.com/photo-1600596542815-2495db9dc2c3?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop",
   },
   personal: {
     primaryColor: "text-purple-600",
@@ -50,16 +50,9 @@ export const financeConfig: Record<FinanceType, FinanceTheme> = {
     borderColor: "border-purple-100",
     accentColor: "bg-purple-600",
     heroImage:
-      "https://images.unsplash.com/photo-1579621970563-ebec7560eb3e?q=80&w=2059&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?q=80&w=2000&auto=format&fit=crop",
   },
-  general: {
-    primaryColor: "text-[#002147]",
-    bgColor: "bg-gray-50",
-    borderColor: "border-gray-200",
-    accentColor: "bg-[#002147]",
-    heroImage:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
-  },
+ 
 };
 
 // 2. إعدادات أيقونات المميزات (Features Icons)

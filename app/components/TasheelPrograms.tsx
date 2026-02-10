@@ -38,24 +38,29 @@ export default function TasheelPrograms() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // 2. البيانات الثابتة
-  const slidesData: SlideItem[] = [
-    {
-      id: "tasheel",
-      imagePath: "/images/Image_1.png",
-      icon: <Percent className="w-5 h-5 md:w-6 md:h-6" />,
-    },
-    {
-      id: "partners",
-      imagePath: "/images/Image_2.png",
-      icon: <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" />,
-    },
-    {
-      id: "credit",
-      imagePath: "/images/Image_3.jpeg",
-      icon: <CreditCard className="w-5 h-5 md:w-6 md:h-6" />,
-    },
-  ];
+ const slidesData: SlideItem[] = [
+   {
+     id: "tasheel",
+     // صورة تعبر عن المرونة والتمويل السهل
+     imagePath:
+       "https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?q=80&w=1200&auto=format&fit=crop",
+     icon: <Percent className="w-5 h-5 md:w-6 md:h-6" />,
+   },
+   {
+     id: "partners",
+     // صورة تعبر عن التسوق من متاجر الشركاء
+     imagePath:
+       "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop",
+     icon: <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" />,
+   },
+   {
+     id: "credit",
+     // صورة تعبر عن البطاقات الائتمانية والتعاملات البنكية
+     imagePath:
+       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
+     icon: <CreditCard className="w-5 h-5 md:w-6 md:h-6" />,
+   },
+ ];
 
   // --- Logic ---
 

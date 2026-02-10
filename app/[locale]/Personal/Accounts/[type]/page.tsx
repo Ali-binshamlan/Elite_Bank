@@ -27,4 +27,5 @@ export default async function AccountPage({
 
   // استدعاء مكون العرض وتمرير البيانات له
   return <AccountDetailsView locale={locale} type={accountType} />;
+  
 }

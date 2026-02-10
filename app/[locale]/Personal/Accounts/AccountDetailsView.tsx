@@ -1,4 +1,5 @@
 "use client";
+import styled from "styled-components";
 
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -20,6 +21,7 @@ import {
   Users,
 } from "lucide-react";
 import AppDownloadSection from "@/app/components/AppDownloadSection";
+import FAQSection from "@/app/components/FAQSection";
 
 interface AccountDetailsProps {
   locale: string;
@@ -40,25 +42,25 @@ export default function AccountDetailsView({
       color: "bg-[#002147]",
       text: "text-[#002147]",
       border: "border-[#002147]",
-      img: "/images/hero_2.png",
+      img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000",
     },
     savings: {
       color: "bg-[#F5A623]",
       text: "text-[#F5A623]",
       border: "border-[#F5A623]",
-      img: "/images/saudi_man_phone.png",
+      img: "https://images.unsplash.com/photo-1616077168712-fc6c788db4af?q=80&w=2000",
     },
     elite: {
       color: "bg-[#111111]",
       text: "text-[#111111]",
       border: "border-[#111111]",
-      img: "/images/Hero_1.png",
+      img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2000",
     },
     minors: {
       color: "bg-[#00C49F]",
       text: "text-[#00C49F]",
       border: "border-[#00C49F]",
-      img: "/images/saudi_kid.png",
+      img: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?q=80&w=2000",
     },
   };
 
@@ -79,26 +81,36 @@ export default function AccountDetailsView({
       {/* ========================================= */}
       {/* 1. Hero Section */}
       {/* ========================================= */}
-      <section className="relative h-[85vh] min-h-[600px] flex items-center overflow-hidden bg-white">
-        <div className="absolute inset-0 z-0 w-full h-full">
-          <svg
-            className={`w-full h-full ${isRTL ? "" : "scale-x-[-1]"}`}
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-          >
-            <path d="M0 0 H55 L45 100 H0 Z" fill="#F1F5F9" />
-            <path
-              d="M55 0 L45 100"
-              stroke="#002147"
-              strokeOpacity="0.1"
-              strokeWidth="0.5"
-            />
-          </svg>
+      <section className="relative h-[85vh] min-h-[600px]  flex items-center overflow-hidden bg-white">
+        {/* 2. حاوية الصورة - ملاصقة تماماً للحافة */}
+        <div
+          className={`absolute top-0 bottom-0 w-[55%] z-10 hidden lg:block ${
+            isRTL ? "left-0" : "right-0"
+          }`}
+          style={{
+            // الحساب الرياضي: 45/55 = 81.8% لضمان تطابق الميلان مع الـ SVG تماماً
+            clipPath: isRTL
+              ? "polygon(0 0, 100% 0, 81.8% 100%, 0% 100%)"
+              : "polygon(18.2% 0, 100% 0, 100% 100%, 0% 100%)",
+          }}
+        >
+          <Image
+            src={currentConfig.img}
+            alt={t(`${type}.title`)}
+            fill
+            className="object-cover transition-transform duration-1000 hover:scale-105"
+            priority
+            sizes="60vw"
+            // لضمان عدم وجود فجوة بيضاء عند الحافة الخارجية
+            style={{ objectPosition: isRTL ? "left" : "right" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#002147]/40 to-transparent"></div>
         </div>
 
-        <div className="container mx-auto px-4 md:px-8 relative z-10 h-full">
-          <div className="flex flex-col lg:flex-row items-center h-full gap-12">
-            <div className="w-full lg:w-1/2 pt-20 lg:pt-0 space-y-8">
+        {/* 3. المحتوى النصي داخل الحاوية القياسية */}
+        <div className="container mx-auto  px-4 md:px-8 relative z-20 h-full">
+          <div className="flex flex-col lg:flex-row md:mt-10 mt-0 items-center h-full">
+            <div className="w-full lg:w-1/2 pt-20 lg:pt-0  space-y-8">
               <h1 className="text-5xl md:text-7xl font-black text-[#002147] leading-[1.1]">
                 {t(`${type}.title`)}
               </h1>
@@ -112,19 +124,6 @@ export default function AccountDetailsView({
                 </button>
               </div>
             </div>
-
-            <div className="w-full lg:w-1/2 h-[50vh] lg:h-full relative flex items-center justify-center">
-              <div
-                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-white/60 rounded-full blur-3xl -z-10`}
-              />
-              <Image
-                src={currentConfig.img}
-                alt={t(`${type}.title`)}
-                fill
-                className="object-contain object-bottom drop-shadow-2xl hover:scale-105 transition-transform duration-700"
-                priority
-              />
-            </div>
           </div>
         </div>
       </section>
@@ -132,8 +131,9 @@ export default function AccountDetailsView({
       {/* ========================================= */}
       {/* 2. المميزات (Benefits) */}
       {/* ========================================= */}
-      <section className="relative w-full py-24 bg-gray-50 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-30">
+      <StyledFeaturesStack $isRTL={isRTL}>
+        {/* خلفية الـ SVG المزخرفة */}
+        <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
           <svg
             className="w-full h-full"
             xmlns="http://www.w3.org/2000/svg"
@@ -144,19 +144,18 @@ export default function AccountDetailsView({
               fill="#002147"
               fillOpacity="0.05"
               d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,197.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ></path>
+            />
           </svg>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+            {/* الجزء الجانبي الثابت (Sticky Header) */}
             <div className="w-full lg:w-1/3">
               <div className="sticky top-32">
-                <h2 className="text-4xl md:text-6xl font-black text-[#002147] leading-tight mb-6">
-                  {tCommon("featuresTitle")}
-                </h2>
-                <div className={`w-24 h-2 rounded-full bg-[#002147]`}></div>
-                <div className="mt-10 opacity-10">
+                <h2 className="section-title">{tCommon("featuresTitle")}</h2>
+                <div className="title-underline"></div>
+                <div className="mt-10 opacity-10 hidden lg:block">
                   <svg
                     width="200"
                     height="200"
@@ -176,30 +175,23 @@ export default function AccountDetailsView({
               </div>
             </div>
 
+            {/* شبكة المميزات (Features Grid) */}
             <div className="w-full lg:w-2/3">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+              <div className="features-grid">
                 {benefitsData.map((item, index) => (
                   <div key={item.id} className="stack-container group">
-                    <div className={`card bg-[#002147]`}>
-                      <div
-                        className={`image-area flex flex-col items-start justify-between p-6 h-full bg-white/90 backdrop-blur-sm ${currentConfig.border}`}
-                      >
-                        <div
-                          className={`w-14 h-14 ${currentConfig.color}/10 rounded-full flex items-center justify-center  mb-4 group-hover:bg-[#002147] group-hover:text-white transition-colors duration-300`}
-                        >
+                    <div className="card-stack">
+                      <div className={`inner-content ${currentConfig.border}`}>
+                        <div className="icon-wrapper">
                           <item.icon size={28} />
                         </div>
-                        <div>
-                          <p className="text-xs font-bold opacity-50 uppercase tracking-widest mb-2">
+                        <div className="text-wrapper">
+                          <p className="feature-number">
                             {isRTL
                               ? `ميزة ${index + 1}`
                               : `Feature ${index + 1}`}
                           </p>
-                          <h3
-                            className={`text-xl font-bold text-[#002147] leading-snug decoration-2 underline-offset-4`}
-                          >
-                            {item.title}
-                          </h3>
+                          <h3 className="feature-card-title">{item.title}</h3>
                         </div>
                       </div>
                     </div>
@@ -209,7 +201,7 @@ export default function AccountDetailsView({
             </div>
           </div>
         </div>
-      </section>
+      </StyledFeaturesStack>
 
       {/* ========================================= */}
       {/* 3. المتطلبات (تم إصلاح الأيقونات) */}
@@ -321,7 +313,141 @@ export default function AccountDetailsView({
       {/* ========================================= */}
       {/* 4. قسم التطبيق والتواصل */}
       {/* ========================================= */}
-      <AppDownloadSection locale="{locale}"/>
+      <AppDownloadSection locale="{locale}" />
+      <FAQSection />
     </main>
   );
 }
+const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
+  padding: 8rem 0;
+  background-color: #f8fafc;
+  position: relative;
+  overflow: hidden;
+  direction: ${(props) => (props.$isRTL ? "rtl" : "ltr")};
+
+  .section-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #002147;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .title-underline {
+    width: 80px;
+    height: 8px;
+    border-radius: 99px;
+    background-color: #002147;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+
+  .stack-container {
+    perspective: 1000px;
+  }
+
+  .card-stack {
+    height: 280px;
+    background-color: #002147; /* اللون الخلفي للطبقات */
+    position: relative;
+    border-radius: 2rem;
+    transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    /* الطبقات الخلفية */
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 2rem;
+      border: 2px solid #002147;
+      background-color: #fff;
+      z-index: -1;
+      transition: 0.4s ease;
+    }
+
+    &:before {
+      transform: rotate(-3deg);
+    }
+    &:after {
+      transform: rotate(3deg);
+      opacity: 0.5;
+    }
+
+    &:hover {
+      transform: translateY(-10px);
+      &:before {
+        transform: translateY(-12px) rotate(-6deg);
+        background-color: #f1f5f9;
+      }
+      &:after {
+        transform: translateY(12px) rotate(6deg);
+      }
+    }
+  }
+
+  .inner-content {
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e2e8f0;
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: #ffffff;
+    }
+  }
+
+  .icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(0, 33, 71, 0.05);
+    color: #002147;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.4s ease;
+
+    .group:hover & {
+      background-color: #002147;
+      color: #fff;
+      transform: scale(1.1) rotate(10deg);
+    }
+  }
+
+  .feature-number {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #002147;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 1024px) {
+    .section-title {
+      font-size: 2.5rem;
+    }
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+  }
+`;

@@ -3,6 +3,7 @@ import FinanceDetailsView from "./FinanceDetailsView";
 import FAQSection from "@/app/components/FAQSection";
 // استيراد الأنواع والبيانات للتحقق من صحة الرابط
 import { financeConfig } from "@/app/data/financeData";
+import AppDownloadSection from "@/app/components/AppDownloadSection";
 
 interface FinanceTypePageProps {
   params: Promise<{
@@ -40,7 +41,7 @@ export default async function FinanceTypePage({
       <FinanceDetailsView type={financeType} locale={locale} />
 
       {/* 2. قسم تحميل التطبيق (مشترك) */}
-
+      <AppDownloadSection locale="locale"/>
       {/* 3. الأسئلة الشائعة (مشترك) */}
       <FAQSection />
     </main>

@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { useTranslations, useLocale } from "next-intl"; // استيراد المكتبة
+import { useTranslations, useLocale } from "next-intl";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
+import { Link } from "@/i18n/routing"; // تأكد من مسار استيراد Link الخاص بـ next-intl
 
 // استيراد الصور
 import img1 from "@/public/images/BankingCategories_1.png";
@@ -12,7 +13,6 @@ import img3 from "@/public/images/BankingCategories_3.png";
 import img4 from "@/public/images/BankingCategories_4.png";
 
 export default function BankingCategories() {
-  // 1. تفعيل الترجمة
   const t = useTranslations("BankingCategories");
   const locale = useLocale();
   const dir = locale === "ar" ? "rtl" : "ltr";
@@ -20,7 +20,6 @@ export default function BankingCategories() {
   const [activeId, setActiveId] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // اكتشاف حجم الشاشة
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
@@ -28,12 +27,12 @@ export default function BankingCategories() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // 2. تعريف البيانات: نربط المفتاح (key) بالصورة
+  // 1. تحديث البيانات لربط كل حساب بالمسار الصحيح (Href)
   const categories = [
-    { id: 1, key: "classic", image: img1 },
-    { id: 2, key: "tamayuz", image: img2 },
-    { id: 3, key: "diamond", image: img3 },
-    { id: 4, key: "private", image: img4 },
+    { id: 1, key: "current", image: img1, href: "/Personal/Accounts/current" },
+    { id: 2, key: "savings", image: img2, href: "/Personal/Accounts/savings" },
+    { id: 3, key: "elite", image: img3, href: "/Personal/Accounts/elite" },
+    { id: 4, key: "minors", image: img4, href: "/Personal/Accounts/minors" },
   ];
 
   const handleInteraction = (id: number, type: "hover" | "click" | "leave") => {
@@ -55,19 +54,19 @@ export default function BankingCategories() {
       className="relative py-16 md:py-32 overflow-hidden bg-slate-50"
       dir={dir}
     >
-      
       <div className="container mx-auto px-4 relative z-10">
         {/* رأس القسم */}
+
         <div className="max-w-3xl mx-auto text-center mb-10 lg:mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-[#002147] mb-4 md:mb-6 leading-tight">
             {t("title")}
           </h2>
+
           <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
             {t("subtitle")}
           </p>
         </div>
 
-        {/* الحاوية */}
         <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 h-auto lg:h-[600px] transition-all duration-500">
           {categories.map((item, index) => {
             const isActive = activeId === item.id;
@@ -95,10 +94,8 @@ export default function BankingCategories() {
                 <div className="absolute inset-0 w-full h-full bg-[#d2e2f5]">
                   <Image
                     src={item.image}
-                    // استخدام t() لجلب النص بناءً على المفتاح
                     alt={t(`items.${item.key}.title`)}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className={`
                       object-cover transition-transform duration-1000
                       ${isActive ? "scale-110 opacity-100" : "scale-100 opacity-60 lg:opacity-100 lg:grayscale-[0.3]"}
@@ -115,7 +112,7 @@ export default function BankingCategories() {
                 </div>
 
                 {/* المحتوى الداخلي */}
-                <div className="absolute inset-0 p-5 md:p-2 flex flex-col justify-between z-20">
+                <div className="absolute inset-0 p-5 lg:p-8 flex flex-col justify-between z-20">
                   <div
                     className={`transition-all duration-500 transform ${isActive ? "translate-y-0" : "translate-y-2 lg:translate-y-4"}`}
                   >
@@ -133,19 +130,14 @@ export default function BankingCategories() {
                       </div>
                     </div>
 
-                    {/* العنوان المترجم */}
                     <h3
                       className={`text-xl lg:text-3xl font-bold text-white mb-2 ${isActive ? "" : "line-clamp-1"}`}
                     >
                       {t(`items.${item.key}.title`)}
                     </h3>
 
-                    {/* الوصف المترجم */}
                     <div
-                      className={`
-                      overflow-hidden transition-all duration-500 ease-out
-                      ${isActive ? "max-h-40 opacity-100 mt-2 lg:mt-4" : "max-h-0 opacity-0"}
-                    `}
+                      className={`overflow-hidden transition-all duration-500 ease-out ${isActive ? "max-h-40 opacity-100 mt-2 lg:mt-4" : "max-h-0 opacity-0"}`}
                     >
                       <p className="text-white/80 text-sm lg:text-lg leading-relaxed border-s-2 border-white/30 ps-3 lg:ps-4">
                         {t(`items.${item.key}.desc`)}
@@ -153,32 +145,35 @@ export default function BankingCategories() {
                     </div>
                   </div>
 
-                  {/* الأزرار */}
+                  {/* الأزرار وروابط التنقل */}
                   <div
                     className={`flex items-end justify-between transition-opacity duration-300 ${isActive || !isMobile ? "opacity-100" : "opacity-0"}`}
                   >
-                    <div
+                    <Link
+                      href={item.href}
                       className={`
-                      w-10 h-10 lg:w-12 lg:h-12 rounded-full border border-white/30 flex items-center justify-center backdrop-blur-sm
-                      transition-all duration-500
-                      ${isActive ? "bg-white text-[#002147] rotate-45" : "bg-transparent text-white rotate-0"}
-                    `}
+                        w-10 h-10 lg:w-14 lg:h-14 rounded-full border border-white/30 flex items-center justify-center backdrop-blur-sm
+                        transition-all duration-500 hover:bg-white hover:text-[#002147]
+                        ${isActive ? "bg-white text-[#002147] rotate-0" : "bg-transparent text-white -rotate-45"}
+                      `}
                     >
-                      <ArrowUpRight className="w-5 h-5 lg:w-6 lg:h-6" />
-                    </div>
+                      <ArrowUpRight className="w-5 h-5 lg:w-7 lg:h-7" />
+                    </Link>
 
-                    <button
+                    <Link
+                      href={item.href}
                       className={`
-                      px-4 py-2 lg:px-6 lg:py-2.5 bg-white text-[#002147] font-bold rounded-lg shadow-lg text-sm lg:text-base
-                      flex items-center gap-2 transition-all duration-500 transform origin-right
-                      ${isActive ? "opacity-100 translate-x-0 scale-100" : "opacity-0 translate-x-10 scale-90 pointer-events-none"}
-                    `}
+                        px-4 py-2 lg:px-7 lg:py-3 bg-white text-[#002147] font-bold rounded-xl shadow-lg text-sm lg:text-base
+                        flex items-center gap-2 transition-all duration-500 transform origin-right
+                        hover:bg-slate-100 active:scale-95
+                        ${isActive ? "opacity-100 translate-x-0 scale-100" : "opacity-0 translate-x-10 scale-90 pointer-events-none"}
+                      `}
                     >
                       <span>{t("learnMore")}</span>
                       <ChevronRight
                         className={`w-3 h-3 lg:w-4 lg:h-4 ${dir === "rtl" ? "rotate-180" : ""}`}
                       />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
