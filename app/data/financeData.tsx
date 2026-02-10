@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 // تعريف الأنواع
-export type FinanceType = "auto" | "realestate" | "personal" | "general";
+export type FinanceType = "auto" | "realestate" | "personal";
 
 interface FinanceTheme {
   primaryColor: string; // لون النص الأساسي
@@ -61,7 +61,6 @@ export const featureIcons: Record<FinanceType, LucideIcon[]> = {
   auto: [Percent, Clock, CheckCircle, Calculator],
   realestate: [Landmark, CalendarDays, ShieldCheck, Calculator],
   personal: [Briefcase, Clock, Percent, UserCheck],
-  general: [CheckCircle, CheckCircle, CheckCircle, CheckCircle],
 };
 
 // 3. إعدادات أيقونات المستندات المطلوبة (Requirements Icons)
