@@ -25,17 +25,15 @@ export default function FinanceDetailsView({
   const tGeneral = useTranslations("Common");
   const isRTL = locale === "ar";
 
-  // ✅ 1. تعريف المتغير theme لإصلاح خطأ Vercel (ReferenceError: theme is not defined)
-  // نستخدم "general" كقيمة احتياطية (Fallback) في حال عدم وجود النوع
-  const theme = financeConfig[type] || financeConfig.auto;
-
-  // ✅ 2. جلب الأيقونات المخصصة لهذا النوع
+  // ✅ جلب البيانات فقط للحصول على الصورة والأيقونات
+  // استخدمنا "currentConfig" بدلاً من "theme" ليكون الكود أوضح
+  const currentConfig = financeConfig[type] || financeConfig.auto;
   const icons = featureIcons[type] || featureIcons.auto;
 
   return (
     <main className="min-h-screen bg-white" dir={isRTL ? "rtl" : "ltr"}>
       {/* 1. Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-[#EFF4FA]">
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F8FAFC]">
         <div
           className={`absolute top-0 bottom-0 w-[55%] z-0 ${
             isRTL
@@ -43,9 +41,9 @@ export default function FinanceDetailsView({
               : "right-0 rounded-bl-[400px] md:rounded-bl-[550px]"
           } hidden lg:block overflow-hidden shadow-2xl`}
         >
-          {/* ✅ تم إصلاح استدعاء theme.heroImage هنا */}
+          {/* ✅ تم استبدال theme.heroImage بـ currentConfig.heroImage */}
           <Image
-            src={theme.heroImage}
+            src={currentConfig.heroImage}
             alt={t("Hero.title")}
             fill
             className="object-cover transition-transform duration-1000 hover:scale-105"
@@ -76,7 +74,7 @@ export default function FinanceDetailsView({
         </div>
       </section>
 
-      {/* 2. المميزات (Stacked Text Cards) */}
+      {/* 2. المميزات - تم توحيد اللون للكحلي #002147 */}
       <StyledFeaturesStack $isRTL={isRTL}>
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center mb-20 max-w-3xl mx-auto">
@@ -92,11 +90,11 @@ export default function FinanceDetailsView({
                   <div className="stack">
                     <div className="card-stack">
                       <div className="inner-content">
-                        <div className="icon-wrapper">
+                        {/* ✅ توحيد لون الحدود والأيقونة */}
+                        <div className="icon-wrapper border-[#002147] bg-slate-50">
                           <IconComponent
                             size={32}
-                            // ✅ ربط اللون بالثيم المختار ديناميكياً
-                            className={theme.primaryColor}
+                            className="text-[#002147]"
                             strokeWidth={2}
                           />
                         </div>
@@ -116,7 +114,7 @@ export default function FinanceDetailsView({
         </div>
       </StyledFeaturesStack>
 
-      {/* 3. المستندات والشروط */}
+      {/* 3. المستندات والشروط (ألوان كحلية ثابتة) */}
       <section className="py-24 bg-[#002147] text-white overflow-hidden relative">
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
@@ -149,7 +147,6 @@ export default function FinanceDetailsView({
               </div>
             </div>
 
-            {/* نموذج الطلب المصغر */}
             <div className="w-full lg:w-1/2 bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold mb-2">
@@ -162,18 +159,18 @@ export default function FinanceDetailsView({
                   <input
                     type="text"
                     placeholder={tCommon("inputs.name")}
-                    className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-white w-full"
+                    className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none w-full"
                   />
                   <input
                     type="text"
                     placeholder={tCommon("inputs.phone")}
-                    className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-white w-full"
+                    className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none w-full"
                   />
                 </div>
                 <input
                   type="text"
                   placeholder={tCommon("inputs.salary")}
-                  className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-white w-full"
+                  className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none w-full"
                 />
                 <button className="w-full bg-white text-[#002147] font-bold py-4 rounded-xl hover:bg-gray-100 transition-colors">
                   {tCommon("inputs.submit")}
@@ -187,7 +184,7 @@ export default function FinanceDetailsView({
   );
 }
 
-// Styled Components
+// ✅ الأنماط (Styles) - تم تعديلها لتكون كحلي ثابت
 const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
   padding: 6rem 0;
   background-color: #ffffff;
@@ -209,31 +206,6 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    width: 100%;
-  }
-
-  .feature-item {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .stack {
-    width: 100%;
-    max-width: 280px;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-    &:hover {
-      transform: translateY(-10px);
-      .card-stack:before {
-        transform: translateY(-5%) rotate(-6deg);
-        background-color: #f1f5f9;
-      }
-      .card-stack:after {
-        transform: translateY(5%) rotate(6deg);
-        background-color: #f8fafc;
-      }
-    }
   }
 
   .card-stack {
@@ -251,19 +223,15 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
     &:before,
     &:after {
       content: "";
-      display: block;
       position: absolute;
       height: 100%;
       width: 100%;
       border: 3px solid #002147;
       background-color: #fff;
-      transform-origin: center center;
       z-index: -1;
-      transition: 0.3s ease;
       top: 0;
       left: 0;
     }
-
     &:before {
       transform: translateY(-2%) rotate(-4deg);
     }
@@ -272,17 +240,9 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
     }
   }
 
-  .inner-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
   .icon-wrapper {
     width: 55px;
     height: 55px;
-    background: #f1f5f9;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -295,26 +255,21 @@ const StyledFeaturesStack = styled.section<{ $isRTL: boolean }>`
     font-size: 1.1rem;
     font-weight: 800;
     color: #002147;
-    line-height: 1.3;
   }
 
   .feature-card-desc {
     font-size: 0.85rem;
     color: #64748b;
-    line-height: 1.5;
   }
 
   @media (max-width: 1200px) {
     .features-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 4rem 2rem;
     }
   }
-
   @media (max-width: 640px) {
     .features-grid {
       grid-template-columns: 1fr;
-      gap: 5rem;
     }
   }
 `;
